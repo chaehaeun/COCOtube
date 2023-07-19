@@ -1,7 +1,6 @@
 import NotFound from "./pages/NotFound.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Videos from "./pages/Videos.tsx";
-import VideoDetail from "./pages/VideoDetail.tsx";
 import Root from "./pages/Root.tsx";
 
 const router = createBrowserRouter([

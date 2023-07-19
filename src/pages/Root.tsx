@@ -1,5 +1,4 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom'
 
 const Root = () => {
   return (
@@ -7,7 +6,7 @@ const Root = () => {
       <h1>Root</h1>
       <Outlet />
     </>
-  );
-};
+  )
+}
 
-export default Root;
+export default Root
