@@ -1,20 +1,22 @@
+// eslint-disable-next-line no-undef
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
+  env: {
+    browser: true,
+    es2021: true,
+  },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'plugin:react-hooks/recommended',
+    'plugin:react/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: true,
-    tsconfigRootDir: __dirname,
+    // project: true,
+    // tsconfigRootDir: __dirname,
   },
-  plugins: ['react-refresh'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
   rules: {
     // var는 사용할 수 없다
     'no-var': ['error'],
@@ -85,6 +87,8 @@ module.exports = {
     'prefer-template': ['error'],
     // 객체의 프로퍼티 이름은 필요할 때만 따옴표로 감싸야 한다
     'quote-props': ['error', 'as-needed'],
+    'react/react-in-jsx-scope': 'off',
+    'no-useless-catch': 'off',
   },
   settings: {
     'import/parsers': {
