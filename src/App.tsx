@@ -1,25 +1,45 @@
-import NotFound from "./pages/NotFound.tsx";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Videos from "./pages/Videos.tsx";
-import Root from "./pages/Root.tsx";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import {
+  Root,
+  Home,
+  NotFound,
+  MyPage,
+  SignIn,
+  SignUp,
+  Search,
+  PlayList,
+} from '@/pages'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Root />,
     errorElement: <NotFound />,
     children: [
-      { index: true, element: <Videos /> },
       {
-        path: "videos",
-        element: <Videos />,
+        index: true,
+        element: <Home />,
+      },
+      { path: 'signin', element: <SignIn /> },
+      { path: 'signup', element: <SignUp /> },
+      {
+        path: 'mypage',
+        element: <MyPage />,
+      },
+      {
+        path: 'playlists',
+        element: <PlayList />,
+      },
+      {
+        path: 'search',
+        element: <Search />,
       },
     ],
   },
-]);
+])
 
 function App() {
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={router} />
 }
 
-export default App;
+export default App
