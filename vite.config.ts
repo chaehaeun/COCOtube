@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react'
 import * as path from 'node:path'
 import checker from 'vite-plugin-checker'
 import svgr from 'vite-plugin-svgr'
-import eslintPlugin from 'vite-plugin-eslint'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,9 +17,6 @@ export default defineConfig({
       typescript: true,
     }),
     svgr(),
-    eslintPlugin({
-      include: ['src/**/*.ts', 'src/**/*.tsx'],
-    }),
   ],
   server: {
     host: 'localhost',
