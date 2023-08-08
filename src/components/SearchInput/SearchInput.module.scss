@@ -1,0 +1,38 @@
+.searchForm {
+  @include alienCenter();
+  legend {
+    @include a11yHidden();
+  }
+  div {
+    @include alienCenter();
+    width: 100%;
+  }
+  input {
+    padding: 0 20px;
+    height: 50px;
+    font-size: $--text-base;
+    border-radius: 100px 0 0 100px;
+    border: 1px solid $--border-color;
+    border-right: none;
+    flex-grow: 1;
+  }
+  button {
+    @include hoverColorTransition($--bg-color-gray, $--bg-color-gray-hover);
+    flex-shrink: 0;
+    height: 50px;
+    outline: none;
+    border: 1px solid $--border-color;
+    svg {
+      fill: $--text-color;
+      font-size: $--text-xl;
+    }
+  }
+  .submitBtn {
+    border-radius: 0 100px 100px 0;
+    padding: 0 20px 0 15px;
+  }
+  .voiceBtn {
+    width: 50px;
+    border-radius: 50%;
+  }
+}

@@ -1,0 +1,25 @@
+.header {
+  @include alienCenter();
+  width: 100%;
+  padding: $--padding-md;
+
+  h1 {
+    font-size: $--text-xxl;
+    color: $--text-color;
+    font-weight: 700;
+
+    a {
+      @include alienCenter(8px);
+    }
+  }
+  svg {
+    fill: $--primary-color;
+  }
+}
+
+.tmp {
+  width: 24px;
+  height: 24px;
+  background-color: #000;
+  margin-right: 10px;
+}

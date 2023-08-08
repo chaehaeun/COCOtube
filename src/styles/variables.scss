@@ -7,7 +7,10 @@ $--primary-color-dark-hover: #5bd2b6;
 $--bg-color: #fff;
 $--bg-color-dark: #1e1e20;
 $--bg-color-gray: #f8f8f8;
+$--bg-color-gray-hover: #e3e3e3;
 $--bg-color-dark-gray: #535353;
+
+$--border-color: #e0e0e0;
 
 $--text-color: #333;
 $--text-color-gray: #606060;
@@ -16,6 +19,7 @@ $--text-color-gray-dark: #aaa;
 
 $--text-sm: 12px;
 $--text-md: 14px;
+$--text-base: 16px;
 $--text-lg: 20px;
 $--text-xl: 24px;
 $--text-xxl: 32px;
@@ -24,7 +28,7 @@ $--padding-md: 16px;
 $--padding-lg: 24px;
 $--padding-xl: 32px;
 
-@mixin a11yHidden {
+@mixin a11yHidden() {
   overflow: hidden;
   position: absolute !important;
   clip: rect(0, 0, 0, 0);
@@ -32,4 +36,47 @@ $--padding-xl: 32px;
   width: 1px;
   height: 1px;
   margin: -1px;
+}
+
+@mixin alienCenter($gap: 0) {
+  display: flex;
+  align-items: center;
+  gap: $gap;
+}
+
+@mixin flexCenter() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flexCenterColumn() {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flexCenterColumnGap($gap) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin flexCenterGap($gap) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin hoverColorTransition($color, $hoverColor) {
+  background-color: $color;
+  transition: background-color 0.1s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    background-color: $hoverColor;
+  }
 }
