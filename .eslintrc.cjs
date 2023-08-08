@@ -16,7 +16,13 @@ module.exports = {
     // project: true,
     // tsconfigRootDir: __dirname,
   },
-  plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
+  plugins: [
+    'react',
+    'react-hooks',
+    '@typescript-eslint',
+    'prettier',
+    'react-refresh',
+  ],
   rules: {
     // var는 사용할 수 없다
     'no-var': ['error'],
@@ -91,10 +97,17 @@ module.exports = {
     'no-useless-catch': 'off',
   },
   settings: {
+    react: {
+      version: 'detect',
+    },
     'import/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx', '.js'],
     },
     'import/resolver': {
+      alias: {
+        map: [['@', './src']],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
       typescript: './tsconfig.json',
     },
   },
