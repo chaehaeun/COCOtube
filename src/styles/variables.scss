@@ -1,1 +1,35 @@
 // 변수, 믹스인 등을 정의하는 파일
+$--primary-color: #4e1ac3;
+$--primary-color-hover: #2c087b;
+$--primary-color-dark: #64ffda;
+$--primary-color-dark-hover: #5bd2b6;
+
+$--bg-color: #fff;
+$--bg-color-dark: #1e1e20;
+$--bg-color-gray: #f8f8f8;
+$--bg-color-dark-gray: #535353;
+
+$--text-color: #333;
+$--text-color-gray: #606060;
+$--text-color-dark: #f2f2f2;
+$--text-color-gray-dark: #aaa;
+
+$--text-sm: 12px;
+$--text-md: 14px;
+$--text-lg: 20px;
+$--text-xl: 24px;
+$--text-xxl: 32px;
+
+$--padding-md: 16px;
+$--padding-lg: 24px;
+$--padding-xl: 32px;
+
+@mixin a11yHidden {
+  overflow: hidden;
+  position: absolute !important;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
