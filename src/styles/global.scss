@@ -5,6 +5,7 @@
 body *,
 body *::after,
 body *::before {
+  box-sizing: border-box;
   font-family:
     'Pretendard Variable',
     Pretendard,

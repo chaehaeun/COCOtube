@@ -1,5 +1,10 @@
 .searchForm {
   @include alienCenter();
+  width: 50%;
+  align-self: center;
+  fieldset {
+    width: 100%;
+  }
   legend {
     @include a11yHidden();
   }
@@ -9,7 +14,7 @@
   }
   input {
     padding: 0 20px;
-    height: 50px;
+    height: 40px;
     font-size: $--text-base;
     border-radius: 100px 0 0 100px;
     border: 1px solid $--border-color;
@@ -19,8 +24,7 @@
   button {
     @include hoverColorTransition($--bg-color-gray, $--bg-color-gray-hover);
     flex-shrink: 0;
-    height: 50px;
-    outline: none;
+    height: 40px;
     border: 1px solid $--border-color;
     svg {
       fill: $--text-color;
@@ -32,7 +36,14 @@
     padding: 0 20px 0 15px;
   }
   .voiceBtn {
-    width: 50px;
+    width: 40px;
     border-radius: 50%;
+    margin-left: 10px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .searchForm {
+    display: none;
   }
 }

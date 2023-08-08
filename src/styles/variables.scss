@@ -72,11 +72,20 @@ $--padding-xl: 32px;
   gap: $gap;
 }
 
-@mixin hoverColorTransition($color, $hoverColor) {
-  background-color: $color;
-  transition: background-color 0.1s ease-in-out;
-  cursor: pointer;
-  &:hover {
-    background-color: $hoverColor;
+@mixin hoverColorTransition($color, $hoverColor, $type: background-color) {
+  @if $type == background-color {
+    transition: background-color 0.1s ease-in-out;
+    background-color: $color;
+    cursor: pointer;
+    &:hover {
+      background-color: $hoverColor;
+    }
+  } @else if $type == color {
+    transition: color 0.1s ease-in-out;
+    color: $color;
+    cursor: pointer;
+    &:hover {
+      color: $hoverColor;
+    }
   }
 }

@@ -1,15 +1,19 @@
 .header {
   @include alienCenter();
+  position: relative;
+  justify-content: space-between;
   width: 100%;
   padding: $--padding-md;
-
+  > div {
+    @include alienCenter();
+    gap: 10px;
+  }
   h1 {
-    font-size: $--text-xxl;
-    color: $--text-color;
+    font-size: $--text-xl;
     font-weight: 700;
-
+    @include hoverColorTransition($--text-color, $--primary-color, color);
     a {
-      @include alienCenter(8px);
+      @include alienCenter(5px);
     }
   }
   svg {
@@ -17,9 +21,37 @@
   }
 }
 
-.tmp {
-  width: 24px;
-  height: 24px;
-  background-color: #000;
-  margin-right: 10px;
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  &:hover {
+    span {
+      background-color: $--primary-color;
+    }
+  }
+  span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: $--text-color;
+  }
+}
+
+.showSearch {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  @include hoverColorTransition(#fff, $--bg-color-gray-hover);
+  svg {
+    fill: $--text-color;
+    font-size: $--text-xl;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .showSearch {
+    display: block;
+  }
 }
