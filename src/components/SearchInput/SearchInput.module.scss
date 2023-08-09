@@ -1,6 +1,7 @@
 .searchForm {
   @include alienCenter();
   width: 50%;
+  max-width: 600px;
   align-self: center;
   fieldset {
     width: 100%;
@@ -35,6 +36,12 @@
     border-radius: 0 100px 100px 0;
     padding: 0 20px 0 15px;
   }
+
+  .backBtn {
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
   .voiceBtn {
     width: 40px;
     border-radius: 50%;
@@ -42,8 +49,17 @@
   }
 }
 
+@media screen and (min-width: 641px) {
+  .backBtn {
+    display: none;
+  }
+}
 @media screen and (max-width: 640px) {
   .searchForm {
     display: none;
+    &.show {
+      display: flex;
+      width: 100%;
+    }
   }
 }

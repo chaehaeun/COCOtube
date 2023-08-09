@@ -1,5 +1,7 @@
 .header {
   @include alienCenter();
+  position: fixed;
+  background-color: #fff;
   position: relative;
   justify-content: space-between;
   width: 100%;
@@ -50,8 +52,25 @@
   }
 }
 
+.header.hide {
+  > div {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .header.hide {
+    > div {
+      display: flex;
+    }
+  }
+}
+
 @media screen and (max-width: 640px) {
   .showSearch {
     display: block;
+    &.hide {
+      display: none;
+    }
   }
 }
