@@ -1,0 +1,34 @@
+.backDrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  width: 300px;
+  border: 1px solid #000;
+  background-color: #fff;
+  > div {
+    width: 100%;
+    padding: 30px 0;
+    text-align: center;
+  }
+  button {
+    width: 100%;
+    padding: 12px 0;
+    border-top: 1px solid #000;
+    background-color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    @include hoverColorTransition($--bg-color-gray, $--bg-color-gray-hover);
+  }
+}
