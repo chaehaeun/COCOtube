@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.29.25",
+    "@types/react-speech-recognition": "^3.9.2",
     "axios": "^1.4.0",
     "firebase": "^10.0.0",
     "react": "^18.2.0",
@@ -18,12 +19,15 @@
     "react-hook-form": "^7.45.4",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.14.2",
-    "recoil": "^0.7.7"
+    "react-speech-recognition": "^3.10.0",
+    "recoil": "^0.7.7",
+    "regenerator-runtime": "^0.14.0"
   },
   "devDependencies": {
     "@types/node": "^20.2.3",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
+    "@types/regenerator-runtime": "^0.13.1",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
     "@vitejs/plugin-react": "^4.0.1",
