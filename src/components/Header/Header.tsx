@@ -3,38 +3,34 @@ import { BsYoutube } from 'react-icons/bs'
 import { Profile, SearchInput } from '@/components'
 import styles from './Header.module.scss'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useWindowResize } from '@/hooks'
 
-const Header = () => {
+interface HeaderProps {
+  setIsSideNav: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const Header = ({ setIsSideNav }: HeaderProps) => {
   const [isSearch, setIsSearch] = useState(false)
 
   const handleSearch = () => {
     setIsSearch(!isSearch)
   }
 
-  // 화면 다시 커질 때 강제로 isSearch를 false로 만들어줌
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 640) {
-        setIsSearch(false)
-      }
+  useWindowResize(() => {
+    if (window.innerWidth > 640) {
+      setIsSearch(false)
     }
-
-    window.addEventListener('resize', handleResize)
-
-    // 컴포넌트 언마운트 시 리스너 제거
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+  })
 
   return (
     <header className={`${styles.header} ${isSearch ? styles.hide : ''}`}>
       <div>
         <button
           type="button"
-          aria-label="사이드바 열기"
+          aria-label="사이드바 토글"
           className={styles.hamburger}
+          onClick={() => setIsSideNav(prev => !prev)}
         >
           <span aria-hidden></span>
           <span aria-hidden></span>

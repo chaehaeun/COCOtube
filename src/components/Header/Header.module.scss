@@ -24,7 +24,7 @@
 }
 
 .hamburger {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 5px;
   &:hover {
@@ -55,6 +55,12 @@
 .header.hide {
   > div {
     display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .hamburger {
+    display: flex;
   }
 }
 
