@@ -3,7 +3,7 @@
 }
 
 .sideNav {
-  width: 220px;
+  width: 250px;
   padding: 0 16px 16px 16px;
   height: calc(100vh - 72px);
   background-color: #fff;
@@ -28,6 +28,16 @@
     border-radius: 10px;
     font-size: $--text-base;
   }
+
+  li a.active {
+    background-color: $--bg-color-gray;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
 }
 
 .subscribeList {
@@ -44,7 +54,29 @@
   border-radius: 50%;
 }
 
+span:not(.subscribeList) {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .main {
-  width: calc(100% - 220px);
+  width: calc(100% - 250px);
   padding: 0 16px;
+}
+
+@media screen and (max-width: 1024px) {
+  .sideNav {
+    display: none;
+    transform: translate(-100%);
+    &.show {
+      display: block;
+      transform: translate(0);
+    }
+  }
+
+  .main {
+    width: 100%;
+  }
 }
