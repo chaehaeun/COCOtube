@@ -1,0 +1,57 @@
+.videoCard {
+  width: 100%;
+  overflow: hidden;
+  p,
+  a,
+  span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.thumbnail {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9; /* 16:9 비율 유지 */
+  background-color: aqua;
+  border-radius: 5px;
+}
+
+.channel {
+  width: 25px;
+  height: 25px;
+  background-color: aqua;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.videoDescription {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  .textDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow: hidden; /* 내용이 넘치면 숨김 */
+    text-overflow: ellipsis; /* 넘치는 내용을 ...으로 표시 */
+    .title {
+      font-size: $--text-md;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    .channelName {
+      font-size: $--text-sm;
+      font-weight: 400;
+      color: #666;
+    }
+    .extra {
+      @include alienCenter(10px);
+      font-size: $--text-sm;
+      font-weight: 400;
+      color: #666;
+    }
+  }
+}
