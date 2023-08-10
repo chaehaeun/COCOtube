@@ -28,3 +28,8 @@ dist-ssr
 .env.development.local
 .env.test.local
 .env.production.local
+
+global.css
+reset.css
+variables.css
+*.css.map
