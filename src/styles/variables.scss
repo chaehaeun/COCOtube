@@ -44,10 +44,11 @@ $--padding-xl: 32px;
   gap: $gap;
 }
 
-@mixin flexCenter() {
+@mixin flexCenter($gap: 0) {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: $gap;
 }
 
 @mixin flexCenterColumn() {
@@ -55,6 +56,12 @@ $--padding-xl: 32px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+@mixin flexColumnGap($gap) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
 }
 
 @mixin flexCenterColumnGap($gap) {
