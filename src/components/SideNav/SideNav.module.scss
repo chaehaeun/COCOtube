@@ -6,6 +6,7 @@
   width: 250px;
   padding: 0 16px 16px 16px;
   height: calc(100vh - 72px);
+  transition: all 0.3s ease-in-out;
   background-color: #fff;
   @include flexColumnGap(20px);
   > nav {
@@ -66,13 +67,33 @@ span:not(.subscribeList) {
   padding: 0 16px;
 }
 
+.backDrop {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 72px;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1024px) {
   .sideNav {
-    display: none;
+    position: fixed;
+    left: 0;
+    top: 72px;
+    z-index: 20;
     transform: translate(-100%);
     &.show {
+      display: flex;
+      transform: translate(0%);
+    }
+  }
+  .backDrop {
+    &.show {
       display: block;
-      transform: translate(0);
     }
   }
 

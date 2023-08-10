@@ -7,24 +7,32 @@ import { RiLogoutBoxRLine } from 'react-icons/ri'
 import { NavLink } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { darkmodeAtom } from '@/store'
+import { useWindowResize } from '@/hooks'
 
 interface SideNavProps {
+  isSideNav: boolean
   children: React.ReactNode
+  setIsSideNav: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-// todo : 햄버거 누르면 사이드바 열리고 닫히는 기능
 // todo : 코드 리팩토링
 
-const SideNav = ({ children }: SideNavProps) => {
+const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
   const [darkmode, setDarkmode] = useRecoilState(darkmodeAtom)
 
   const toggleDarkmode = () => {
     setDarkmode(!darkmode)
   }
 
+  useWindowResize(() => {
+    if (window.innerWidth > 1024) {
+      setIsSideNav(false)
+    }
+  })
+
   return (
     <div className={styles.wrap}>
-      <div className={styles.sideNav}>
+      <div className={`${styles.sideNav} ${isSideNav ? styles.show : ''}`}>
         <nav>
           <ul>
             <li>
@@ -126,6 +134,10 @@ const SideNav = ({ children }: SideNavProps) => {
           </li>
         </ul>
       </div>
+      <div
+        className={`${styles.backDrop} ${isSideNav ? styles.show : ''}`}
+        onClick={() => setIsSideNav(prev => !prev)}
+      />
       <main className={styles.main}>{children}</main>
     </div>
   )
