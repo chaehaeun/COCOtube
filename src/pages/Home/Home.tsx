@@ -16,6 +16,16 @@ const Home = () => {
         <VideoCard />
         <VideoCard />
         <VideoCard />
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
+        <VideoCard />
       </ul>
     </>
   )

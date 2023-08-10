@@ -11,9 +11,10 @@ const VideoCard = () => {
         <div className={styles.thumbnail}></div>
       </Link>
       <div className={styles.videoDescription}>
-        <div className={styles.channel}>
-          <Link to="/" aria-label="'채널이름'으로 바로가기" />
-        </div>
+        <Link to="/" aria-label="'채널이름'으로 바로가기">
+          <div className={styles.channel}></div>
+        </Link>
+
         <div className={styles.textDescription}>
           <p className={styles.title}>
             <Link to="/" aria-label="비디오 제목">

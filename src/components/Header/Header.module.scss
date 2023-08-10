@@ -1,8 +1,9 @@
 .header {
   @include alienCenter();
   position: fixed;
+  top: 0;
+  left: 0;
   background-color: #fff;
-  position: relative;
   justify-content: space-between;
   width: 100%;
   padding: $--padding-md;
