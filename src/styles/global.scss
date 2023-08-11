@@ -24,6 +24,6 @@ body *::before {
     sans-serif;
 }
 
-h2.sr-only_Title {
+.sr-only_Title {
   @include a11yHidden();
 }

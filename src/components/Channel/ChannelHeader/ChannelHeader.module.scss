@@ -1,0 +1,29 @@
+// aspect-ratio 속성을 지원하는 브라우저에 적용할 스타일
+@supports (aspect-ratio: 1 / 1) {
+  .headerImgWrap {
+    aspect-ratio: 1138 / 188;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+// aspect-ratio 속성을 지원하지 않는 브라우저에 적용할 스타일
+@supports not (aspect-ratio: 1 / 1) {
+  .headerImgWrap {
+    position: relative;
+    &::before {
+      content: '';
+      display: block;
+      width: 100%;
+      padding-top: 16.52%;
+    }
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
