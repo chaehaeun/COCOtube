@@ -23,6 +23,12 @@ const router = createBrowserRouter([
       {
         path: 'mypage',
         element: <MyPage />,
+        children: [
+          {
+            index: true,
+            element: <PlayList />,
+          },
+        ],
       },
       {
         path: 'playlists',

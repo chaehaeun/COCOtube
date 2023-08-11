@@ -6,7 +6,6 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
     @include alienCenter();
   }
 
@@ -15,7 +14,7 @@
     position: relative;
     font-size: $--text-md;
     padding: 15px 30px;
-    @include hoverColorTransition(#fff, $--bg-color-gray-hover);
+    @include hoverColorTransition(transparent, $--bg-color-gray-hover);
   }
   li > a.active {
     &::after {
@@ -23,7 +22,7 @@
       display: block;
       width: 100%;
       height: 2px;
-      background-color: $--bg-color-gray-hover;
+      background-color: $--primary-color;
       position: absolute;
       bottom: 0;
       left: 0;
@@ -38,7 +37,6 @@
     }
     li > a {
       padding: 15px 20px;
-      // font-size: $--text-sm;
     }
   }
 }

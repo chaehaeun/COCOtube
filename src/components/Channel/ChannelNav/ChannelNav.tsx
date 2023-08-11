@@ -18,10 +18,22 @@ const ChannelNav = ({ type }: ChannelNavProps) => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/mypage">재생목록</NavLink>
+        <NavLink
+          to="/mypage"
+          end
+          className={({ isActive }) => (isActive ? styles.active : '')}
+        >
+          재생목록
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/mypage">정보</NavLink>
+        <NavLink
+          to="/mypage"
+          end
+          className={({ isActive }) => (isActive ? styles.active : '')}
+        >
+          정보
+        </NavLink>
       </li>
     </ul>
   )
@@ -29,16 +41,40 @@ const ChannelNav = ({ type }: ChannelNavProps) => {
   const MyPageNavList = (
     <ul>
       <li>
-        <NavLink to="/mypage">좋아요</NavLink>
+        <NavLink
+          to="/mypage"
+          end
+          className={({ isActive }) => (isActive ? styles.active : '')}
+        >
+          좋아요
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/mypage">구독</NavLink>
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) => (isActive ? styles.active : '')}
+        >
+          구독
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/mypage">내 댓글</NavLink>
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) => (isActive ? styles.active : '')}
+        >
+          내 댓글
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/mypage">정보</NavLink>
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) => (isActive ? styles.active : '')}
+        >
+          정보
+        </NavLink>
       </li>
     </ul>
   )
