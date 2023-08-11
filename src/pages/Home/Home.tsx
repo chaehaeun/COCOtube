@@ -4,7 +4,7 @@ import { VideoList } from '@/components'
 const Home = () => {
   return (
     <>
-      <h2 className="sronlyTitle">Home</h2>
+      <h2 className="sr-only_Title">Home</h2>
       <VideoList />
     </>
   )
