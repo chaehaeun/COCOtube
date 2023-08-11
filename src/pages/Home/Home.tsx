@@ -1,10 +1,10 @@
 import { VideoList } from '@/components'
-import styles from './Home.module.scss'
+// import styles from './Home.module.scss'
 
 const Home = () => {
   return (
     <>
-      <h2 className={styles.title}>Home</h2>
+      <h2 className="sronlyTitle">Home</h2>
       <VideoList />
     </>
   )

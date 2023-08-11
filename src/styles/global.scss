@@ -23,3 +23,7 @@ body *::before {
     'Segoe UI Symbol',
     sans-serif;
 }
+
+h2.sronlyTitle {
+  @include a11yHidden();
+}
