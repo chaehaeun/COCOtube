@@ -1,7 +1,9 @@
 .channelNav {
   width: 100%;
   border-bottom: 1px solid $--border-color;
-
+  position: sticky;
+  background-color: #fff;
+  top: 72px;
   ul {
     width: 100%;
     max-width: 1200px;
