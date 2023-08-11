@@ -1,5 +1,8 @@
 .btn {
-  padding: 10px 30px;
+  display: block;
+  padding: 8px 30px;
   border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
   @include hoverColorTransition($--bg-color-gray, $--bg-color-gray-hover);
 }

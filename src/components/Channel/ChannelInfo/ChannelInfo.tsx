@@ -1,5 +1,7 @@
 import { ChannelBtn } from '@/components'
 import styles from './ChannelInfo.module.scss'
+import { Link } from 'react-router-dom'
+import { GrNext } from 'react-icons/gr'
 
 interface ChannelInfoProps {
   type: 'myPage' | 'channel'
@@ -26,7 +28,13 @@ const ChannelInfo = ({ type }: ChannelInfoProps) => {
             <span>동영상 45개</span>
           </div>
           <p className={styles.intro}>
-            프론트엔드 개발의 소중한 경험을 공유합니다!
+            <Link to="/mypage">
+              <span>
+                정훈남 스튜디오(정스)는 주로 K-POP을 8비트로 편곡하여 귀여운
+                픽셀비디오를 만드는 채널입니다.
+              </span>
+              <GrNext />
+            </Link>
           </p>
         </div>
         <div className={styles.btnCont}>

@@ -1,4 +1,4 @@
-import { ChannelHeader, ChannelInfo } from '@/components'
+import { ChannelHeader, ChannelInfo, ChannelNav } from '@/components'
 import styles from './Channel.module.scss'
 
 interface ChannelProps {
@@ -10,6 +10,7 @@ const Channel = ({ type }: ChannelProps) => {
     <div className={styles.channelWrap}>
       <ChannelHeader type={type} />
       <ChannelInfo type={type} />
+      <ChannelNav type={type} />
     </div>
   )
 }
