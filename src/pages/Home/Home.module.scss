@@ -1,32 +1,3 @@
 .title {
   @include a11yHidden();
 }
-
-.videoList {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1rem;
-  row-gap: 1.5rem;
-}
-
-@media screen and (max-width: 1400px) {
-  .videoList {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .videoList {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media screen and (max-width: 640px) {
-  .videoList {
-    grid-template-columns: 1fr;
-    max-width: 500px;
-  }
-}
