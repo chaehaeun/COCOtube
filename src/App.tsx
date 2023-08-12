@@ -8,6 +8,7 @@ import {
   SignUp,
   Search,
   PlayList,
+  AuthRoot,
 } from '@/pages'
 
 const router = createBrowserRouter([
@@ -40,8 +41,13 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: 'signin', element: <SignIn /> },
-  { path: 'signup', element: <SignUp /> },
+  {
+    element: <AuthRoot />,
+    children: [
+      { path: 'signin', element: <SignIn /> },
+      { path: 'signup', element: <SignUp /> },
+    ],
+  },
 ])
 
 function App() {
