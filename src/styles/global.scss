@@ -27,3 +27,9 @@ body *::before {
 .sr-only_Title {
   @include a11yHidden();
 }
+
+.title_h1 {
+  font-size: $--text-xl;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
