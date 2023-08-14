@@ -1,0 +1,28 @@
+.authInput {
+  width: 100%;
+  position: relative;
+  label {
+    @include a11yHidden();
+  }
+  input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid $--border-color;
+    border-radius: 5px;
+    &:focus {
+      border-color: $--primary-color;
+    }
+  }
+  input.password {
+    padding-right: 30px;
+  }
+
+  button {
+    padding: 2px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: $--text-base;
+  }
+}

@@ -1,0 +1,20 @@
+.sronly {
+  @include a11yHidden();
+}
+
+.title {
+  font-size: $--text-xl;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.form {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+}
