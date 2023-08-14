@@ -18,7 +18,7 @@ const Header = ({ setIsSideNav }: HeaderProps) => {
   }
 
   useWindowResize(() => {
-    if (window.innerWidth > 640) {
+    if (window.innerWidth > 768) {
       setIsSearch(false)
     }
   })
