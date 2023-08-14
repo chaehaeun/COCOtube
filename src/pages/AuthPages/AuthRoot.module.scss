@@ -14,10 +14,19 @@
   border: 1px solid $--border-color;
   border-radius: 10px;
   text-align: center;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .title {
   font-size: $--text-xl;
   font-weight: 600;
   margin-bottom: 40px;
+}
+
+@media screen and (max-width: 640px) {
+  .authWrap {
+    max-width: none;
+    border: none;
+  }
 }
