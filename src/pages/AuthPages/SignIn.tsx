@@ -1,4 +1,4 @@
-import { AuthInput, Modal } from '@/components'
+import { AuthButton, AuthInput, Modal } from '@/components'
 import styles from './AuthPage.module.scss'
 import { useModal } from '@/hooks'
 import { useForm } from 'react-hook-form'
@@ -56,7 +56,9 @@ const SignIn = () => {
             errorMsg={errors.password?.message}
           />
 
-          <button type="submit">확인</button>
+          <AuthButton mode="signIn" type="submit">
+            로그인
+          </AuthButton>
         </fieldset>
       </form>
       {showModal && <Modal onClose={closeModal}>{content}</Modal>}
