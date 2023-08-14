@@ -4,4 +4,14 @@
   padding: 15px;
   border-radius: 5px;
   color: #fff;
+  @include hoverColorTransition($--primary-color, $--primary-color-hover);
+}
+
+.navigate {
+  margin-top: 10px;
+  color: #000;
+  @include hoverColorTransition($--bg-color-gray-hover, $--bg-color-dark-gray);
+  &:hover {
+    color: #fff;
+  }
 }

@@ -26,3 +26,12 @@
     font-size: $--text-base;
   }
 }
+
+.errorMsg {
+  color: red;
+  position: absolute;
+  bottom: -16px;
+  text-align: left;
+  font-size: 12px;
+  margin: 5px 0 0 5px;
+}

@@ -2,19 +2,53 @@
   @include a11yHidden();
 }
 
-.title {
-  font-size: $--text-xl;
-  font-weight: 600;
-  margin-bottom: 40px;
-}
-
 .form {
   width: 100%;
-  max-width: 300px;
   margin: 0 auto;
   fieldset {
     display: flex;
     flex-direction: column;
     gap: 30px;
+  }
+}
+
+.signupCont {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto;
+  font-size: $--text-md;
+  a {
+    color: $--primary-color;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+}
+
+.socialLogin {
+  font-size: $--text-md;
+  p {
+    position: relative;
+    z-index: 10;
+  }
+  p::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $--border-color;
+    z-index: -1;
+  }
+  span {
+    background-color: #ffffff;
+    display: inline-block;
+    padding: 0 10px;
+  }
+  ul {
+    display: flex;
+    margin-top: 15px;
+    justify-content: center;
+    gap: 10px;
   }
 }
