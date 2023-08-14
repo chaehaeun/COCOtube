@@ -28,7 +28,8 @@
     border-top: 1px solid #000;
     background-color: #fff;
     font-size: 16px;
+    color: #fff;
     cursor: pointer;
-    @include hoverColorTransition($--bg-color-gray, $--bg-color-gray-hover);
+    @include hoverColorTransition($--primary-color, $--primary-color-hover);
   }
 }

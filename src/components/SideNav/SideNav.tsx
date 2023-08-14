@@ -7,7 +7,8 @@ import { RiLogoutBoxRLine } from 'react-icons/ri'
 import { NavLink } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { darkmodeAtom } from '@/store'
-import { useWindowResize } from '@/hooks'
+import { useModal, useWindowResize } from '@/hooks'
+import { Modal } from '@/components'
 import { authService } from '@/firebase-config'
 
 interface SideNavProps {
@@ -20,6 +21,7 @@ interface SideNavProps {
 
 const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
   const [darkmode, setDarkmode] = useRecoilState(darkmodeAtom)
+  const { showModal, content, closeModal, openModal } = useModal()
 
   const toggleDarkmode = () => {
     setDarkmode(!darkmode)
@@ -34,10 +36,15 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
   const handleLogout = async () => {
     try {
       await authService.signOut()
-      console.log('로그아웃 되었습니다.')
+      openModal('정상 로그아웃 되었습니다.')
     } catch (error) {
       console.error('로그아웃 에러:', error)
     }
+  }
+
+  const handleModal = () => {
+    closeModal()
+    window.location.reload()
   }
 
   return (
@@ -149,6 +156,7 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
         onClick={() => setIsSideNav(prev => !prev)}
       />
       <main className={styles.main}>{children}</main>
+      {showModal && <Modal onClose={handleModal}>{content}</Modal>}
     </div>
   )
 }
