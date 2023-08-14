@@ -1,15 +1,17 @@
 import { AuthButton, AuthInput, Modal, UploadImg } from '@/components'
 import styles from './AuthPage.module.scss'
-import { useModal } from '@/hooks'
+import { useLoading, useModal } from '@/hooks'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { authService, storageService } from '@/firebase-config'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 const SignUp = () => {
   const navigate = useNavigate()
-  const { showModal, content, closeModal } = useModal()
+  const { showModal, content, closeModal, openModal } = useModal()
+  const { isLoading, startLoading, stopLoading } = useLoading()
   const {
     register,
     handleSubmit,
@@ -33,6 +35,7 @@ const SignUp = () => {
       message: '비밀번호는 최소 8자 이상이어야 합니다.',
     },
   })
+
   const nicknameRegister = register('nickname', {
     required: {
       value: true,
@@ -45,8 +48,17 @@ const SignUp = () => {
   })
 
   const handleSignUp = async (data: Record<string, string>) => {
+    const { email, password, nickname, profileImage } = data
+
     try {
-      const { email, password, nickname, profileImage } = data
+      if (!profileImage) {
+        openModal('프로필 이미지를 선택해주세요.')
+
+        return
+      }
+
+      startLoading()
+
       const userCredential = await createUserWithEmailAndPassword(
         authService,
         email,
@@ -57,23 +69,23 @@ const SignUp = () => {
         displayName: nickname,
       })
 
-      if (profileImage) {
-        const storageRef = ref(
-          storageService,
-          `profile_images/${userCredential.user.uid}`,
-        )
-        await uploadString(storageRef, profileImage, 'data_url')
-        const imageUrl = await getDownloadURL(storageRef)
+      const storageRef = ref(
+        storageService,
+        `profile_images/${userCredential.user.uid}`,
+      )
+      await uploadString(storageRef, profileImage, 'data_url')
+      const imageUrl = await getDownloadURL(storageRef)
 
-        await updateProfile(userCredential.user, {
-          photoURL: imageUrl,
-        })
-      }
+      await updateProfile(userCredential.user, {
+        photoURL: imageUrl,
+      })
 
-      navigate('/')
+      navigate('/signin')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Error during registration:', error.message)
+    } finally {
+      stopLoading()
     }
   }
 
@@ -111,8 +123,15 @@ const SignUp = () => {
             placeholder="비밀번호를 입력해주세요."
             errorMsg={errors.password?.message}
           />
+
           <AuthButton mode="signUp" type="submit">
-            회원가입
+            {isLoading ? (
+              <>
+                <ClipLoader color="#fff" loading size={10} /> 회원가입 중...
+              </>
+            ) : (
+              '회원가입'
+            )}
           </AuthButton>
         </fieldset>
         <AuthButton mode="navigate" type="button" onClick={() => navigate('/')}>
