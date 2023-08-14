@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { darkmodeAtom } from '@/store'
 import { useWindowResize } from '@/hooks'
+import { authService } from '@/firebase-config'
 
 interface SideNavProps {
   isSideNav: boolean
@@ -29,6 +30,15 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
       setIsSideNav(false)
     }
   })
+
+  const handleLogout = async () => {
+    try {
+      await authService.signOut()
+      console.log('로그아웃 되었습니다.')
+    } catch (error) {
+      console.error('로그아웃 에러:', error)
+    }
+  }
 
   return (
     <div className={styles.wrap}>
@@ -127,7 +137,7 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
             </button>
           </li>
           <li>
-            <button type="button">
+            <button type="button" onClick={handleLogout}>
               <RiLogoutBoxRLine aria-hidden />
               <span>로그아웃</span>
             </button>
