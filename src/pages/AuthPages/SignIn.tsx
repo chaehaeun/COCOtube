@@ -1,12 +1,16 @@
 import { AuthButton, AuthInput, Modal, SocialButton } from '@/components'
 import styles from './AuthPage.module.scss'
-import { useModal } from '@/hooks'
+import { useLoading, useModal } from '@/hooks'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
+import { authService } from '@/firebase-config'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { ClipLoader } from 'react-spinners'
 
 const SignIn = () => {
   const navigate = useNavigate()
-  const { showModal, content, closeModal } = useModal()
+  const { showModal, content, closeModal, openModal } = useModal()
+  const { isLoading, startLoading, stopLoading } = useLoading()
   const {
     register,
     handleSubmit,
@@ -30,14 +34,32 @@ const SignIn = () => {
     },
   })
 
+  const handleSignIn = async (data: Record<string, string>) => {
+    const { email, password } = data
+
+    try {
+      startLoading()
+      await signInWithEmailAndPassword(authService, email, password)
+
+      navigate('/')
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.code === 'auth/user-not-found') {
+        openModal('회원가입 된 적 없는 이메일입니다.')
+      } else if (error.code === 'auth/wrong-password') {
+        openModal('비밀번호가 틀렸습니다.')
+      } else {
+        openModal('로그인 중 오류가 발생했습니다.')
+      }
+    } finally {
+      stopLoading()
+    }
+  }
+
   return (
     <>
-      <form
-        className={styles.form}
-        onSubmit={handleSubmit(entered => {
-          console.log(entered)
-        })}
-      >
+      <form className={styles.form} onSubmit={handleSubmit(handleSignIn)}>
         <fieldset>
           <legend className={styles.sronly}>로그인 폼</legend>
           <AuthInput
@@ -57,7 +79,13 @@ const SignIn = () => {
             errorMsg={errors.password?.message}
           />
           <AuthButton mode="signIn" type="submit">
-            로그인
+            {isLoading ? (
+              <>
+                <ClipLoader color="#fff" loading size={10} /> 로그인 중...
+              </>
+            ) : (
+              '로그인'
+            )}
           </AuthButton>
         </fieldset>
         <AuthButton mode="navigate" type="button" onClick={() => navigate('/')}>
