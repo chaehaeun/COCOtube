@@ -83,7 +83,13 @@ const SignUp = () => {
       navigate('/signin')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.error('Error during registration:', error.message)
+      if (error.code === 'auth/email-already-in-use') {
+        openModal('이미 사용중인 이메일입니다.')
+      } else {
+        openModal('회원가입 중 오류가 발생했습니다.')
+      }
+
+      return
     } finally {
       stopLoading()
     }
