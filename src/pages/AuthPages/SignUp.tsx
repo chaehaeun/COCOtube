@@ -3,9 +3,11 @@ import styles from './AuthPage.module.scss'
 import { useLoading, useModal } from '@/hooks'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { authService, storageService } from '@/firebase-config'
+import { authService, storageService, dbService } from '@/firebase-config'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { doc, setDoc } from 'firebase/firestore'
+
 import ClipLoader from 'react-spinners/ClipLoader'
 
 const SignUp = () => {
@@ -78,6 +80,14 @@ const SignUp = () => {
 
       await updateProfile(userCredential.user, {
         photoURL: imageUrl,
+      })
+
+      const userDocRef = doc(dbService, 'userInfo', userCredential.user.uid)
+      await setDoc(userDocRef, {
+        introduce: '',
+        likeChannels: [],
+        likeVideos: [],
+        banner: '',
       })
 
       navigate('/signin')

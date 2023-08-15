@@ -2,7 +2,7 @@ import styles from './SocialButton.module.scss'
 import { FcGoogle } from 'react-icons/fc'
 import { BsGithub } from 'react-icons/bs'
 import { FaTwitter } from 'react-icons/fa'
-import { authService } from '@/firebase-config'
+import { authService, dbService } from '@/firebase-config'
 import {
   signInWithPopup,
   GithubAuthProvider,
@@ -12,6 +12,7 @@ import {
 import { useModal } from '@/hooks'
 import { Modal } from '@/components'
 import { useNavigate } from 'react-router-dom'
+import { doc, setDoc } from 'firebase/firestore'
 
 interface SocialButtonProps {
   method: 'google' | 'github' | 'twitter'
@@ -52,10 +53,18 @@ const SocialButton = ({ method }: SocialButtonProps) => {
       }
       const userCredential = await signInWithPopup(authService, provider)
 
-      if (userCredential.user) {
-        navigate('/signup-completion')
-      }
+      const userDocRef = doc(dbService, 'userInfo', userCredential.user.uid)
+      await setDoc(userDocRef, {
+        introduce: '',
+        likeChannels: [],
+        likeVideos: [],
+        banner: '',
+      })
 
+      if (userCredential.user) {
+        console.log(userCredential.user)
+        navigate('/')
+      }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       openModal('로그인 중 오류가 발생했습니다.')
