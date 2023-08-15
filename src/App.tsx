@@ -9,6 +9,7 @@ import {
   Search,
   PlayList,
   AuthRoot,
+  SignUpCompletion,
 } from '@/pages'
 
 const router = createBrowserRouter([
@@ -43,9 +44,11 @@ const router = createBrowserRouter([
   },
   {
     element: <AuthRoot />,
+    errorElement: <NotFound />,
     children: [
       { path: 'signin', element: <SignIn /> },
       { path: 'signup', element: <SignUp /> },
+      { path: 'signup-completion', element: <SignUpCompletion /> },
     ],
   },
 ])

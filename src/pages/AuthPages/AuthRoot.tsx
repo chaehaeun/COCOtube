@@ -4,7 +4,12 @@ import styles from './AuthRoot.module.scss'
 const AuthRoot = () => {
   const location = useLocation()
   const isSignInPage = location.pathname.includes('signin')
-  const pageTitle = isSignInPage ? '로그인' : '회원가입'
+  const isSignUpCompletion = location.pathname.includes('signup-completion')
+  const pageTitle = isSignInPage
+    ? '로그인'
+    : isSignUpCompletion
+    ? '추가 정보 입력'
+    : '회원가입'
 
   return (
     <div className={styles.authRoot}>
