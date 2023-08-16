@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import { GrNext } from 'react-icons/gr'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useEffect, useState } from 'react'
+import { useLoading } from '@/hooks'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 interface MyInfoInfoProps {
   type: 'myPage' | 'channel'
@@ -13,10 +16,58 @@ interface MyInfoInfoProps {
     photoURL: string | null | undefined
     introduce: string | null | undefined
   }
+  onClick: () => Promise<void>
+  handleEditMode: () => void
+  isEdit: boolean
 }
 
-const MyInfo = ({ type, userData }: MyInfoInfoProps) => {
-  console.log(userData)
+const MyInfo = ({
+  type,
+  userData,
+  onClick,
+  handleEditMode,
+  isEdit,
+}: MyInfoInfoProps) => {
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const { isLoading, startLoading, stopLoading } = useLoading()
+
+  useEffect(() => {
+    if (userData?.photoURL) {
+      const img = new Image()
+      img.onload = () => {
+        setImageLoaded(true)
+      }
+      img.src = userData.photoURL
+    }
+  }, [userData?.photoURL])
+
+  const renderThumbnail = () => {
+    if (!userData?.photoURL) {
+      return <Skeleton circle={true} height={100} width={100} />
+    }
+
+    if (imageLoaded) {
+      return (
+        <img
+          src={userData.photoURL}
+          alt={`${userData.displayName} 프로필 사진`}
+        />
+      )
+    }
+
+    return <Skeleton circle={true} height={100} width={100} />
+  }
+
+  const handleUpdate = async () => {
+    try {
+      startLoading()
+      await onClick()
+    } catch (error) {
+      console.log(error)
+    } finally {
+      stopLoading()
+    }
+  }
 
   return (
     <section className={styles.infoWrap}>
@@ -24,22 +75,11 @@ const MyInfo = ({ type, userData }: MyInfoInfoProps) => {
         {type === 'channel' ? '채널 정보' : '사용자 정보'}
       </h3>
       <div className={styles.info}>
-        <div className={styles.thumb}>
-          {userData?.photoURL ? (
-            <img
-              src={userData.photoURL}
-              alt={`${userData.displayName} 프로필 사진`}
-            />
-          ) : (
-            <Skeleton circle={true} height={100} width={100} />
-          )}
-        </div>
+        <div className={styles.thumb}>{renderThumbnail()}</div>
         <div className={styles.textInfo}>
           <p className={styles.name}>{userData?.displayName}</p>
           <div className={styles.subInfo}>
             <span>{userData?.email}</span>
-            <span>구독자 8.4천명</span>
-            <span>동영상 45개</span>
           </div>
           <p className={styles.intro}>
             <Link to="/mypage">
@@ -53,9 +93,16 @@ const MyInfo = ({ type, userData }: MyInfoInfoProps) => {
           </p>
         </div>
         <div className={styles.btnCont}>
-          <ChannelBtn mode="subscribe" onClick={() => {}}>
-            구독
-          </ChannelBtn>
+          {isEdit ? (
+            <ChannelBtn mode="subscribe" onClick={handleUpdate}>
+              {isLoading && <ClipLoader color="#000" loading size={10} />}
+              수정하기
+            </ChannelBtn>
+          ) : (
+            <ChannelBtn mode="subscribe" onClick={handleEditMode}>
+              정보 수정
+            </ChannelBtn>
+          )}
         </div>
       </div>
     </section>

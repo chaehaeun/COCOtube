@@ -6,6 +6,7 @@ import { getDoc, doc } from 'firebase/firestore'
 const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
   const [isAuthChecked, setIsAuthChecked] = useState<boolean>(false)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [userInfo, setUserInfo] = useState<Record<string, any> | null>(null)
 
   useEffect(() => {
@@ -17,7 +18,6 @@ const useAuth = () => {
         try {
           const userInfoRef = doc(dbService, 'userInfo', authUser.uid)
           const userInfoSnap = await getDoc(userInfoRef)
-
           if (userInfoSnap.exists()) {
             const userInfoData = userInfoSnap.data()
             setUserInfo(userInfoData)
@@ -33,7 +33,12 @@ const useAuth = () => {
     return () => unsubscribe()
   }, [])
 
-  return { user, userInfo, isAuthChecked }
+  // userInfo를 업데이트하는 함수 추가
+  const updateUserInfo = (newUserInfo: Record<string, any>) => {
+    setUserInfo(newUserInfo)
+  }
+
+  return { user, userInfo, isAuthChecked, updateUserInfo }
 }
 
 export default useAuth

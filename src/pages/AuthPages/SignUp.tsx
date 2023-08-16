@@ -7,7 +7,6 @@ import { authService, storageService, dbService } from '@/firebase-config'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
-
 import ClipLoader from 'react-spinners/ClipLoader'
 
 const SignUp = () => {
