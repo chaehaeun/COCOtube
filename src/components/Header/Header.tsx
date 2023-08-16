@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import { BsYoutube } from 'react-icons/bs'
+import { ReactComponent as BsYoutube } from '@/assets/icons/BsYoutube.svg'
+import { ReactComponent as AiOutlineSearch } from '@/assets/icons/AiOutlineSearch.svg'
 import { Profile, SearchInput } from '@/components'
 import styles from './Header.module.scss'
-import { AiOutlineSearch } from 'react-icons/ai'
 import { useState } from 'react'
 import { useWindowResize } from '@/hooks'
 

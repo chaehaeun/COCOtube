@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import 'regenerator-runtime/runtime'
 import styles from './SearchInput.module.scss'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { MdKeyboardVoice } from 'react-icons/md'
-import { IoIosArrowBack } from 'react-icons/io'
-import { BsFillStopFill } from 'react-icons/bs'
+import { ReactComponent as AiOutlineSearch } from '@/assets/icons/AiOutlineSearch.svg'
+import { ReactComponent as MdKeyboardVoice } from '@/assets/icons/MdKeyboardVoice.svg'
+import { ReactComponent as IoIosArrowBack } from '@/assets/icons/IoIosArrowBack.svg'
+import { ReactComponent as BsFillStopFill } from '@/assets/icons/BsFillStopFill.svg'
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition'

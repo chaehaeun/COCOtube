@@ -1,6 +1,8 @@
 import styles from './AuthInput.module.scss'
 import { useState } from 'react'
-import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md'
+import { ReactComponent as MdOutlineVisibilityOff } from '@/assets/icons/MdOutlineVisibilityOff.svg'
+import { ReactComponent as MdOutlineVisibility } from '@/assets/icons/MdOutlineVisibility.svg'
+
 import type {
   FieldError,
   FieldErrors,

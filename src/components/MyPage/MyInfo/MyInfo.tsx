@@ -1,7 +1,7 @@
 import { ChannelBtn } from '@/components'
 import styles from './MyInfo.module.scss'
 import { Link } from 'react-router-dom'
-import { GrNext } from 'react-icons/gr'
+import { ReactComponent as GrNext } from '@/assets/icons/GrNext.svg'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useEffect, useState } from 'react'
@@ -51,6 +51,7 @@ const MyInfo = ({
         <img
           src={userData.photoURL}
           alt={`${userData.displayName} 프로필 사진`}
+          loading="lazy"
         />
       )
     }
@@ -62,8 +63,6 @@ const MyInfo = ({
     try {
       startLoading()
       await onClick()
-    } catch (error) {
-      console.log(error)
     } finally {
       stopLoading()
     }

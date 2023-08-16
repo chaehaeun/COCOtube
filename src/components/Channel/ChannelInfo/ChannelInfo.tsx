@@ -1,7 +1,7 @@
 import { ChannelBtn } from '@/components'
 import styles from './ChannelInfo.module.scss'
 import { Link } from 'react-router-dom'
-import { GrNext } from 'react-icons/gr'
+import { ReactComponent as GrNext } from '@/assets/icons/GrNext.svg'
 
 interface ChannelInfoProps {
   type: 'myPage' | 'channel'

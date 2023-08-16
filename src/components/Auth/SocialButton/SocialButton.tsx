@@ -1,7 +1,7 @@
 import styles from './SocialButton.module.scss'
-import { FcGoogle } from 'react-icons/fc'
-import { BsGithub } from 'react-icons/bs'
-import { FaTwitter } from 'react-icons/fa'
+import { ReactComponent as FcGoogle } from '@/assets/icons/FcGoogle.svg'
+import { ReactComponent as BsGithub } from '@/assets/icons/BsGithub.svg'
+import { ReactComponent as FaTwitter } from '@/assets/icons/FaTwitter.svg'
 import { authService, dbService } from '@/firebase-config'
 import {
   signInWithPopup,
