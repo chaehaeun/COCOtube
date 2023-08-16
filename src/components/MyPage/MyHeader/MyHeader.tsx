@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './MyHeader.module.scss'
 
 interface ChannelHeaderProps {
@@ -10,6 +10,17 @@ interface ChannelHeaderProps {
 const MyHeader = ({ bannerImg, isEdit, onChange }: ChannelHeaderProps) => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const [imageUrl, setImageUrl] = useState<string | undefined>(bannerImg)
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (imageUrl) {
+      const img = new Image()
+      img.onload = () => {
+        setImageLoaded(true)
+      }
+      img.src = imageUrl
+    }
+  }, [imageUrl])
 
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files?.[0]
@@ -41,10 +52,14 @@ const MyHeader = ({ bannerImg, isEdit, onChange }: ChannelHeaderProps) => {
                 onChange={handleImageSelect}
               />
 
-              {selectedImage ? (
+              {selectedImage || imageLoaded ? (
                 <img src={imageUrl} alt="배너 이미지 미리보기" />
               ) : (
-                <img src={bannerImg} alt="배너 이미지" />
+                <img
+                  src={bannerImg}
+                  alt="배너 이미지"
+                  style={{ display: 'none' }}
+                />
               )}
             </label>
           </>

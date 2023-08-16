@@ -1,6 +1,5 @@
-import { ChannelNav, MyHeader } from '@/components'
+import { MyHeader } from '@/components'
 import styles from './MyPage.module.scss'
-import { Outlet } from 'react-router-dom'
 import { useAuth } from '@/hooks'
 import { Suspense, lazy, useState } from 'react'
 import { dbService, storageService } from '@/firebase-config'
@@ -8,6 +7,12 @@ import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { doc, updateDoc } from 'firebase/firestore'
 
 const LazyMyInfo = lazy(() => import('@/components/MyPage/MyInfo/MyInfo'))
+const LazyChannelNav = lazy(
+  () => import('@/components/Channel/ChannelNav/ChannelNav'),
+)
+const LazyOutlet = lazy(() =>
+  import('react-router-dom').then(module => ({ default: module.Outlet })),
+)
 interface MyPageProps {
   type: 'myPage' | 'channel'
 }
@@ -72,7 +77,7 @@ const MyPageComponent = ({ type }: MyPageProps) => {
         onChange={handleImg}
       />
       <Suspense fallback={<div>Loading...</div>}>
-        <LazyMyInfo // Lazy-loaded MyInfo component
+        <LazyMyInfo
           type={type}
           userData={userData}
           handleEditMode={handleEditMode}
@@ -80,9 +85,9 @@ const MyPageComponent = ({ type }: MyPageProps) => {
           onClick={handleSubmit}
         />
       </Suspense>
-      <ChannelNav type={type} />
+      <LazyChannelNav type={type} />
       <div className={styles.outletWrap}>
-        <Outlet />
+        <LazyOutlet />
       </div>
     </div>
   )

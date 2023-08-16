@@ -1,26 +1,14 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Suspense, lazy } from 'react'
 
-import React, { lazy, Suspense } from 'react'
+import { Root, NotFound, AuthRoot } from '@/pages'
 
-import {
-  Root,
-  Home,
-  NotFound,
-  // MyPage,
-  SignIn,
-  SignUp,
-  Search,
-  PlayList,
-  AuthRoot,
-} from '@/pages'
-// import { Root, NotFound, AuthRoot } from '@/pages'
-
-// const Home = lazy(() => import('@/pages/Home/Home'))
+const Home = lazy(() => import('@/pages/Home/Home'))
 const MyPage = lazy(() => import('@/pages/MyPage/MyPage'))
-// const PlayList = lazy(() => import('@/pages/MyPage/PlayList'))
-// const Search = lazy(() => import('@/pages/Search'))
-// const SignIn = lazy(() => import('@/pages/AuthPages/SignIn'))
-// const SignUp = lazy(() => import('@/pages/AuthPages/SignUp'))
+const PlayList = lazy(() => import('@/pages/MyPage/PlayList'))
+const Search = lazy(() => import('@/pages/Search'))
+const SignIn = lazy(() => import('@/pages/AuthPages/SignIn'))
+const SignUp = lazy(() => import('@/pages/AuthPages/SignUp'))
 
 const router = createBrowserRouter([
   {
@@ -34,11 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'mypage',
-        element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <MyPage />
-          </Suspense>
-        ),
+        element: <MyPage />,
         children: [
           {
             index: true,
@@ -67,7 +51,11 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  return <RouterProvider router={router} />
+  return (
+    <Suspense>
+      <RouterProvider router={router} />
+    </Suspense>
+  )
 }
 
 export default App

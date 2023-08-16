@@ -5,25 +5,6 @@ const VideoList = () => {
   return (
     <ul className={styles.videoList}>
       <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
-      <VideoCard />
     </ul>
   )
 }
