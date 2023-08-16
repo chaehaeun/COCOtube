@@ -1,12 +1,13 @@
-import { ChannelNav, MyHeader, MyInfo } from '@/components'
+import { ChannelNav, MyHeader } from '@/components'
 import styles from './MyPage.module.scss'
 import { Outlet } from 'react-router-dom'
 import { useAuth } from '@/hooks'
-import { useState } from 'react'
+import { Suspense, lazy, useState } from 'react'
 import { dbService, storageService } from '@/firebase-config'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { doc, updateDoc } from 'firebase/firestore'
 
+const LazyMyInfo = lazy(() => import('@/components/MyPage/MyInfo/MyInfo'))
 interface MyPageProps {
   type: 'myPage' | 'channel'
 }
@@ -70,13 +71,15 @@ const MyPageComponent = ({ type }: MyPageProps) => {
         isEdit={isEdit}
         onChange={handleImg}
       />
-      <MyInfo
-        type={type}
-        userData={userData}
-        handleEditMode={handleEditMode}
-        isEdit={isEdit}
-        onClick={handleSubmit}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <LazyMyInfo // Lazy-loaded MyInfo component
+          type={type}
+          userData={userData}
+          handleEditMode={handleEditMode}
+          isEdit={isEdit}
+          onClick={handleSubmit}
+        />
+      </Suspense>
       <ChannelNav type={type} />
       <div className={styles.outletWrap}>
         <Outlet />

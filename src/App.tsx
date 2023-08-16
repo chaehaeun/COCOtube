@@ -1,15 +1,26 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
+import React, { lazy, Suspense } from 'react'
+
 import {
   Root,
   Home,
   NotFound,
-  MyPage,
+  // MyPage,
   SignIn,
   SignUp,
   Search,
   PlayList,
   AuthRoot,
 } from '@/pages'
+// import { Root, NotFound, AuthRoot } from '@/pages'
+
+// const Home = lazy(() => import('@/pages/Home/Home'))
+const MyPage = lazy(() => import('@/pages/MyPage/MyPage'))
+// const PlayList = lazy(() => import('@/pages/MyPage/PlayList'))
+// const Search = lazy(() => import('@/pages/Search'))
+// const SignIn = lazy(() => import('@/pages/AuthPages/SignIn'))
+// const SignUp = lazy(() => import('@/pages/AuthPages/SignUp'))
 
 const router = createBrowserRouter([
   {
@@ -23,7 +34,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'mypage',
-        element: <MyPage />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <MyPage />
+          </Suspense>
+        ),
         children: [
           {
             index: true,
