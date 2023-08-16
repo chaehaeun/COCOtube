@@ -60,6 +60,18 @@
   }
 }
 
+.youtube {
+  width: 24px;
+  height: 19px;
+  background: url('./../../assets/icons/css_sprites.png') no-repeat -10px -56px;
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+  background: url('./../../assets/icons/css_sprites.png') no-repeat -12px -12px;
+}
+
 @media screen and (max-width: 1024px) {
   .hamburger {
     display: flex;

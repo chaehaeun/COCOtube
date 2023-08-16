@@ -1,7 +1,6 @@
 import { ChannelBtn } from '@/components'
 import styles from './MyInfo.module.scss'
 import { Link } from 'react-router-dom'
-import { ReactComponent as GrNext } from '@/assets/icons/GrNext.svg'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useEffect, useState } from 'react'
@@ -87,7 +86,7 @@ const MyInfo = ({
                   ? userData?.introduce
                   : '소개말이 없습니다.'}
               </span>
-              <GrNext />
+              <div className={styles.next} />
             </Link>
           </p>
         </div>

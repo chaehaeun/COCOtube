@@ -1,7 +1,4 @@
 import styles from './SocialButton.module.scss'
-import { ReactComponent as FcGoogle } from '@/assets/icons/FcGoogle.svg'
-import { ReactComponent as BsGithub } from '@/assets/icons/BsGithub.svg'
-import { ReactComponent as FaTwitter } from '@/assets/icons/FaTwitter.svg'
 import { authService, dbService } from '@/firebase-config'
 import {
   signInWithPopup,
@@ -18,7 +15,7 @@ interface SocialButtonProps {
   method: 'google' | 'github' | 'twitter'
 }
 
-let icon = <FcGoogle aria-hidden />
+let icon = <div className={styles.google} />
 
 const SocialButton = ({ method }: SocialButtonProps) => {
   const { showModal, content, closeModal, openModal } = useModal()
@@ -26,13 +23,13 @@ const SocialButton = ({ method }: SocialButtonProps) => {
 
   switch (method) {
     case 'google':
-      icon = <FcGoogle aria-hidden />
+      icon = <div className={styles.google} />
       break
     case 'github':
-      icon = <BsGithub aria-hidden />
+      icon = <div className={styles.github} />
       break
     case 'twitter':
-      icon = <FaTwitter aria-hidden className={styles.twitter} />
+      icon = <div className={styles.twitter} />
       break
   }
 

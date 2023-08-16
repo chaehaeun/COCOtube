@@ -1,13 +1,4 @@
 import styles from './SideNav.module.scss'
-import { ReactComponent as AiOutlineHome } from '@/assets/icons/AiOutlineHome.svg'
-import { ReactComponent as AiFillHome } from '@/assets/icons/AiFillHome.svg'
-import { ReactComponent as BsFillMoonFill } from '@/assets/icons/BsFillMoonFill.svg'
-import { ReactComponent as BsFillSunFill } from '@/assets/icons/BsFillSunFill.svg'
-import { ReactComponent as AiOutlineLike } from '@/assets/icons/AiOutlineLike.svg'
-import { ReactComponent as AiFillLike } from '@/assets/icons/AiFillLike.svg'
-import { ReactComponent as HiOutlineUser } from '@/assets/icons/HiOutlineUser.svg'
-import { ReactComponent as HiUser } from '@/assets/icons/HiUser.svg'
-import { ReactComponent as RiLogoutBoxRLine } from '@/assets/icons/RiLogoutBoxRLine.svg'
 import { NavLink } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { darkmodeAtom } from '@/store'
@@ -65,12 +56,12 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
                 {({ isActive }) => {
                   return isActive ? (
                     <>
-                      <AiFillHome aria-hidden />
+                      <div className={styles.solidHome} />
                       <span>홈</span>
                     </>
                   ) : (
                     <>
-                      <AiOutlineHome aria-hidden />
+                      <div className={styles.outlineHome} />
                       <span>홈</span>
                     </>
                   )
@@ -86,12 +77,12 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
                 {({ isActive }) => {
                   return isActive ? (
                     <>
-                      <HiUser aria-hidden />
+                      <div className={styles.solidUser} />
                       <span>마이페이지</span>
                     </>
                   ) : (
                     <>
-                      <HiOutlineUser aria-hidden />
+                      <div className={styles.user} />
                       <span>마이페이지</span>
                     </>
                   )
@@ -106,12 +97,12 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
                 {({ isActive }) => {
                   return isActive ? (
                     <>
-                      <AiFillLike aria-hidden />
+                      <div className={styles.solidLike} />
                       <span>좋아요 표시한 동영상</span>
                     </>
                   ) : (
                     <>
-                      <AiOutlineLike aria-hidden />
+                      <div className={styles.like} />
                       <span>좋아요 표시한 동영상</span>
                     </>
                   )
@@ -136,12 +127,12 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
             <button type="button" onClick={toggleDarkmode}>
               {darkmode ? (
                 <>
-                  <BsFillSunFill aria-hidden />
+                  <div className={styles.sun} />
                   <span>라이트모드</span>
                 </>
               ) : (
                 <>
-                  <BsFillMoonFill aria-hidden />
+                  <div className={styles.moon} />
                   <span>다크모드</span>
                 </>
               )}
@@ -149,7 +140,7 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
           </li>
           <li>
             <button type="button" onClick={handleLogout}>
-              <RiLogoutBoxRLine aria-hidden />
+              <div className={styles.logout} />
               <span>로그아웃</span>
             </button>
           </li>

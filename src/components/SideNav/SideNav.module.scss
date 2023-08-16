@@ -85,6 +85,59 @@ span:not(.subscribeList) {
   cursor: pointer;
 }
 
+.outlineHome {
+  width: 20px;
+  height: 18px;
+  background: url('./../../assets/icons/css_sprites.png') no-repeat -142px -51px;
+}
+
+.solidHome {
+  width: 20px;
+  height: 18px;
+  background: url('./../../assets/icons/css_sprites.png') no-repeat -92px -99px;
+}
+
+.moon {
+  width: 19px;
+  height: 20px;
+  background: url('./../../assets/icons/css_sprites.png') no-repeat -10px -139px;
+}
+
+.sun {
+  width: 20px;
+  height: 20px;
+  background: url('./../../assets/icons/css_sprites.png') no-repeat -50px -139px;
+}
+
+.like {
+  width: 16px;
+  height: 18px;
+  background: url('./../../assets/icons/css_sprites.png') no-repeat -144px -91px;
+}
+
+.solidLike {
+  width: 16px;
+  height: 18px;
+  background: url('./../../assets/icons/css_sprites.png') no-repeat -144px -11px;
+}
+
+.logout {
+  width: 17px;
+  height: 18px;
+  background: url('./../../assets/icons/css_sprites.png') no-repeat -93px -140px;
+}
+
+.user {
+  width: 16px;
+  height: 20px;
+  background: url('./../../assets/icons/css_sprites.png') no-repeat -132px -139px;
+}
+.solidUser {
+  width: 14px;
+  height: 18px;
+  background: url('./../../assets/icons/css_sprites.png') no-repeat -185px -11px;
+}
+
 @media screen and (max-width: 1024px) {
   .sideNav {
     position: fixed;

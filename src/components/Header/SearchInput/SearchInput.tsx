@@ -1,10 +1,6 @@
 import { useState } from 'react'
 import 'regenerator-runtime/runtime'
 import styles from './SearchInput.module.scss'
-import { ReactComponent as AiOutlineSearch } from '@/assets/icons/AiOutlineSearch.svg'
-import { ReactComponent as MdKeyboardVoice } from '@/assets/icons/MdKeyboardVoice.svg'
-import { ReactComponent as IoIosArrowBack } from '@/assets/icons/IoIosArrowBack.svg'
-import { ReactComponent as BsFillStopFill } from '@/assets/icons/BsFillStopFill.svg'
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition'
@@ -46,7 +42,7 @@ const SearchInput = ({ isShow, setIsShow }: SearchInputProps) => {
         className={styles.backBtn}
         aria-label="뒤로"
       >
-        <IoIosArrowBack aria-hidden />
+        <div className={styles.backIcon} />
       </button>
       <fieldset>
         <legend>Search Form</legend>
@@ -58,7 +54,7 @@ const SearchInput = ({ isShow, setIsShow }: SearchInputProps) => {
             onChange={handleChange}
           />
           <button className={styles.submitBtn} type="submit" aria-label="검색">
-            <AiOutlineSearch aria-hidden />
+            <div className={styles.searchIcon} />
           </button>
         </div>
       </fieldset>
@@ -72,9 +68,9 @@ const SearchInput = ({ isShow, setIsShow }: SearchInputProps) => {
           onClick={handleRecordBtnClick}
         >
           {isListening ? (
-            <BsFillStopFill aria-hidden />
+            <div className={styles.recording} />
           ) : (
-            <MdKeyboardVoice aria-hidden />
+            <div className={styles.voiceIcon} />
           )}
         </button>
       )}

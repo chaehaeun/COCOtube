@@ -49,6 +49,30 @@
   }
 }
 
+.searchIcon {
+  width: 20px !important;
+  height: 20px;
+  background: url('./../../../assets/icons/css_sprites.png') no-repeat -12px -12px;
+}
+
+.voiceIcon {
+  width: 20px;
+  height: 20px;
+  background: url('./../../../assets/icons/css_sprites.png') no-repeat -97px -12px;
+}
+
+.backIcon {
+  width: 18px !important;
+  height: 18px;
+  background: url('./../../../assets/icons/css_sprites.png') no-repeat -54px -57px;
+}
+
+.recording {
+  width: 20px !important;
+  height: 16px;
+  background: url('./../../../assets/icons/css_sprites.png') no-repeat -54px -14px;
+}
+
 @media screen and (min-width: 769px) {
   .backBtn {
     display: none;

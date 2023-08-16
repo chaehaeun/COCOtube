@@ -1,7 +1,5 @@
 import styles from './AuthInput.module.scss'
 import { useState } from 'react'
-import { ReactComponent as MdOutlineVisibilityOff } from '@/assets/icons/MdOutlineVisibilityOff.svg'
-import { ReactComponent as MdOutlineVisibility } from '@/assets/icons/MdOutlineVisibility.svg'
 
 import type {
   FieldError,
@@ -52,9 +50,9 @@ const AuthInput = ({
           className={styles.passwordToggleBtn}
         >
           {isShowPassword ? (
-            <MdOutlineVisibilityOff />
+            <div className={styles.invisible} />
           ) : (
-            <MdOutlineVisibility />
+            <div className={styles.visible} />
           )}
         </button>
       )}

@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom'
-import { ReactComponent as BsYoutube } from '@/assets/icons/BsYoutube.svg'
-import { ReactComponent as AiOutlineSearch } from '@/assets/icons/AiOutlineSearch.svg'
 import { Profile, SearchInput } from '@/components'
 import styles from './Header.module.scss'
 import { useState } from 'react'
@@ -38,7 +36,7 @@ const Header = ({ setIsSideNav }: HeaderProps) => {
         </button>
         <h1>
           <Link to="/">
-            <BsYoutube aria-hidden className=" text-brand" />
+            <div className={styles.youtube} />
             <span>COCOtube</span>
           </Link>
         </h1>
@@ -51,7 +49,7 @@ const Header = ({ setIsSideNav }: HeaderProps) => {
           className={styles.showSearch}
           aria-label="검색"
         >
-          <AiOutlineSearch aria-hidden />
+          <div className={styles.searchIcon} />
         </button>
         <Profile />
       </div>
