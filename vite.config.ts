@@ -2,8 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import * as path from 'node:path'
 // import checker from 'vite-plugin-checker'
-import svgr from 'vite-plugin-svgr'
-import CompressionPlugin from 'vite-plugin-compression'
+import { compression } from 'vite-plugin-compression2'
 import viteImagemin from '@vheemstra/vite-plugin-imagemin'
 import imageminGifSicle from 'imagemin-gifsicle'
 import imageminMozjpeg from 'imagemin-mozjpeg'
@@ -23,11 +22,7 @@ export default defineConfig({
     // checker({
     //   typescript: true,
     // }),
-    svgr(),
-    CompressionPlugin({
-      algorithm: 'gzip',
-      ext: '.gz',
-    }),
+    compression(),
     viteImagemin({
       plugins: {
         jpg: imageminMozjpeg(),
