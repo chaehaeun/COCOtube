@@ -1,0 +1,80 @@
+.infoWrap {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 1rem;
+  margin: 30px auto;
+}
+
+.info {
+  @include alienCenter(20px);
+  .thumb {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    @include pulse-animation();
+  }
+  .textInfo {
+    flex-grow: 1;
+    .subInfo {
+      @include alienCenter(10px);
+      margin-top: 5px;
+      span {
+        font-size: $--text-md;
+        color: $--text-color-gray;
+      }
+    }
+    .name {
+      font-size: $--text-xl;
+      font-weight: 500;
+    }
+    .intro {
+      margin-top: 10px;
+      font-size: $--text-md;
+      color: $--text-color-gray;
+      a {
+        @include alienCenter();
+      }
+      span {
+        display: block;
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.displayNameSkeleton {
+  display: block;
+  border-radius: 50px;
+  width: 200px;
+  height: 24px;
+  @include pulse-animation();
+}
+
+.emailSkeleton {
+  display: block;
+  border-radius: 50px;
+  width: 100px;
+  height: 14px;
+  @include pulse-animation();
+}
+
+.introSkeleton {
+  display: block;
+  border-radius: 50px;
+  width: 200px;
+  height: 14px;
+  @include pulse-animation();
+}
+
+@media screen and (max-width: 768px) {
+  .info {
+    flex-direction: column;
+    text-align: center;
+  }
+  .subInfo {
+    @include flexCenter(10px);
+  }
+}
