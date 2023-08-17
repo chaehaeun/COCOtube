@@ -1,9 +1,8 @@
 import { ChannelBtn } from '@/components'
 import styles from './MyInfo.module.scss'
 import { Link } from 'react-router-dom'
-import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 import { useLoading } from '@/hooks'
 import ClipLoader from 'react-spinners/ClipLoader'
 
@@ -27,43 +26,32 @@ const MyInfo = ({
   handleEditMode,
   isEdit,
 }: MyInfoInfoProps) => {
-  const [imageLoaded, setImageLoaded] = useState(false)
-  const { isLoading, startLoading, stopLoading } = useLoading()
-
-  useEffect(() => {
-    if (userData?.photoURL) {
-      const img = new Image()
-      img.onload = () => {
-        setImageLoaded(true)
-      }
-      img.src = userData.photoURL
-    }
-  }, [userData?.photoURL])
+  const {
+    isLoading: editLoading,
+    startLoading: startEditLoading,
+    stopLoading: stopEditLoading,
+  } = useLoading()
 
   const renderThumbnail = () => {
     if (!userData?.photoURL) {
-      return <Skeleton circle={true} height={100} width={100} />
+      return <div className={styles.thumbSkeleton} />
     }
 
-    if (imageLoaded) {
-      return (
-        <img
-          src={userData.photoURL}
-          alt={`${userData.displayName} 프로필 사진`}
-          loading="lazy"
-        />
-      )
-    }
-
-    return <Skeleton circle={true} height={100} width={100} />
+    return (
+      <img
+        src={userData.photoURL}
+        alt={`${userData.displayName} 프로필 사진`}
+        loading="lazy"
+      />
+    )
   }
 
   const handleUpdate = async () => {
     try {
-      startLoading()
+      startEditLoading()
       await onClick()
     } finally {
-      stopLoading()
+      stopEditLoading()
     }
   }
 
@@ -75,32 +63,38 @@ const MyInfo = ({
       <div className={styles.info}>
         <div className={styles.thumb}>{renderThumbnail()}</div>
         <div className={styles.textInfo}>
-          <p className={styles.name}>{userData?.displayName}</p>
+          <p className={styles.name}>
+            {/* displayName이 있으면 보여주고, 없으면 스켈레톤 표시 */}
+            {userData?.displayName || (
+              <span className={styles.displayNameSkeleton} />
+            )}
+          </p>
           <div className={styles.subInfo}>
-            <span>{userData?.email}</span>
+            <span>
+              {/* email이 있으면 보여주고, 없으면 스켈레톤 표시 */}
+              {userData?.email || <span className={styles.emailSkeleton} />}
+            </span>
           </div>
           <p className={styles.intro}>
             <Link to="/mypage">
               <span>
-                {userData?.introduce
+                {/* introduce가 있으면 보여주고, 없거나 빈 문자열이면 스켈레톤 표시 */}
+                {userData?.introduce !== ''
                   ? userData?.introduce
-                  : '소개말이 없습니다.'}
+                  : '자기소개가 없습니다.'}
               </span>
-              <div className={styles.next} />
+              <span className={styles.next} />
             </Link>
           </p>
         </div>
         <div className={styles.btnCont}>
-          {isEdit ? (
-            <ChannelBtn mode="subscribe" onClick={handleUpdate}>
-              {isLoading && <ClipLoader color="#000" loading size={10} />}
-              수정하기
-            </ChannelBtn>
-          ) : (
-            <ChannelBtn mode="subscribe" onClick={handleEditMode}>
-              정보 수정
-            </ChannelBtn>
-          )}
+          <ChannelBtn
+            mode="subscribe"
+            onClick={isEdit ? handleUpdate : handleEditMode}
+          >
+            {editLoading && <ClipLoader color="#000" loading size={10} />}
+            {isEdit ? '수정하기' : '정보 수정'}
+          </ChannelBtn>
         </div>
       </div>
     </section>
