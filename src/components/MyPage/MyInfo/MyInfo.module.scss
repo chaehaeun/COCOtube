@@ -10,7 +10,6 @@
   .thumb {
     width: 100px;
     height: 100px;
-    background-color: aquamarine;
     border-radius: 50%;
     flex-shrink: 0;
     word-break: break-all;
@@ -53,9 +52,40 @@
 }
 
 .next {
+  margin-left: 4px;
   width: 8px;
   height: 14px;
   background: url('./../../../assets/icons/css_sprites.png') no-repeat -185px -126px;
+}
+
+.thumbSkeleton {
+  width: 100px;
+  height: 100px;
+  @include pulse-animation();
+}
+
+.displayNameSkeleton {
+  display: block;
+  border-radius: 50px;
+  width: 200px;
+  height: 24px;
+  @include pulse-animation();
+}
+
+.emailSkeleton {
+  display: block;
+  border-radius: 50px;
+  width: 100px;
+  height: 14px;
+  @include pulse-animation();
+}
+
+.introSkeleton {
+  display: block;
+  border-radius: 50px;
+  width: 200px;
+  height: 14px;
+  @include pulse-animation();
 }
 
 @media screen and (max-width: 768px) {

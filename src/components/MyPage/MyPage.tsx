@@ -1,4 +1,4 @@
-import { MyHeader } from '@/components'
+import { MyHeader, InfoLoadingSkeleton } from '@/components'
 import styles from './MyPage.module.scss'
 import { useAuth } from '@/hooks'
 import { Suspense, lazy, useState } from 'react'
@@ -76,7 +76,7 @@ const MyPageComponent = ({ type }: MyPageProps) => {
         isEdit={isEdit}
         onChange={handleImg}
       />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<InfoLoadingSkeleton />}>
         <LazyMyInfo
           type={type}
           userData={userData}

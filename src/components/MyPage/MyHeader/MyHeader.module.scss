@@ -39,6 +39,12 @@
   }
 }
 
+.bannerSkeleton {
+  width: 100%;
+  height: 100%;
+  @include pulse-animation();
+}
+
 .edit {
   cursor: pointer;
   position: absolute;

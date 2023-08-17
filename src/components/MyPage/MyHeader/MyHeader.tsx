@@ -55,16 +55,14 @@ const MyHeader = ({ bannerImg, isEdit, onChange }: ChannelHeaderProps) => {
               {selectedImage || imageLoaded ? (
                 <img src={imageUrl} alt="배너 이미지 미리보기" />
               ) : (
-                <img
-                  src={bannerImg}
-                  alt="배너 이미지"
-                  style={{ display: 'none' }}
-                />
+                <div className={styles.bannerSkeleton} />
               )}
             </label>
           </>
+        ) : bannerImg ? (
+          <img src={bannerImg} alt="배너 이미지" loading="lazy" />
         ) : (
-          <img src={bannerImg} alt="배너 이미지" />
+          <div className={styles.bannerSkeleton} />
         )}
       </div>
     </div>

@@ -46,6 +46,18 @@ const MyInfo = ({
     )
   }
 
+  const renderIntroContent = () => {
+    if (userData?.introduce === undefined) {
+      return <span className={styles.introSkeleton} />
+    }
+
+    if (userData.introduce !== '') {
+      return <span>{userData.introduce}</span>
+    }
+
+    return <span>자기 소개가 없습니다.</span>
+  }
+
   const handleUpdate = async () => {
     try {
       startEditLoading()
@@ -64,25 +76,18 @@ const MyInfo = ({
         <div className={styles.thumb}>{renderThumbnail()}</div>
         <div className={styles.textInfo}>
           <p className={styles.name}>
-            {/* displayName이 있으면 보여주고, 없으면 스켈레톤 표시 */}
             {userData?.displayName || (
               <span className={styles.displayNameSkeleton} />
             )}
           </p>
           <div className={styles.subInfo}>
             <span>
-              {/* email이 있으면 보여주고, 없으면 스켈레톤 표시 */}
               {userData?.email || <span className={styles.emailSkeleton} />}
             </span>
           </div>
           <p className={styles.intro}>
             <Link to="/mypage">
-              <span>
-                {/* introduce가 있으면 보여주고, 없거나 빈 문자열이면 스켈레톤 표시 */}
-                {userData?.introduce !== ''
-                  ? userData?.introduce
-                  : '자기소개가 없습니다.'}
-              </span>
+              {renderIntroContent()}
               <span className={styles.next} />
             </Link>
           </p>

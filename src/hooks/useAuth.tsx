@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { authService, dbService } from '@/firebase-config'
 import { onAuthStateChanged, User } from 'firebase/auth'
 import { getDoc, doc } from 'firebase/firestore'
@@ -6,6 +6,8 @@ import { getDoc, doc } from 'firebase/firestore'
 const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
   const [isAuthChecked, setIsAuthChecked] = useState<boolean>(false)
+
+  // any는 나중에 데이터 양식이 확정 되면 수정하는 걸로
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [userInfo, setUserInfo] = useState<Record<string, any> | null>(null)
 
@@ -33,12 +35,16 @@ const useAuth = () => {
     return () => unsubscribe()
   }, [])
 
+  // 이전 데이터와 현재 데이터를 비교하여 리렌더링 방지
+  const memoizedUserInfo = useMemo(() => userInfo, [userInfo])
+
   // userInfo를 업데이트하는 함수 추가
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updateUserInfo = (newUserInfo: Record<string, any>) => {
     setUserInfo(newUserInfo)
   }
 
-  return { user, userInfo, isAuthChecked, updateUserInfo }
+  return { user, userInfo: memoizedUserInfo, isAuthChecked, updateUserInfo }
 }
 
 export default useAuth

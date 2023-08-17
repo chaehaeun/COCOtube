@@ -96,3 +96,21 @@ $--padding-xl: 32px;
     }
   }
 }
+
+@mixin pulse-animation(
+  $duration: 2s,
+  $colorStart: $--bg-color-gray,
+  $colorEnd: $--bg-color-gray-hover
+) {
+  @keyframes pulse {
+    0%,
+    100% {
+      background-color: $colorStart;
+    }
+    50% {
+      background-color: $colorEnd;
+    }
+  }
+
+  animation: pulse $duration infinite;
+}
