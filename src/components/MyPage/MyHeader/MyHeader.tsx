@@ -20,7 +20,13 @@ const MyHeader = ({ bannerImg, isEdit, onChange }: ChannelHeaderProps) => {
       }
       img.src = imageUrl
     }
-  }, [imageUrl])
+
+    if (!isEdit) {
+      onChange('')
+      setSelectedImage(null)
+      setImageUrl(bannerImg)
+    }
+  }, [imageUrl, isEdit])
 
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageFile = e.target.files?.[0]
