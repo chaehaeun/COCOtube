@@ -6,6 +6,8 @@ import { dbService, storageService } from '@/firebase-config'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { doc, updateDoc } from 'firebase/firestore'
 import { updateProfile } from 'firebase/auth'
+import { photoURLAtom } from '@/store'
+import { useSetRecoilState } from 'recoil'
 
 const LazyMyInfo = lazy(() => import('@/components/MyPage/MyInfo/MyInfo'))
 const LazyChannelNav = lazy(
@@ -29,6 +31,7 @@ const MyPageComponent = ({ type }: MyPageProps) => {
     displayName: '',
     photoURL: '',
   })
+  const setPhotoURL = useSetRecoilState(photoURLAtom)
 
   const userData = {
     displayName: user?.displayName,
@@ -71,6 +74,7 @@ const MyPageComponent = ({ type }: MyPageProps) => {
         photoURL: imageUrl,
       })
       updateUserInfo({ ...userInfo, photoURL: imageUrl })
+      setPhotoURL(imageUrl)
     } catch (error) {
       console.error('Error updating user profile:', error)
     }

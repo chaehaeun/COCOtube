@@ -2,10 +2,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { authService, dbService } from '@/firebase-config'
 import { onAuthStateChanged, User } from 'firebase/auth'
 import { getDoc, doc } from 'firebase/firestore'
+import { photoURLAtom } from '@/store'
+import { useSetRecoilState } from 'recoil'
 
 const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
   const [isAuthChecked, setIsAuthChecked] = useState<boolean>(false)
+  const setPhotoURL = useSetRecoilState(photoURLAtom)
 
   // any는 나중에 데이터 양식이 확정 되면 수정하는 걸로
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,6 +26,7 @@ const useAuth = () => {
           if (userInfoSnap.exists()) {
             const userInfoData = userInfoSnap.data()
             setUserInfo(userInfoData)
+            setPhotoURL(userInfoData.photoURL)
           } else {
             console.error('No such document!')
           }
