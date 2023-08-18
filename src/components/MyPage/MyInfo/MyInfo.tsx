@@ -2,9 +2,10 @@ import { ChannelBtn, Modal } from '@/components'
 import styles from './MyInfo.module.scss'
 import { Link } from 'react-router-dom'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { useLoading, useModal } from '@/hooks'
+import { useAuth, useLoading, useModal } from '@/hooks'
 import ClipLoader from 'react-spinners/ClipLoader'
 import { ChangeEvent, useEffect, useState } from 'react'
+import { deleteUser } from 'firebase/auth'
 
 interface MyInfoInfoProps {
   userData?: {
@@ -31,6 +32,7 @@ const MyInfo = ({
     startLoading: startEditLoading,
     stopLoading: stopEditLoading,
   } = useLoading()
+  const { user } = useAuth()
   const [initialData, setInitialData] = useState(userData)
   const [displayName, setDisplayName] = useState(userData?.displayName || '')
   const [introduce, setIntroduce] = useState(userData?.introduce || '')
@@ -123,6 +125,16 @@ const MyInfo = ({
     setIntroduce(initialData?.introduce || '')
   }
 
+  const handleWithdrawal = async () => {
+    try {
+      if (user) {
+        await deleteUser(user) // 사용자 삭제 함수를 호출합니다.
+      }
+    } catch {
+      openModal('회원 탈퇴에 실패했습니다.')
+    }
+  }
+
   return (
     <section className={styles.infoWrap}>
       <h3 className="sr-only_Title">회원 정보</h3>
@@ -186,17 +198,19 @@ const MyInfo = ({
         </div>
         <div className={styles.btnCont}>
           <ChannelBtn
-            mode="subscribe"
+            mode="default"
             onClick={isEdit ? handleUpdate : handleEditMode}
           >
             {editLoading && <ClipLoader color="#000" loading size={10} />}
             {isEdit ? '수정하기' : '정보 수정'}
           </ChannelBtn>
-          {isEdit && (
-            <ChannelBtn mode="subscribe" onClick={handleCancel}>
-              취소
-            </ChannelBtn>
-          )}
+
+          <ChannelBtn
+            mode="negative"
+            onClick={isEdit ? handleCancel : handleWithdrawal}
+          >
+            {isEdit ? '취소' : '회원탈퇴'}
+          </ChannelBtn>
         </div>
       </div>
 
