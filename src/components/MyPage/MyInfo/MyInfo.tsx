@@ -147,7 +147,7 @@ const MyInfo = ({
         </div>
         <div className={styles.textInfo}>
           {isEdit ? (
-            <label aria-label="닉네임 변경 인풋">
+            <label aria-label="닉네임 변경 인풋" className={styles.editInput}>
               <input
                 type="text"
                 value={displayName}
@@ -168,7 +168,7 @@ const MyInfo = ({
             </span>
           </div>
           {isEdit ? (
-            <label aria-label="자기소개 변경 인풋">
+            <label aria-label="자기소개 변경 인풋" className={styles.editInput}>
               <input
                 type="text"
                 value={introduce}
