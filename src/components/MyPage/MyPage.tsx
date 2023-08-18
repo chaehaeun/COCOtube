@@ -1,5 +1,5 @@
 import { Suspense, lazy, useCallback, useState } from 'react'
-import { MyHeader, InfoLoadingSkeleton, Modal } from '@/components'
+import { MyHeader, InfoLoadingSkeleton, Modal, ChannelRoot } from '@/components'
 import styles from './MyPage.module.scss'
 import { useAuth, useModal } from '@/hooks'
 import { dbService, storageService } from '@/firebase-config'
@@ -12,9 +12,6 @@ import { useSetRecoilState } from 'recoil'
 const LazyMyInfo = lazy(() => import('@/components/MyPage/MyInfo/MyInfo'))
 const LazyChannelNav = lazy(
   () => import('@/components/Channel/ChannelNav/ChannelNav'),
-)
-const LazyOutlet = lazy(() =>
-  import('react-router-dom').then(module => ({ default: module.Outlet })),
 )
 
 interface MyPageProps {
@@ -40,6 +37,8 @@ const MyPageComponent = ({ type }: MyPageProps) => {
     introduce: userInfo?.introduce,
     bannerImg: userInfo?.banner,
   }
+
+  console.log(user)
 
   const updateDisplayName = async (newDisplayName: string) => {
     try {
@@ -143,9 +142,7 @@ const MyPageComponent = ({ type }: MyPageProps) => {
         />
       </Suspense>
       <LazyChannelNav type={type} />
-      <div className={styles.outletWrap}>
-        <LazyOutlet />
-      </div>
+      <ChannelRoot />
       {showModal && <Modal onClose={closeModal}>{content}</Modal>}
     </div>
   )

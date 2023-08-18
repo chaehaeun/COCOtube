@@ -9,6 +9,7 @@ const PlayList = lazy(() => import('@/pages/MyPage/PlayList'))
 const Search = lazy(() => import('@/pages/Search'))
 const SignIn = lazy(() => import('@/pages/AuthPages/SignIn'))
 const SignUp = lazy(() => import('@/pages/AuthPages/SignUp'))
+const MyPageInfo = lazy(() => import('@/pages/MyPage/MyPageInfo'))
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <PlayList />,
+          },
+          {
+            path: 'info',
+            element: <MyPageInfo />,
           },
         ],
       },

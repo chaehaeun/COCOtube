@@ -69,7 +69,7 @@ const ChannelNav = ({ type }: ChannelNavProps) => {
       </li>
       <li>
         <NavLink
-          to="/"
+          to="/mypage/info"
           end
           className={({ isActive }) => (isActive ? styles.active : '')}
         >
