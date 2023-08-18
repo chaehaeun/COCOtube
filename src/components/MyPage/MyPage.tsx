@@ -151,7 +151,6 @@ const MyPageComponent = ({ type }: MyPageProps) => {
       />
       <Suspense fallback={<InfoLoadingSkeleton />}>
         <LazyMyInfo
-          type={type}
           userData={userData}
           handleEditMode={handleEditMode}
           isEdit={isEdit}

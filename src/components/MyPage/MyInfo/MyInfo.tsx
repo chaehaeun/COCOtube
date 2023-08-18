@@ -7,7 +7,6 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import { ChangeEvent, useEffect, useState } from 'react'
 
 interface MyInfoInfoProps {
-  type: 'myPage' | 'channel'
   userData?: {
     displayName: string | null | undefined
     email: string | null | undefined
@@ -21,7 +20,6 @@ interface MyInfoInfoProps {
 }
 
 const MyInfo = ({
-  type,
   userData,
   onClick,
   handleEditMode,
@@ -33,14 +31,14 @@ const MyInfo = ({
     startLoading: startEditLoading,
     stopLoading: stopEditLoading,
   } = useLoading()
-  const [initialData, setInintialData] = useState(userData)
+  const [initialData, setInitialData] = useState(userData)
   const [displayName, setDisplayName] = useState(userData?.displayName || '')
   const [introduce, setIntroduce] = useState(userData?.introduce || '')
   const [imageUrl, setImageUrl] = useState(userData?.photoURL || '')
   const { showModal, content, openModal, closeModal } = useModal()
 
   useEffect(() => {
-    setInintialData(userData)
+    setInitialData(userData)
     setDisplayName(userData?.displayName || '')
     setIntroduce(userData?.introduce || '')
   }, [userData?.photoURL, userData?.displayName, userData?.introduce])
@@ -77,11 +75,11 @@ const MyInfo = ({
       return <span className={styles.introSkeleton} />
     }
 
-    if (userData.introduce !== '') {
-      return <span>{userData.introduce}</span>
-    }
-
-    return <span>자기 소개가 없습니다.</span>
+    return userData.introduce !== '' ? (
+      <span>{userData.introduce}</span>
+    ) : (
+      <span>자기 소개가 없습니다.</span>
+    )
   }
 
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -127,9 +125,7 @@ const MyInfo = ({
 
   return (
     <section className={styles.infoWrap}>
-      <h3 className="sr-only_Title">
-        {type === 'channel' ? '채널 정보' : '사용자 정보'}
-      </h3>
+      <h3 className="sr-only_Title">회원 정보</h3>
       <div className={styles.info}>
         <div className={styles.thumb}>
           {isEdit ? (
