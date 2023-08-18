@@ -1,7 +1,7 @@
-import React, { Suspense, lazy, useCallback, useState } from 'react'
-import { MyHeader, InfoLoadingSkeleton } from '@/components'
+import { Suspense, lazy, useCallback, useState } from 'react'
+import { MyHeader, InfoLoadingSkeleton, Modal } from '@/components'
 import styles from './MyPage.module.scss'
-import { useAuth } from '@/hooks'
+import { useAuth, useModal } from '@/hooks'
 import { dbService, storageService } from '@/firebase-config'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { doc, updateDoc } from 'firebase/firestore'
@@ -16,7 +16,6 @@ const LazyChannelNav = lazy(
 const LazyOutlet = lazy(() =>
   import('react-router-dom').then(module => ({ default: module.Outlet })),
 )
-const MemoizedLazyMyInfo = React.memo(LazyMyInfo)
 
 interface MyPageProps {
   type: 'myPage' | 'channel'
@@ -24,6 +23,7 @@ interface MyPageProps {
 
 const MyPageComponent = ({ type }: MyPageProps) => {
   const { user, userInfo, updateUserInfo } = useAuth()
+  const { showModal, openModal, content, closeModal } = useModal()
   const [isEdit, setIsEdit] = useState(false)
   const [update, setUpdate] = useState({
     introduce: '',
@@ -39,6 +39,34 @@ const MyPageComponent = ({ type }: MyPageProps) => {
     photoURL: user?.photoURL,
     introduce: userInfo?.introduce,
     bannerImg: userInfo?.banner,
+  }
+
+  const updateDisplayName = async (newDisplayName: string) => {
+    try {
+      if (!user) return
+
+      await updateProfile(user, {
+        displayName: newDisplayName,
+      })
+      updateUserInfo({ ...userInfo, displayName: newDisplayName })
+    } catch (error) {
+      console.error('Error updating display name:', error)
+    }
+  }
+
+  const updateIntroduce = async (newIntroduce: string) => {
+    try {
+      if (!user) return
+      const userDocRef = doc(dbService, 'userInfo', user.uid)
+      await updateDoc(userDocRef, {
+        introduce: newIntroduce,
+      })
+
+      updateUserInfo({ ...userInfo, introduce: newIntroduce })
+    } catch (error) {
+      console.error('Error updating introduce:', error)
+      throw error
+    }
   }
 
   const updateBannerImage = async (bannerDataUrl: string) => {
@@ -82,27 +110,33 @@ const MyPageComponent = ({ type }: MyPageProps) => {
 
   const handleSubmit = useCallback(async () => {
     try {
+      if (update.displayName) {
+        await updateDisplayName(update.displayName)
+      }
       if (update.banner) {
         await updateBannerImage(update.banner)
       }
-
       if (update.photoURL) {
         await updateProfileImage(update.photoURL)
       }
+      await updateIntroduce(update.introduce)
     } catch {
-      console.log('error')
+      openModal('프로필을 수정하는데 실패했습니다.')
     } finally {
       setIsEdit(false)
     }
-  }, [update, user, userInfo, updateUserInfo])
+  }, [update, user, userInfo, updateUserInfo, openModal])
 
   const handleImg = useCallback((banner: string) => {
     setUpdate(prev => ({ ...prev, banner }))
   }, [])
 
-  const handleInfo = useCallback((data: Record<string, string>) => {
-    setUpdate(prev => ({ ...prev, ...data }))
-  }, [])
+  const handleInfo = useCallback(
+    (data: Record<string, string>) => {
+      setUpdate(prev => ({ ...prev, ...data }))
+    },
+    [update.banner, update.displayName, update.introduce, update.photoURL],
+  )
 
   const handleEditMode = useCallback(() => {
     setIsEdit(prev => !prev)
@@ -116,7 +150,7 @@ const MyPageComponent = ({ type }: MyPageProps) => {
         onChange={handleImg}
       />
       <Suspense fallback={<InfoLoadingSkeleton />}>
-        <MemoizedLazyMyInfo
+        <LazyMyInfo
           type={type}
           userData={userData}
           handleEditMode={handleEditMode}
@@ -129,6 +163,7 @@ const MyPageComponent = ({ type }: MyPageProps) => {
       <div className={styles.outletWrap}>
         <LazyOutlet />
       </div>
+      {showModal && <Modal onClose={closeModal}>{content}</Modal>}
     </div>
   )
 }
