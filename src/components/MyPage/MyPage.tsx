@@ -44,10 +44,7 @@ const MyPageComponent = ({ type }: MyPageProps) => {
   const updateDisplayName = async (newDisplayName: string) => {
     try {
       if (!user) return
-
-      await updateProfile(user, {
-        displayName: newDisplayName,
-      })
+      await updateProfile(user, { displayName: newDisplayName })
       updateUserInfo({ ...userInfo, displayName: newDisplayName })
     } catch (error) {
       console.error('Error updating display name:', error)
@@ -61,7 +58,6 @@ const MyPageComponent = ({ type }: MyPageProps) => {
       await updateDoc(userDocRef, {
         introduce: newIntroduce,
       })
-
       updateUserInfo({ ...userInfo, introduce: newIntroduce })
     } catch (error) {
       console.error('Error updating introduce:', error)
@@ -75,7 +71,6 @@ const MyPageComponent = ({ type }: MyPageProps) => {
       const bannerImageRef = ref(storageService, `banner_images/${user.uid}`)
       await uploadString(bannerImageRef, bannerDataUrl, 'data_url')
       const bannerUrl = await getDownloadURL(bannerImageRef)
-
       const userDocRef = doc(dbService, 'userInfo', user.uid)
       await updateDoc(userDocRef, {
         banner: bannerUrl,
@@ -90,14 +85,9 @@ const MyPageComponent = ({ type }: MyPageProps) => {
   const updateProfileImage = async (photoURL: string) => {
     try {
       if (!user) return
-
-      // 업로드할 이미지 파일을 data URL로 변환
       const storageRef = ref(storageService, `profile_images/${user.uid}`)
       await uploadString(storageRef, photoURL, 'data_url')
-
-      // 업로드한 이미지의 다운로드 URL을 가져옴
       const imageUrl = await getDownloadURL(storageRef)
-
       await updateProfile(user, {
         photoURL: imageUrl,
       })
@@ -110,15 +100,9 @@ const MyPageComponent = ({ type }: MyPageProps) => {
 
   const handleSubmit = useCallback(async () => {
     try {
-      if (update.displayName) {
-        await updateDisplayName(update.displayName)
-      }
-      if (update.banner) {
-        await updateBannerImage(update.banner)
-      }
-      if (update.photoURL) {
-        await updateProfileImage(update.photoURL)
-      }
+      if (update.displayName) await updateDisplayName(update.displayName)
+      if (update.banner) await updateBannerImage(update.banner)
+      if (update.photoURL) await updateProfileImage(update.photoURL)
       await updateIntroduce(update.introduce)
     } catch {
       openModal('프로필을 수정하는데 실패했습니다.')
