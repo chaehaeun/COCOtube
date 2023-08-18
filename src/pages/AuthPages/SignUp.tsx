@@ -1,6 +1,6 @@
 import { AuthButton, AuthInput, Modal, UploadImg } from '@/components'
 import styles from './AuthPage.module.scss'
-import { useLoading, useModal } from '@/hooks'
+import { useAuth, useLoading, useModal } from '@/hooks'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { authService, storageService, dbService } from '@/firebase-config'
@@ -8,9 +8,11 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
 import ClipLoader from 'react-spinners/ClipLoader'
+import { useEffect } from 'react'
 
 const SignUp = () => {
   const navigate = useNavigate()
+  const { user, isAuthChecked } = useAuth()
   const { showModal, content, closeModal, openModal } = useModal()
   const { isLoading, startLoading, stopLoading } = useLoading()
   const {
@@ -21,6 +23,12 @@ const SignUp = () => {
   } = useForm({
     mode: 'onChange',
   })
+
+  useEffect(() => {
+    if (isAuthChecked && user) {
+      openModal('이미 로그인 된 상태입니다.', () => navigate('/'))
+    }
+  }, [user, isAuthChecked])
 
   const emailRegister = register('email', {
     required: true,
