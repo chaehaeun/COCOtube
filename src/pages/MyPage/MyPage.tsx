@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { isAuthCheckedAtom, userUidAtom } from '@/store'
 import { useRecoilState } from 'recoil'
 
-const LazyMyPage = lazy(() => import('@/components/MyPage/MyPage'))
+const LazyMyPage = lazy(() => import('@/components/MyPage/MyPageComponent'))
 
 const MyPage = () => {
   const [userUid] = useRecoilState(userUidAtom)

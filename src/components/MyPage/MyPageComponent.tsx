@@ -1,6 +1,6 @@
 import { Suspense, lazy, useCallback, useState } from 'react'
 import { MyHeader, InfoLoadingSkeleton, Modal, ChannelRoot } from '@/components'
-import styles from './MyPage.module.scss'
+import styles from './MyPageComponent.module.scss'
 import { useAuth, useModal } from '@/hooks'
 import { dbService, storageService } from '@/firebase-config'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
