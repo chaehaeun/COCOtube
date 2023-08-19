@@ -1,22 +1,24 @@
 // import { MyPageComponent } from '@/components'
 import { Modal } from '@/components'
-import { useAuth, useModal } from '@/hooks'
+import { useModal } from '@/hooks'
 import { lazy, Suspense, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { isAuthCheckedAtom, userUidAtom } from '@/store'
+import { useRecoilState } from 'recoil'
 
 const LazyMyPage = lazy(() => import('@/components/MyPage/MyPage'))
 
 const MyPage = () => {
-  const { user, isAuthChecked } = useAuth()
+  const [userUid] = useRecoilState(userUidAtom)
+  const [isAuthChecked] = useRecoilState(isAuthCheckedAtom)
   const { showModal, content, openModal, closeModal } = useModal()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isAuthChecked && !user) {
-      // 로그인 상태가 체크되었고 로그인되어 있지 않다면 모달 표시
+    if (!isAuthChecked && !userUid) {
       openModal('로그인이 필요한 페이지입니다.', () => navigate('/signin'))
     }
-  }, [user, isAuthChecked])
+  }, [userUid, isAuthChecked])
 
   return (
     <>

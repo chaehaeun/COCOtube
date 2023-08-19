@@ -1,6 +1,6 @@
 import { AuthButton, AuthInput, Modal, UploadImg } from '@/components'
 import styles from './AuthPage.module.scss'
-import { useAuth, useLoading, useModal } from '@/hooks'
+import { useLoading, useModal } from '@/hooks'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { authService, storageService, dbService } from '@/firebase-config'
@@ -9,12 +9,15 @@ import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
 import ClipLoader from 'react-spinners/ClipLoader'
 import { useEffect } from 'react'
+import { isAuthCheckedAtom, userUidAtom } from '@/store'
+import { useRecoilState } from 'recoil'
 
 const SignUp = () => {
   const navigate = useNavigate()
-  const { user, isAuthChecked } = useAuth()
   const { showModal, content, closeModal, openModal } = useModal()
   const { isLoading, startLoading, stopLoading } = useLoading()
+  const [userUid] = useRecoilState(userUidAtom)
+  const [isAuthChecked] = useRecoilState(isAuthCheckedAtom)
   const {
     register,
     handleSubmit,
@@ -25,10 +28,10 @@ const SignUp = () => {
   })
 
   useEffect(() => {
-    if (isAuthChecked && user) {
+    if (isAuthChecked && userUid) {
       openModal('이미 로그인 된 상태입니다.', () => navigate('/'))
     }
-  }, [user, isAuthChecked])
+  }, [userUid, isAuthChecked])
 
   const emailRegister = register('email', {
     required: true,

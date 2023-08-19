@@ -28,3 +28,8 @@ export const userLoadingAtom = atom({
   key: 'userLoadingState',
   default: true,
 })
+
+export const isAuthCheckedAtom = atom({
+  key: 'isAuthCheckedState',
+  default: false,
+})

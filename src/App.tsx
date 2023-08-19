@@ -1,8 +1,13 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Suspense, lazy, useEffect } from 'react'
 import { Root, NotFound, AuthRoot } from '@/pages'
-import { userUidAtom, userDataAtom, userLoadingAtom } from '@/store'
-import { useSetRecoilState } from 'recoil'
+import {
+  userUidAtom,
+  userDataAtom,
+  userLoadingAtom,
+  isAuthCheckedAtom,
+} from '@/store'
+import { useSetRecoilState, useRecoilState } from 'recoil'
 import { onAuthStateChanged } from 'firebase/auth'
 import { authService, dbService } from '@/firebase-config'
 import { doc, getDoc } from 'firebase/firestore'
@@ -60,16 +65,18 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  const setUserUid = useSetRecoilState(userUidAtom)
+  const [userUid, setUserUid] = useRecoilState(userUidAtom)
   const setUserInfo = useSetRecoilState(userDataAtom)
   const setUserLoading = useSetRecoilState(userLoadingAtom)
+  const setIsAuthChecked = useSetRecoilState(isAuthCheckedAtom)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(authService, async authUser => {
       if (authUser) {
+        setUserUid(authUser.uid)
+        setIsAuthChecked(true)
         try {
           setUserLoading(true)
-          setUserUid(authUser.uid)
           const userInfoRef = doc(dbService, 'userInfo', authUser.uid)
           const userInfoSnap = await getDoc(userInfoRef)
           if (userInfoSnap.exists()) {
@@ -95,7 +102,7 @@ function App() {
     })
 
     return () => unsubscribe()
-  }, [])
+  }, [userUid])
 
   return (
     <Suspense>
