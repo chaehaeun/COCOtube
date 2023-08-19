@@ -89,6 +89,8 @@ function App() {
         } finally {
           setUserLoading(false)
         }
+      } else {
+        setUserLoading(false)
       }
     })
 

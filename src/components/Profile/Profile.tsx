@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom'
-import MoonLoader from 'react-spinners/ClipLoader'
 import styles from './Profile.module.scss'
 import { userDataAtom, userLoadingAtom, userUidAtom } from '@/store'
 import { useRecoilState } from 'recoil'
@@ -13,7 +12,8 @@ const Profile = () => {
   return (
     <>
       {userLoading ? (
-        <MoonLoader color="#4e1ac3" size={40} />
+        // <MoonLoader color="#4e1ac3" size={40} />
+        <div className={styles.skeleton} />
       ) : userUid ? (
         <button
           aria-label="프로필"
