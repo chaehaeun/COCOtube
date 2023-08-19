@@ -9,7 +9,6 @@ const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
   const [isAuthChecked, setIsAuthChecked] = useState<boolean>(false)
   const setPhotoURL = useSetRecoilState(photoURLAtom)
-
   // any는 나중에 데이터 양식이 확정 되면 수정하는 걸로
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [userInfo, setUserInfo] = useState<Record<string, any> | null>(null)

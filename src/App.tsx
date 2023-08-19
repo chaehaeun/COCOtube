@@ -1,7 +1,11 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Suspense, lazy } from 'react'
-
+import { Suspense, lazy, useEffect } from 'react'
 import { Root, NotFound, AuthRoot } from '@/pages'
+import { userUidAtom, userDataAtom, userLoadingAtom } from '@/store'
+import { useSetRecoilState } from 'recoil'
+import { onAuthStateChanged } from 'firebase/auth'
+import { authService, dbService } from '@/firebase-config'
+import { doc, getDoc } from 'firebase/firestore'
 
 const Home = lazy(() => import('@/pages/Home/Home'))
 const MyPage = lazy(() => import('@/pages/MyPage/MyPage'))
@@ -56,6 +60,41 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+  const setUserUid = useSetRecoilState(userUidAtom)
+  const setUserInfo = useSetRecoilState(userDataAtom)
+  const setUserLoading = useSetRecoilState(userLoadingAtom)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(authService, async authUser => {
+      if (authUser) {
+        try {
+          setUserLoading(true)
+          setUserUid(authUser.uid)
+          const userInfoRef = doc(dbService, 'userInfo', authUser.uid)
+          const userInfoSnap = await getDoc(userInfoRef)
+          if (userInfoSnap.exists()) {
+            const userInfoData = userInfoSnap.data()
+            setUserInfo({
+              displayName: authUser.displayName,
+              photoURL: authUser.photoURL,
+              email: authUser.email,
+              introduce: userInfoData.introduce,
+              bannerImg: userInfoData.banner,
+            })
+          } else {
+            console.error('No such document!')
+          }
+        } catch (error) {
+          console.error('Error fetching user info:', error)
+        } finally {
+          setUserLoading(false)
+        }
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
+
   return (
     <Suspense>
       <RouterProvider router={router} />
