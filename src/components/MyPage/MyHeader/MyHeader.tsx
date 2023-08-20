@@ -11,11 +11,9 @@ interface ChannelHeaderProps {
 
 const MyHeader = ({ isEdit, handleBanner }: ChannelHeaderProps) => {
   const [userDataState] = useRecoilState(userDataAtom)
-  // const [selectedImage, setSelectedImage] = useState<File | null>(null)
   const [imageUrl, setImageUrl] = useState<string | undefined>(
     userDataState.bannerImg || '',
   )
-  // const [imageLoaded, setImageLoaded] = useState<boolean>(false)
 
   useEffect(() => {
     setImageUrl(userDataState.bannerImg || '')
