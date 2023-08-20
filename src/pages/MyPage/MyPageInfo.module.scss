@@ -1,0 +1,61 @@
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  > ul {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    li {
+      padding: 20px 0;
+      border-bottom: 1px solid $--border-color;
+      span {
+        display: block;
+        font-size: $--text-lg;
+        font-weight: 500;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  > div {
+    width: 300px;
+    flex-shrink: 0;
+    > span {
+      display: block;
+      font-size: $--text-lg;
+      font-weight: 500;
+      padding: 20px 0;
+      border-bottom: 1px solid $--border-color;
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      li {
+        padding: 20px 0;
+        border-bottom: 1px solid $--border-color;
+        span {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+
+.introSkeleton {
+  display: block;
+  border-radius: 50px;
+  width: 200px;
+  height: 16px;
+  @include pulse-animation();
+}
+
+@media screen and (max-width: 768px) {
+  .wrap {
+    flex-direction: column;
+    gap: 0;
+
+    > div {
+      width: 100%;
+    }
+  }
+}

@@ -6,7 +6,7 @@ import { useAuth, useLoading, useModal } from '@/hooks'
 import ClipLoader from 'react-spinners/ClipLoader'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { deleteUser } from 'firebase/auth'
-import { userDataAtom, userUidAtom } from '@/store'
+import { userDataAtom, userUidAtom, userLoadingAtom } from '@/store'
 import { useRecoilState } from 'recoil'
 import {
   updateIntroduce,
@@ -29,6 +29,7 @@ const MyInfo = ({ handleEditMode, isEdit, bannerURL }: MyInfoInfoProps) => {
   } = useLoading()
   const { user } = useAuth()
   const [userDataState, setUserDataState] = useRecoilState(userDataAtom)
+  const [userLoadingState] = useRecoilState(userLoadingAtom)
   const [userUid] = useRecoilState(userUidAtom)
   const [initialData, setInitialData] = useState(userDataState)
   const [displayName, setDisplayName] = useState(
@@ -77,7 +78,7 @@ const MyInfo = ({ handleEditMode, isEdit, bannerURL }: MyInfoInfoProps) => {
   }
 
   const renderIntroContent = () => {
-    if (userDataState?.introduce === undefined) {
+    if (userLoadingState) {
       return <span className={styles.introSkeleton} />
     }
 
