@@ -38,13 +38,13 @@ const MyHeader = ({ isEdit, handleBanner }: ChannelHeaderProps) => {
 
   const renderBanner = () => {
     if (!userDataState?.bannerImg) {
-      return <div className={styles.thumbSkeleton} />
+      return <div className={styles.bannerSkeleton} />
     }
 
     return (
       <img
         src={isEdit ? imageUrl : userDataState.bannerImg}
-        alt={`${userDataState.displayName} 프로필 사진`}
+        alt={`${userDataState.displayName} 배너 사진`}
         loading="lazy"
       />
     )
@@ -52,7 +52,7 @@ const MyHeader = ({ isEdit, handleBanner }: ChannelHeaderProps) => {
 
   return (
     <div>
-      <h3 className="sr-only_Title">마이페이지 헤더</h3>
+      <h3 className="sr-only_Title">마이페이지 배너</h3>
       <div className={styles.headerImgWrap}>
         {isEdit ? (
           <>
