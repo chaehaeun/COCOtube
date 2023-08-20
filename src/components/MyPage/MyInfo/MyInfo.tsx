@@ -108,19 +108,30 @@ const MyInfo = ({ handleEditMode, isEdit, bannerURL }: MyInfoInfoProps) => {
       if (user) {
         await updateIntroduce(introduce, userUid)
         await updateDisplayName(displayName, userUid, user)
-        await updateBannerImage(bannerURL, userUid)
 
         if (imageUrl !== initialData?.photoURL) {
           await updateProfileImage(imageUrl, userUid, user)
         }
+        if (bannerURL.includes('data:')) {
+          await updateBannerImage(bannerURL, userUid)
+        }
 
-        setUserDataState(prev => ({
-          ...prev,
-          bannerImg: bannerURL,
-          introduce,
-          displayName,
-          photoURL: imageUrl,
-        }))
+        if (bannerURL) {
+          setUserDataState(prev => ({
+            ...prev,
+            bannerImg: bannerURL,
+            introduce,
+            displayName,
+            photoURL: imageUrl,
+          }))
+        } else {
+          setUserDataState(prev => ({
+            ...prev,
+            introduce,
+            displayName,
+            photoURL: imageUrl,
+          }))
+        }
       }
     } catch {
       openModal('회원 정보 수정에 실패했습니다.')

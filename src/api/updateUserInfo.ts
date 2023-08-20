@@ -38,7 +38,6 @@ export const updateBannerImage = async (
 ) => {
   try {
     if (!userUid) return
-
     const bannerImageRef = ref(storageService, `banner_images/${userUid}`)
     await uploadString(bannerImageRef, bannerDataUrl, 'data_url')
     const bannerUrl = await getDownloadURL(bannerImageRef)
