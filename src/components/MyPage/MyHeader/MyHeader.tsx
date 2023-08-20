@@ -43,7 +43,6 @@ const MyHeader = ({ isEdit, handleBanner }: ChannelHeaderProps) => {
       <img
         src={isEdit ? imageUrl : userDataState.bannerImg}
         alt={`${userDataState.displayName} 배너 사진`}
-        loading="lazy"
       />
     )
   }
