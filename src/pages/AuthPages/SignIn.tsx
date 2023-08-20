@@ -6,11 +6,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import { authService } from '@/firebase-config'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { ClipLoader } from 'react-spinners'
+import { useEffect } from 'react'
+import { isAuthCheckedAtom, userUidAtom } from '@/store'
+import { useRecoilState } from 'recoil'
 
 const SignIn = () => {
   const navigate = useNavigate()
   const { showModal, content, closeModal, openModal } = useModal()
   const { isLoading, startLoading, stopLoading } = useLoading()
+  const [userUid] = useRecoilState(userUidAtom)
+  const [isAuthChecked] = useRecoilState(isAuthCheckedAtom)
   const {
     register,
     handleSubmit,
@@ -18,6 +23,12 @@ const SignIn = () => {
   } = useForm({
     mode: 'onChange',
   })
+
+  useEffect(() => {
+    if (isAuthChecked && userUid) {
+      openModal('이미 로그인 된 상태입니다.', () => navigate('/'))
+    }
+  }, [userUid, isAuthChecked])
 
   const emailRegister = register('email', {
     required: true,

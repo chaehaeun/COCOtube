@@ -71,7 +71,6 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
             <li>
               <NavLink
                 to="mypage"
-                end
                 className={({ isActive }) => (isActive ? styles.active : '')}
               >
                 {({ isActive }) => {

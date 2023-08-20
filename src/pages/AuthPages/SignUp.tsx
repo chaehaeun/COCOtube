@@ -8,11 +8,16 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
 import ClipLoader from 'react-spinners/ClipLoader'
+import { useEffect } from 'react'
+import { isAuthCheckedAtom, userUidAtom } from '@/store'
+import { useRecoilState } from 'recoil'
 
 const SignUp = () => {
   const navigate = useNavigate()
   const { showModal, content, closeModal, openModal } = useModal()
   const { isLoading, startLoading, stopLoading } = useLoading()
+  const [userUid] = useRecoilState(userUidAtom)
+  const [isAuthChecked] = useRecoilState(isAuthCheckedAtom)
   const {
     register,
     handleSubmit,
@@ -21,6 +26,12 @@ const SignUp = () => {
   } = useForm({
     mode: 'onChange',
   })
+
+  useEffect(() => {
+    if (isAuthChecked && userUid) {
+      openModal('이미 로그인 된 상태입니다.', () => navigate('/'))
+    }
+  }, [userUid, isAuthChecked])
 
   const emailRegister = register('email', {
     required: true,

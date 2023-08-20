@@ -2,7 +2,7 @@ import styles from './ChannelBtn.module.scss'
 
 interface ChannelBtnProps {
   children: React.ReactNode
-  mode: 'cancle' | 'edit' | 'subscribe' | 'subscribed' | 'submit'
+  mode: 'default' | 'subscribe' | 'subscribed' | 'negative'
   onClick: () => void
 }
 
@@ -10,8 +10,8 @@ let className = ''
 
 const ChannelBtn = ({ mode, onClick, children }: ChannelBtnProps) => {
   switch (mode) {
-    case 'cancle':
-      className = `${styles.btn} ${styles.cancle}`
+    case 'negative':
+      className = `${styles.btn} ${styles.negative}`
       break
     default:
       className = `${styles.btn}`

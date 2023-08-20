@@ -5,4 +5,10 @@
   flex-shrink: 0;
   @include alienCenter(10px);
   @include hoverColorTransition($--bg-color-gray, $--bg-color-gray-hover);
+  &.negative {
+    @include hoverColorTransition($--bg-color-gray, $--bg-color-negative);
+    &:hover {
+      color: #fff;
+    }
+  }
 }
