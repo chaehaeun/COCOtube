@@ -1,45 +1,53 @@
 import { useState, useEffect } from 'react'
 import styles from './MyHeader.module.scss'
+import { userDataAtom } from '@/store'
+import { useRecoilState } from 'recoil'
 
 interface ChannelHeaderProps {
   bannerImg?: string
   isEdit?: boolean
-  onChange: (url: string) => void
+  handleBanner: (url: string) => void
 }
 
-const MyHeader = ({ bannerImg, isEdit, onChange }: ChannelHeaderProps) => {
-  const [selectedImage, setSelectedImage] = useState<File | null>(null)
-  const [imageUrl, setImageUrl] = useState<string | undefined>(bannerImg)
-  const [imageLoaded, setImageLoaded] = useState<boolean>(false)
+const MyHeader = ({ isEdit, handleBanner }: ChannelHeaderProps) => {
+  const [userDataState] = useRecoilState(userDataAtom)
+  // const [selectedImage, setSelectedImage] = useState<File | null>(null)
+  const [imageUrl, setImageUrl] = useState<string | undefined>(
+    userDataState.bannerImg || '',
+  )
+  // const [imageLoaded, setImageLoaded] = useState<boolean>(false)
 
   useEffect(() => {
-    if (imageUrl) {
-      const img = new Image()
-      img.onload = () => {
-        setImageLoaded(true)
-      }
-      img.src = imageUrl
-    }
+    setImageUrl(userDataState.bannerImg || '')
+  }, [userDataState?.bannerImg])
 
-    if (!isEdit) {
-      onChange('')
-      setSelectedImage(null)
-      setImageUrl(bannerImg)
-    }
-  }, [imageUrl, isEdit])
-
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const imageFile = e.target.files?.[0]
-    if (imageFile) {
-      setSelectedImage(imageFile)
+  const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedImageFile = e.target.files?.[0]
+    if (selectedImageFile) {
       const reader = new FileReader()
       reader.onload = event => {
         const dataUrl = event.target?.result as string
         setImageUrl(dataUrl)
-        onChange(dataUrl)
+        handleBanner(dataUrl)
       }
-      reader.readAsDataURL(imageFile)
+      reader.readAsDataURL(selectedImageFile)
+    } else {
+      console.error('데이터 URL 형식이 유효하지 않습니다.')
     }
+  }
+
+  const renderBanner = () => {
+    if (!userDataState?.bannerImg) {
+      return <div className={styles.thumbSkeleton} />
+    }
+
+    return (
+      <img
+        src={isEdit ? imageUrl : userDataState.bannerImg}
+        alt={`${userDataState.displayName} 프로필 사진`}
+        loading="lazy"
+      />
+    )
   }
 
   return (
@@ -55,20 +63,14 @@ const MyHeader = ({ bannerImg, isEdit, onChange }: ChannelHeaderProps) => {
               <input
                 type="file"
                 accept="image/*"
-                onChange={handleImageSelect}
+                onChange={handleBannerChange}
               />
 
-              {selectedImage || imageLoaded ? (
-                <img src={imageUrl} alt="배너 이미지 미리보기" loading="lazy" />
-              ) : (
-                <div className={styles.bannerSkeleton} />
-              )}
+              {imageUrl && <img src={imageUrl} alt="배너 이미지 미리보기" />}
             </label>
           </>
-        ) : bannerImg ? (
-          <img src={bannerImg} alt="배너 이미지" />
         ) : (
-          <div className={styles.bannerSkeleton} />
+          renderBanner()
         )}
       </div>
     </div>
