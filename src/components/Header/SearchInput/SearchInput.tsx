@@ -4,6 +4,7 @@ import styles from './SearchInput.module.scss'
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition'
+import { useNavigate } from 'react-router-dom'
 
 interface SearchInputProps {
   isShow: boolean
@@ -13,6 +14,7 @@ interface SearchInputProps {
 const SearchInput = ({ isShow, setIsShow }: SearchInputProps) => {
   const [searchText, setSearchText] = useState('')
   const [isListening, setIsListening] = useState(false)
+  const navigate = useNavigate()
   const { transcript, browserSupportsSpeechRecognition } =
     useSpeechRecognition()
 
@@ -30,12 +32,17 @@ const SearchInput = ({ isShow, setIsShow }: SearchInputProps) => {
     setIsListening(prevState => !prevState)
   }
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    navigate(`/${searchText}`)
+  }
+
   const formClass = isShow
     ? `${styles.searchForm} ${styles.show}`
     : `${styles.searchForm}`
 
   return (
-    <form className={formClass}>
+    <form className={formClass} onSubmit={handleSubmit}>
       <button
         type="button"
         onClick={() => setIsShow(false)}

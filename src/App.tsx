@@ -15,7 +15,7 @@ import { doc, getDoc } from 'firebase/firestore'
 const Home = lazy(() => import('@/pages/Home/Home'))
 const MyPage = lazy(() => import('@/pages/MyPage/MyPage'))
 const PlayList = lazy(() => import('@/pages/MyPage/PlayList'))
-const Search = lazy(() => import('@/pages/Search'))
+const Search = lazy(() => import('@/pages/Search/Search'))
 const SignIn = lazy(() => import('@/pages/AuthPages/SignIn'))
 const SignUp = lazy(() => import('@/pages/AuthPages/SignUp'))
 const MyPageInfo = lazy(() => import('@/pages/MyPage/MyPageInfo'))
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         element: <PlayList />,
       },
       {
-        path: 'search',
+        path: '/:searchKeyword',
         element: <Search />,
       },
     ],
