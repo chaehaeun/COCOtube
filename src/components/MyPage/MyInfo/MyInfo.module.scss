@@ -38,6 +38,7 @@
       font-weight: 500;
     }
     .intro {
+      display: flex;
       margin-top: 10px;
       font-size: $--text-md;
       color: $--text-color-gray;

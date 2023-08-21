@@ -215,7 +215,7 @@ const MyInfo = ({ handleEditMode, isEdit, bannerURL }: MyInfoInfoProps) => {
             </label>
           ) : (
             <p className={styles.intro}>
-              <Link to="/mypage">
+              <Link to="info">
                 {renderIntroContent()}
                 <span className={styles.next} />
               </Link>
