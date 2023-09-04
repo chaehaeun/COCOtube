@@ -1,19 +1,19 @@
-import { ChannelBtn, Modal } from '@/components'
-import styles from './MyInfo.module.scss'
-import { Link } from 'react-router-dom'
-import 'react-loading-skeleton/dist/skeleton.css'
-import { useAuth, useLoading, useModal } from '@/hooks'
-import ClipLoader from 'react-spinners/ClipLoader'
-import { ChangeEvent, useEffect, useState } from 'react'
-import { deleteUser } from 'firebase/auth'
-import { userDataAtom, userUidAtom, userLoadingAtom } from '@/store'
-import { useRecoilState } from 'recoil'
 import {
+  updateBannerImage,
+  updateDisplayName,
   updateIntroduce,
   updateProfileImage,
-  updateDisplayName,
-  updateBannerImage,
 } from '@/api'
+import { ChannelBtn, Modal } from '@/components'
+import { useAuth, useLoading, useModal } from '@/hooks'
+import { userDataAtom, userLoadingAtom, userUidAtom } from '@/store'
+import { deleteUser } from 'firebase/auth'
+import { ChangeEvent, useEffect, useState } from 'react'
+import 'react-loading-skeleton/dist/skeleton.css'
+import { Link } from 'react-router-dom'
+import ClipLoader from 'react-spinners/ClipLoader'
+import { useRecoilState } from 'recoil'
+import styles from './MyInfo.module.scss'
 
 interface MyInfoInfoProps {
   handleEditMode: () => void
@@ -153,6 +153,7 @@ const MyInfo = ({ handleEditMode, isEdit, bannerURL }: MyInfoInfoProps) => {
     try {
       if (user) {
         await deleteUser(user)
+        window.location.reload()
       }
     } catch {
       openModal('회원 탈퇴에 실패했습니다.')
