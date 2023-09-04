@@ -33,3 +33,8 @@ export const isAuthCheckedAtom = atom({
   key: 'isAuthCheckedState',
   default: false,
 })
+
+export const isSocialLoginAtom = atom({
+  key: 'isSocialLoginState',
+  default: false,
+})

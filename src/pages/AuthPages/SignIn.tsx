@@ -1,14 +1,14 @@
 import { AuthButton, AuthInput, Modal, SocialButton } from '@/components'
-import styles from './AuthPage.module.scss'
+import { authService } from '@/firebase-config'
 import { useLoading, useModal } from '@/hooks'
+import { isAuthCheckedAtom, isSocialLoginAtom, userUidAtom } from '@/store'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { authService } from '@/firebase-config'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import { ClipLoader } from 'react-spinners'
-import { useEffect } from 'react'
-import { isAuthCheckedAtom, userUidAtom } from '@/store'
 import { useRecoilState } from 'recoil'
+import styles from './AuthPage.module.scss'
 
 const SignIn = () => {
   const navigate = useNavigate()
@@ -16,6 +16,7 @@ const SignIn = () => {
   const { isLoading, startLoading, stopLoading } = useLoading()
   const [userUid] = useRecoilState(userUidAtom)
   const [isAuthChecked] = useRecoilState(isAuthCheckedAtom)
+  const [isSocialLoginState] = useRecoilState(isSocialLoginAtom)
   const {
     register,
     handleSubmit,
@@ -25,10 +26,10 @@ const SignIn = () => {
   })
 
   useEffect(() => {
-    if (isAuthChecked && userUid) {
+    if (isAuthChecked && userUid && !isSocialLoginState) {
       openModal('이미 로그인 된 상태입니다.', () => navigate('/'))
     }
-  }, [userUid, isAuthChecked])
+  }, [userUid, isAuthChecked, isSocialLoginState])
 
   const emailRegister = register('email', {
     required: true,

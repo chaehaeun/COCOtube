@@ -1,15 +1,17 @@
-import styles from './SocialButton.module.scss'
+import { Modal } from '@/components'
 import { authService, dbService } from '@/firebase-config'
+import { useModal } from '@/hooks'
+import { isSocialLoginAtom } from '@/store'
 import {
-  signInWithPopup,
   GithubAuthProvider,
   GoogleAuthProvider,
   TwitterAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth'
-import { useModal } from '@/hooks'
-import { Modal } from '@/components'
-import { useNavigate } from 'react-router-dom'
 import { doc, setDoc } from 'firebase/firestore'
+import { useNavigate } from 'react-router-dom'
+import { useSetRecoilState } from 'recoil'
+import styles from './SocialButton.module.scss'
 
 interface SocialButtonProps {
   method: 'google' | 'github' | 'twitter'
@@ -19,6 +21,7 @@ let icon = <div className={styles.google} />
 
 const SocialButton = ({ method }: SocialButtonProps) => {
   const { showModal, content, closeModal, openModal } = useModal()
+  const setIsSocialLogin = useSetRecoilState(isSocialLoginAtom)
   const navigate = useNavigate()
 
   switch (method) {
@@ -35,7 +38,7 @@ const SocialButton = ({ method }: SocialButtonProps) => {
 
   const handleClick = async () => {
     let provider: GithubAuthProvider | GoogleAuthProvider | TwitterAuthProvider
-
+    setIsSocialLogin(true)
     try {
       switch (method) {
         case 'google':
@@ -59,7 +62,6 @@ const SocialButton = ({ method }: SocialButtonProps) => {
       })
 
       if (userCredential.user) {
-        console.log(userCredential.user)
         navigate('/')
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
