@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-import styles from './MyHeader.module.scss'
 import { userDataAtom } from '@/store'
+import { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
+import styles from './MyHeader.module.scss'
 
 interface ChannelHeaderProps {
   bannerImg?: string
@@ -36,7 +36,7 @@ const MyHeader = ({ isEdit, handleBanner }: ChannelHeaderProps) => {
 
   const renderBanner = () => {
     if (!userDataState?.bannerImg) {
-      return <div className={styles.bannerSkeleton} />
+      return <div className={styles.defaultBanner} />
     }
 
     return (
