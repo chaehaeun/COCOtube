@@ -1,6 +1,1 @@
-export {
-  updateDisplayName,
-  updateIntroduce,
-  updateBannerImage,
-  updateProfileImage,
-} from './updateUserInfo'
+export * from './updateUserInfo'
