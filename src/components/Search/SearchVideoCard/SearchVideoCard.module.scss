@@ -1,0 +1,82 @@
+.videoCard {
+  display: flex;
+  gap: 20px;
+  @include respond-to(max-768) {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.thumbnail {
+  display: block;
+  flex-shrink: 0;
+  max-width: 360px;
+  width: 100%;
+  @include respond-to(max-768) {
+    max-width: 100%;
+  }
+  > div {
+    aspect-ratio: 16 / 9;
+    background-color: #efefef;
+    border-radius: 10px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.description {
+  overflow: hidden;
+  .title {
+    font-size: 18px;
+  }
+  div {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+  }
+
+  @include respond-to(max-768) {
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.channel {
+  display: inline-flex;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+  @include respond-to(max-768) {
+    margin: 0;
+  }
+  .channelThumb {
+    margin: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #efefef;
+    @include respond-to(max-768) {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+.channelTitle {
+  @include respond-to(max-768) {
+    display: none;
+  }
+}
+
+.text {
+  @include respond-to(max-768) {
+    display: none;
+  }
+}

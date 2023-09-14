@@ -1,0 +1,8 @@
+.searchWrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.searchUl {
+  @include flexColumnGap(20px);
+}

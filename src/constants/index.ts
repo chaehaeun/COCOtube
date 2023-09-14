@@ -1,0 +1,3 @@
+const TEXT_MAX_LENGTH = 70
+
+export { TEXT_MAX_LENGTH }
