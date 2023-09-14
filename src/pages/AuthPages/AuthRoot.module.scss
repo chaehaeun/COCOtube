@@ -16,17 +16,14 @@
   text-align: center;
   max-height: 100vh;
   overflow-y: auto;
+  @include respond-to(max-640) {
+    max-width: none;
+    border: none;
+  }
 }
 
 .title {
   font-size: $--text-xl;
   font-weight: 600;
   margin-bottom: 40px;
-}
-
-@media screen and (max-width: 640px) {
-  .authWrap {
-    max-width: none;
-    border: none;
-  }
 }

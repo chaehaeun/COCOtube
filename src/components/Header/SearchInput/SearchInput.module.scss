@@ -3,6 +3,13 @@
   width: 50%;
   max-width: 600px;
   align-self: center;
+  @include respond-to(max-768) {
+    display: none;
+    &.show {
+      display: flex;
+      width: 100%;
+    }
+  }
   fieldset {
     width: 100%;
   }
@@ -41,6 +48,9 @@
     width: 40px;
     border-radius: 50%;
     margin-right: 10px;
+    @include respond-to(min-769) {
+      display: none;
+    }
   }
   .voiceBtn {
     width: 40px;
@@ -71,19 +81,4 @@
   width: 20px !important;
   height: 16px;
   background: url('./../../../assets/icons/css_sprites.png') no-repeat -54px -14px;
-}
-
-@media screen and (min-width: 769px) {
-  .backBtn {
-    display: none;
-  }
-}
-@media screen and (max-width: 768px) {
-  .searchForm {
-    display: none;
-    &.show {
-      display: flex;
-      width: 100%;
-    }
-  }
 }

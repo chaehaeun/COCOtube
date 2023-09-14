@@ -9,6 +9,10 @@
     max-width: 1200px;
     margin: 0 auto;
     @include alienCenter();
+
+    @include respond-to(max-768) {
+      @include flexCenter();
+    }
   }
 
   li > a {
@@ -17,6 +21,9 @@
     font-size: $--text-md;
     padding: 15px 30px;
     @include hoverColorTransition(transparent, $--bg-color-gray-hover);
+    @include respond-to(max-768) {
+      padding: 15px 20px;
+    }
   }
   li > a.active {
     &::after {
@@ -28,17 +35,6 @@
       position: absolute;
       bottom: 0;
       left: 0;
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .channelNav {
-    ul {
-      @include flexCenter();
-    }
-    li > a {
-      padding: 15px 20px;
     }
   }
 }

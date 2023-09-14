@@ -12,6 +12,17 @@
   height: calc(100vh - 72px);
   transition: all 0.3s ease-in-out;
   background-color: #fff;
+  @include respond-to(max-1024) {
+    position: fixed;
+    left: 0;
+    top: 72px;
+    z-index: 20;
+    transform: translate(-100%);
+    &.show {
+      display: flex;
+      transform: translate(0%);
+    }
+  }
   @include flexColumnGap(20px);
   > nav {
     @include flexColumnGap(20px);
@@ -71,6 +82,10 @@ span:not(.subscribeList) {
   margin-left: 250px;
   width: calc(100% - 250px);
   padding: 0 16px;
+  @include respond-to(max-1024) {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 .backDrop {
@@ -83,6 +98,11 @@ span:not(.subscribeList) {
   height: 100vh;
   background-color: rgba($color: #000, $alpha: 0.5);
   cursor: pointer;
+  @include respond-to(max-1024) {
+    &.show {
+      display: block;
+    }
+  }
 }
 
 .outlineHome {
@@ -136,28 +156,4 @@ span:not(.subscribeList) {
   width: 14px;
   height: 18px;
   background: url('./../../assets/icons/css_sprites.png') no-repeat -185px -11px;
-}
-
-@media screen and (max-width: 1024px) {
-  .sideNav {
-    position: fixed;
-    left: 0;
-    top: 72px;
-    z-index: 20;
-    transform: translate(-100%);
-    &.show {
-      display: flex;
-      transform: translate(0%);
-    }
-  }
-  .backDrop {
-    &.show {
-      display: block;
-    }
-  }
-
-  .main {
-    margin-left: 0;
-    width: 100%;
-  }
 }

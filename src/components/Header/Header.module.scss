@@ -34,6 +34,11 @@
       background-color: $--primary-color;
     }
   }
+
+  @include respond-to(max-1024) {
+    display: flex;
+  }
+
   span {
     display: block;
     width: 25px;
@@ -48,6 +53,13 @@
   height: 40px;
   border-radius: 50%;
   @include hoverColorTransition(#fff, $--bg-color-gray-hover);
+
+  @include respond-to(max-768) {
+    display: block;
+    &.hide {
+      display: none;
+    }
+  }
   svg {
     fill: $--text-color;
     font-size: $--text-xl;
@@ -57,6 +69,9 @@
 .header.hide {
   > div {
     display: none;
+    @include respond-to(min-769) {
+      display: flex;
+    }
   }
 }
 
@@ -70,27 +85,4 @@
   width: 20px;
   height: 20px;
   background: url('./../../assets/icons/css_sprites.png') no-repeat -12px -12px;
-}
-
-@media screen and (max-width: 1024px) {
-  .hamburger {
-    display: flex;
-  }
-}
-
-@media screen and (min-width: 769px) {
-  .header.hide {
-    > div {
-      display: flex;
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .showSearch {
-    display: block;
-    &.hide {
-      display: none;
-    }
-  }
 }

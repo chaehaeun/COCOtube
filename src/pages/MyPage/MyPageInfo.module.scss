@@ -2,6 +2,10 @@
   display: flex;
   justify-content: space-between;
   gap: 50px;
+  @include respond-to(max-768) {
+    flex-direction: column;
+    gap: 0;
+  }
   > ul {
     display: flex;
     flex-direction: column;
@@ -20,6 +24,9 @@
   > div {
     width: 300px;
     flex-shrink: 0;
+    @include respond-to(max-768) {
+      width: 100%;
+    }
     > span {
       display: block;
       font-size: $--text-lg;
@@ -47,15 +54,4 @@
   width: 200px;
   height: 16px;
   @include pulse-animation();
-}
-
-@media screen and (max-width: 768px) {
-  .wrap {
-    flex-direction: column;
-    gap: 0;
-
-    > div {
-      width: 100%;
-    }
-  }
 }

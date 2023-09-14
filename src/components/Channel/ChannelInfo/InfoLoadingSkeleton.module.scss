@@ -7,6 +7,10 @@
 
 .info {
   @include alienCenter(20px);
+  @include respond-to(max-768) {
+    flex-direction: column;
+    text-align: center;
+  }
   .thumb {
     width: 100px;
     height: 100px;
@@ -21,6 +25,10 @@
       span {
         font-size: $--text-md;
         color: $--text-color-gray;
+      }
+
+      @include respond-to(max-768) {
+        @include flexCenter(10px);
       }
     }
     .name {
@@ -67,14 +75,4 @@
   width: 200px;
   height: 14px;
   @include pulse-animation();
-}
-
-@media screen and (max-width: 768px) {
-  .info {
-    flex-direction: column;
-    text-align: center;
-  }
-  .subInfo {
-    @include flexCenter(10px);
-  }
 }
