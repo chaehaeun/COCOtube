@@ -1,10 +1,10 @@
-import styles from './SideNav.module.scss'
-import { NavLink } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
-import { darkmodeAtom } from '@/store'
-import { useModal, useWindowResize } from '@/hooks'
 import { Modal } from '@/components'
 import { authService } from '@/firebase-config'
+import { useModal, useWindowResize } from '@/hooks'
+import { darkmodeAtom } from '@/store'
+import { NavLink } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import styles from './SideNav.module.scss'
 
 interface SideNavProps {
   isSideNav: boolean
@@ -57,12 +57,12 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
                   return isActive ? (
                     <>
                       <div className={styles.solidHome} />
-                      <span>홈</span>
+                      <span className={styles.span}>홈</span>
                     </>
                   ) : (
                     <>
                       <div className={styles.outlineHome} />
-                      <span>홈</span>
+                      <span className={styles.span}>홈</span>
                     </>
                   )
                 }}
@@ -77,12 +77,12 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
                   return isActive ? (
                     <>
                       <div className={styles.solidUser} />
-                      <span>마이페이지</span>
+                      <span className={styles.span}>마이페이지</span>
                     </>
                   ) : (
                     <>
                       <div className={styles.user} />
-                      <span>마이페이지</span>
+                      <span className={styles.span}>마이페이지</span>
                     </>
                   )
                 }}
@@ -97,12 +97,12 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
                   return isActive ? (
                     <>
                       <div className={styles.solidLike} />
-                      <span>좋아요 표시한 동영상</span>
+                      <span className={styles.span}>좋아요 표시한 동영상</span>
                     </>
                   ) : (
                     <>
                       <div className={styles.like} />
-                      <span>좋아요 표시한 동영상</span>
+                      <span className={styles.span}>좋아요 표시한 동영상</span>
                     </>
                   )
                 }}
@@ -115,7 +115,7 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
               <li>
                 <NavLink to="/">
                   <div className={styles.channelProfile} />
-                  <span>채널명</span>
+                  <span className={styles.span}>채널명</span>
                 </NavLink>
               </li>
             </ul>
@@ -127,12 +127,12 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
               {darkmode ? (
                 <>
                   <div className={styles.sun} />
-                  <span>라이트모드</span>
+                  <span className={styles.span}>라이트모드</span>
                 </>
               ) : (
                 <>
                   <div className={styles.moon} />
-                  <span>다크모드</span>
+                  <span className={styles.span}>다크모드</span>
                 </>
               )}
             </button>
@@ -140,7 +140,7 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
           <li>
             <button type="button" onClick={handleLogout}>
               <div className={styles.logout} />
-              <span>로그아웃</span>
+              <span className={styles.span}>로그아웃</span>
             </button>
           </li>
         </ul>

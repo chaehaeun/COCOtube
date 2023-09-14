@@ -2,6 +2,13 @@
   display: flex;
 }
 
+.span {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .sideNav {
   position: fixed;
   overflow-y: auto;
@@ -70,15 +77,8 @@
   border-radius: 50%;
 }
 
-span:not(.subscribeList) {
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 .main {
-  margin-top: 72px;
+  margin-top: 80px;
   margin-left: 250px;
   width: calc(100% - 250px);
   padding: 0 16px;
