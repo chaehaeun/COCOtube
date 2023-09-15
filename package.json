@@ -22,7 +22,8 @@
     "react-speech-recognition": "^3.10.0",
     "react-spinners": "^0.13.8",
     "recoil": "^0.7.7",
-    "regenerator-runtime": "^0.14.0"
+    "regenerator-runtime": "^0.14.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/imagemin": "^8.0.1",
@@ -35,6 +36,7 @@
     "@types/react-dom": "^18.2.6",
     "@types/react-speech-recognition": "^3.9.2",
     "@types/regenerator-runtime": "^0.13.1",
+    "@types/uuid": "^9.0.4",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
     "@vheemstra/vite-plugin-imagemin": "^1.0.11",
