@@ -1,16 +1,17 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Suspense, lazy, useEffect } from 'react'
-import { Root, NotFound, AuthRoot } from '@/pages'
+import { authService, dbService } from '@/firebase-config'
+import { AuthRoot, NotFound, Root } from '@/pages'
 import {
-  userUidAtom,
+  isAuthCheckedAtom,
   userDataAtom,
   userLoadingAtom,
-  isAuthCheckedAtom,
+  userUidAtom,
 } from '@/store'
-import { useSetRecoilState, useRecoilState } from 'recoil'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { onAuthStateChanged } from 'firebase/auth'
-import { authService, dbService } from '@/firebase-config'
 import { doc, getDoc } from 'firebase/firestore'
+import { lazy, useEffect } from 'react'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 
 const Home = lazy(() => import('@/pages/Home/Home'))
 const MyPage = lazy(() => import('@/pages/MyPage/MyPage'))
@@ -69,6 +70,7 @@ function App() {
   const setUserInfo = useSetRecoilState(userDataAtom)
   const setUserLoading = useSetRecoilState(userLoadingAtom)
   const setIsAuthChecked = useSetRecoilState(isAuthCheckedAtom)
+  const queryClient = new QueryClient()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(authService, async authUser => {
@@ -105,9 +107,9 @@ function App() {
   }, [userUid])
 
   return (
-    <Suspense>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-    </Suspense>
+    </QueryClientProvider>
   )
 }
 
