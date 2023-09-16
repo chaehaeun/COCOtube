@@ -15,6 +15,7 @@ class YoutubeClient {
     const videoId = typeof item.id === 'string' ? item.id : item.id.videoId
 
     return {
+      channelId: item.snippet.channelId,
       publishedAt: item.snippet.publishedAt,
       thumbnails: item.snippet.thumbnails,
       title: item.snippet.title,
@@ -49,6 +50,8 @@ class YoutubeClient {
 
     const res = await this.httpClient.get('/search', { params })
 
+    console.log(res.data.items[0])
+
     return {
       video: res.data.items.map((item: YoutubeVideo) =>
         this.mapToVideoItem(item),
@@ -73,6 +76,8 @@ class YoutubeClient {
     const res = await this.httpClient.get('/videos', {
       params,
     })
+
+    console.log(res.data.items[0])
 
     return {
       video: res.data.items.map((item: YoutubeVideo) =>

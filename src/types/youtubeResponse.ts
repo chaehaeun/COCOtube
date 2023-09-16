@@ -30,6 +30,7 @@ export interface YoutubeVideo {
 }
 
 export interface YoutubeVideoType {
+  channelId: string
   publishedAt: string
   thumbnails: {
     default: Thumbnail
