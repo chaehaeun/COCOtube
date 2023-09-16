@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { SearchFilter, YoutubeVideoType } from '@/types'
+import { STALE_TIME } from '@/constants'
 
 type FetchData = ({
   pageParam,
@@ -23,7 +24,7 @@ const useInfiniteScroll = (
     useInfiniteQuery(key, fetchData, {
       ...options,
       getNextPageParam: lastPage => lastPage.nextPageToken || undefined,
-      staleTime: 1000 * 60 * 1000,
+      staleTime: STALE_TIME,
     })
 
   useEffect(() => {

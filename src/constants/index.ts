@@ -1,4 +1,5 @@
 const TEXT_MAX_LENGTH = 70
 const PER_PAGE = 25
+const STALE_TIME = 1000 * 60 * 60 * 24 * 7
 
-export { TEXT_MAX_LENGTH, PER_PAGE }
+export { TEXT_MAX_LENGTH, PER_PAGE, STALE_TIME }
