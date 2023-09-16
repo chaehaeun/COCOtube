@@ -1,5 +1,5 @@
 import { authService, dbService } from '@/firebase-config'
-import { AuthRoot, NotFound, Root } from '@/pages'
+import { AuthRoot, NotFound, Root, VideoDetail } from '@/pages'
 import {
   isAuthCheckedAtom,
   userDataAtom,
@@ -52,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: '/:searchKeyword',
         element: <Search />,
+      },
+      {
+        path: '/video/:videoId',
+        element: <VideoDetail />,
       },
     ],
   },
