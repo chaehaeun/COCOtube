@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { YoutubeVideoType } from '@/types'
+import { SearchFilter, YoutubeVideoType } from '@/types'
 
 type FetchData = ({
   pageParam,
@@ -10,7 +10,7 @@ type FetchData = ({
 }) => Promise<{ video: YoutubeVideoType; nextPageToken: boolean }>
 
 const useInfiniteScroll = (
-  key: [string, string | undefined],
+  key: [string, string | undefined, SearchFilter | undefined],
   fetchData: FetchData,
   options = {},
 ) => {

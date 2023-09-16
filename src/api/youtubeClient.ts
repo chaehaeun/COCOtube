@@ -27,6 +27,13 @@ class YoutubeClient {
   searchByKeyword = async (
     keyword: string | undefined,
     pageToken?: string,
+    order:
+      | 'date'
+      | 'rating'
+      | 'relevance'
+      | 'title'
+      | 'videoCount'
+      | 'viewCount' = 'relevance',
   ): Promise<{
     video: YoutubeVideoType
     nextPageToken: boolean
@@ -37,6 +44,7 @@ class YoutubeClient {
       type: 'video',
       q: keyword,
       pageToken,
+      order,
     }
 
     const res = await this.httpClient.get('/search', { params })
