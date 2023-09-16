@@ -9,7 +9,7 @@ import {
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
-import { lazy, useEffect } from 'react'
+import { Suspense, lazy, useEffect } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 
@@ -107,9 +107,11 @@ function App() {
   }, [userUid])
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <Suspense fallback={<div>Loading...</div>}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </Suspense>
   )
 }
 
