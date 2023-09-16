@@ -10,7 +10,7 @@
 .thumbnail {
   display: block;
   flex-shrink: 0;
-  max-width: 360px;
+  max-width: 320px;
   width: 100%;
   @include respond-to(max-768) {
     max-width: 100%;
@@ -32,18 +32,12 @@
   overflow: hidden;
   .title {
     font-size: 18px;
+    line-height: 1.3;
+    font-weight: 600;
   }
   div {
     margin-top: 10px;
     display: flex;
-    gap: 10px;
-  }
-
-  @include respond-to(max-768) {
-    display: flex;
-    flex-flow: row-reverse;
-    justify-content: start;
-    align-items: center;
     gap: 10px;
   }
 }
@@ -54,7 +48,7 @@
   margin: 20px 0;
   gap: 10px;
   @include respond-to(max-768) {
-    margin: 0;
+    margin-top: 10px;
   }
   .channelThumb {
     margin: 0;
@@ -70,9 +64,7 @@
 }
 
 .channelTitle {
-  @include respond-to(max-768) {
-    display: none;
-  }
+  font-weight: 600;
 }
 
 .text {

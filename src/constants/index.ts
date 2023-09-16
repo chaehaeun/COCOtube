@@ -1,3 +1,4 @@
 const TEXT_MAX_LENGTH = 70
+const PER_PAGE = 15
 
-export { TEXT_MAX_LENGTH }
+export { TEXT_MAX_LENGTH, PER_PAGE }

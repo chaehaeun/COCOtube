@@ -1,3 +1,5 @@
+import { PER_PAGE } from '@/constants'
+import { YoutubeVideo } from '@/types'
 import axios from 'axios'
 
 class YoutubeClient {
@@ -9,17 +11,28 @@ class YoutubeClient {
     })
   }
 
-  searchByKeyword = async (keyword: string) => {
-    const res = await this.httpClient.get('/search', {
-      params: {
-        part: 'snippet',
-        maxResults: 25,
-        type: 'video',
-        q: keyword,
-      },
-    })
+  searchByKeyword = async (keyword: string | undefined, pageToken?: string) => {
+    const params = {
+      part: 'snippet',
+      maxResults: PER_PAGE,
+      type: 'video',
+      q: keyword,
+      pageToken,
+    }
 
-    return res.data.items.map(item => ({ ...item, id: item.id.videoId }))
+    const res = await this.httpClient.get('/search', { params })
+
+    return {
+      video: res.data.items.map((item: YoutubeVideo) => ({
+        publishTime: item.snippet.publishTime,
+        thumbnails: item.snippet.thumbnails,
+        title: item.snippet.title,
+        channelTitle: item.snippet.channelTitle,
+        description: item.snippet.description,
+        id: item.id.videoId,
+      })),
+      nextPageToken: res.data.nextPageToken,
+    }
   }
 
   mostPopular = async () => {
@@ -55,7 +68,10 @@ class YoutubeClient {
       },
     })
 
-    return res.data.items.map(item => ({ ...item, id: item.id.videoId }))
+    return res.data.items.map((item: YoutubeVideo) => ({
+      ...item,
+      id: item.id.videoId,
+    }))
   }
 }
 
