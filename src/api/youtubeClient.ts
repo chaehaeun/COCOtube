@@ -22,7 +22,13 @@ class YoutubeClient {
     }
   }
 
-  searchByKeyword = async (keyword: string | undefined, pageToken?: string) => {
+  searchByKeyword = async (
+    keyword: string | undefined,
+    pageToken?: string,
+  ): Promise<{
+    video: YoutubeVideoType
+    nextPageToken: boolean
+  }> => {
     const params = {
       part: 'snippet',
       maxResults: PER_PAGE,
@@ -41,18 +47,29 @@ class YoutubeClient {
     }
   }
 
-  mostPopular = async () => {
+  mostPopular = async (
+    pageToken?: string,
+  ): Promise<{
+    video: YoutubeVideoType
+    nextPageToken: boolean
+  }> => {
     const params = {
       part: 'snippet',
       maxResults: 25,
       chart: 'mostPopular',
+      pageToken,
     }
 
     const res = await this.httpClient.get('/videos', {
       params,
     })
 
-    return res.data.items.map((item: YoutubeVideo) => this.mapToVideoItem(item))
+    return {
+      video: res.data.items.map((item: YoutubeVideo) =>
+        this.mapToVideoItem(item),
+      ),
+      nextPageToken: res.data.nextPageToken,
+    }
   }
 
   channelImageURL = async (id: string) => {

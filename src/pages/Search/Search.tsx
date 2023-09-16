@@ -1,44 +1,26 @@
 import { youtubeClient } from '@/api'
 import { SearchVideoCard } from '@/components'
-import { useInfiniteQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
-import { useInView } from 'react-intersection-observer'
 import { useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import { ClipLoader } from 'react-spinners'
 import styles from './Search.module.scss'
 import { YoutubeVideoType } from '@/types'
+import { useInfiniteScroll } from '@/hooks'
 
 const Search = () => {
-  const { searchKeyword } = useParams()
-  const { ref, inView } = useInView({
-    threshold: 1,
-    delay: 200,
-  })
-
+  const { searchKeyword } = useParams<{ searchKeyword: string }>()
   const {
+    ref,
     isLoading,
     data: videoData,
-    fetchNextPage,
-
-    hasNextPage,
-  } = useInfiniteQuery(
+  } = useInfiniteScroll(
     ['videos', searchKeyword],
-    ({ pageParam = null }) =>
+    ({ pageParam = undefined }) =>
       youtubeClient.searchByKeyword(searchKeyword, pageParam),
-    {
-      getNextPageParam: lastPage => lastPage.nextPageToken || undefined,
-      staleTime: 1000 * 60 * 1000,
-    },
   )
 
-  useEffect(() => {
-    if (inView && hasNextPage && !isLoading) {
-      fetchNextPage()
-    }
-  }, [inView, hasNextPage, fetchNextPage, isLoading])
-
-  const videos = videoData?.pages.flatMap(page => page.video) || []
+  const videos: YoutubeVideoType[] =
+    videoData?.pages.flatMap(page => page.video) || []
 
   return (
     <>
