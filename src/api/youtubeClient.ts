@@ -1,5 +1,5 @@
 import { PER_PAGE } from '@/constants'
-import { YoutubeVideo } from '@/types'
+import { YoutubeVideo, YoutubeVideoType } from '@/types'
 import axios from 'axios'
 
 class YoutubeClient {
@@ -9,6 +9,17 @@ class YoutubeClient {
       baseURL: 'https://www.googleapis.com/youtube/v3',
       params: { key: import.meta.env.VITE_YOUTUBE_API_KEY },
     })
+  }
+
+  private mapToVideoItem(item: YoutubeVideo): YoutubeVideoType {
+    return {
+      publishTime: item.snippet.publishTime,
+      thumbnails: item.snippet.thumbnails,
+      title: item.snippet.title,
+      channelTitle: item.snippet.channelTitle,
+      description: item.snippet.description,
+      id: item.id.videoId,
+    }
   }
 
   searchByKeyword = async (keyword: string | undefined, pageToken?: string) => {
@@ -23,28 +34,25 @@ class YoutubeClient {
     const res = await this.httpClient.get('/search', { params })
 
     return {
-      video: res.data.items.map((item: YoutubeVideo) => ({
-        publishTime: item.snippet.publishTime,
-        thumbnails: item.snippet.thumbnails,
-        title: item.snippet.title,
-        channelTitle: item.snippet.channelTitle,
-        description: item.snippet.description,
-        id: item.id.videoId,
-      })),
+      video: res.data.items.map((item: YoutubeVideo) =>
+        this.mapToVideoItem(item),
+      ),
       nextPageToken: res.data.nextPageToken,
     }
   }
 
   mostPopular = async () => {
+    const params = {
+      part: 'snippet',
+      maxResults: 25,
+      chart: 'mostPopular',
+    }
+
     const res = await this.httpClient.get('/videos', {
-      params: {
-        part: 'snippet',
-        maxResults: 25,
-        chart: 'mostPopular',
-      },
+      params,
     })
 
-    return res.data.items
+    return res.data.items.map((item: YoutubeVideo) => this.mapToVideoItem(item))
   }
 
   channelImageURL = async (id: string) => {
@@ -68,10 +76,7 @@ class YoutubeClient {
       },
     })
 
-    return res.data.items.map((item: YoutubeVideo) => ({
-      ...item,
-      id: item.id.videoId,
-    }))
+    return res.data.items.map((item: YoutubeVideo) => this.mapToVideoItem(item))
   }
 }
 
