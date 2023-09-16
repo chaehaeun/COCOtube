@@ -12,8 +12,9 @@ const Home = () => {
     isLoading,
     data: videoData,
     error,
-  } = useInfiniteScroll(['popular', 'home'], ({ pageParam = undefined }) =>
-    youtubeClient.mostPopular(pageParam),
+  } = useInfiniteScroll(
+    ['popular', 'home', undefined],
+    ({ pageParam = undefined }) => youtubeClient.mostPopular(pageParam),
   )
 
   const videos: YoutubeVideoType[] =
