@@ -20,14 +20,12 @@
   aspect-ratio: 16/9;
   background-color: rgb(92, 92, 92);
   border-radius: 5px;
-}
-
-.channel {
-  width: 25px;
-  height: 25px;
-  background-color: rgb(92, 92, 92);
-  flex-shrink: 0;
-  border-radius: 50%;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .videoDescription {

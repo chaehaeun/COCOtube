@@ -12,13 +12,15 @@ class YoutubeClient {
   }
 
   private mapToVideoItem(item: YoutubeVideo): YoutubeVideoType {
+    const videoId = typeof item.id === 'string' ? item.id : item.id.videoId
+
     return {
-      publishTime: item.snippet.publishTime,
+      publishedAt: item.snippet.publishedAt,
       thumbnails: item.snippet.thumbnails,
       title: item.snippet.title,
       channelTitle: item.snippet.channelTitle,
       description: item.snippet.description,
-      id: item.id.videoId,
+      id: videoId,
     }
   }
 
@@ -55,7 +57,7 @@ class YoutubeClient {
   }> => {
     const params = {
       part: 'snippet',
-      maxResults: 25,
+      maxResults: PER_PAGE,
       chart: 'mostPopular',
       pageToken,
     }

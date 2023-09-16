@@ -30,7 +30,7 @@ export interface YoutubeVideo {
 }
 
 export interface YoutubeVideoType {
-  publishTime: string
+  publishedAt: string
   thumbnails: {
     default: Thumbnail
     high: Thumbnail

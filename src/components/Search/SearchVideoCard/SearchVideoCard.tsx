@@ -12,7 +12,7 @@ interface SearchVideoCardProps {
 const SearchVideoCard = ({ video }: SearchVideoCardProps) => {
   const textRef = useRef<HTMLParagraphElement>(null)
 
-  const { publishTime, thumbnails, title, channelTitle, description, id } =
+  const { publishedAt, thumbnails, title, channelTitle, description, id } =
     video
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const SearchVideoCard = ({ video }: SearchVideoCardProps) => {
           <span className={styles.channelTitle}>
             {formatEntity(channelTitle)}
           </span>
-          <span>{formatAgo(publishTime)}</span>
+          <span>{formatAgo(publishedAt)}</span>
         </Link>
 
         <Link state={video} to={`/video/${id}`}>

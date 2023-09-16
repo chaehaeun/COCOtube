@@ -19,15 +19,12 @@ const useInfiniteScroll = (
     delay: 200,
   })
 
-  const { isLoading, data, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    key,
-    fetchData,
-    {
+  const { isLoading, data, fetchNextPage, hasNextPage, error } =
+    useInfiniteQuery(key, fetchData, {
       ...options,
       getNextPageParam: lastPage => lastPage.nextPageToken || undefined,
       staleTime: 1000 * 60 * 1000,
-    },
-  )
+    })
 
   useEffect(() => {
     if (inView && hasNextPage && !isLoading) {
@@ -40,6 +37,7 @@ const useInfiniteScroll = (
     isLoading,
     data,
     fetchNextPage,
+    error,
   }
 }
 
