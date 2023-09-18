@@ -50,8 +50,6 @@ class YoutubeClient {
 
     const res = await this.httpClient.get('/search', { params })
 
-    console.log(res.data.items[0])
-
     return {
       video: res.data.items.map((item: YoutubeVideo) =>
         this.mapToVideoItem(item),
@@ -76,8 +74,6 @@ class YoutubeClient {
     const res = await this.httpClient.get('/videos', {
       params,
     })
-
-    console.log(res.data.items[0])
 
     return {
       video: res.data.items.map((item: YoutubeVideo) =>
