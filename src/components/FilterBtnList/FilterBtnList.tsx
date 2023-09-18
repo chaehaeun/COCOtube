@@ -13,9 +13,9 @@ const FilterBtnList = ({
   activeFilter,
 }: FilterBtnListProps) => {
   const filtersMapping = {
+    관련성: 'relevance',
     최신순: 'date',
     평점순: 'rating',
-    관련성: 'relevance',
     제목순: 'title',
     '업로드된 비디오 순': 'videoCount',
     '조회수 순': 'viewCount',
