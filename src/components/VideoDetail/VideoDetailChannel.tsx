@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import styles from './VideoDetailChannel.module.scss'
 import { youtubeClient } from '@/api'
 import { formatSubscriberCount } from '@/util'
+import { Link } from 'react-router-dom'
 
 interface VideoDetailChannelProps {
   channelId: string
@@ -23,9 +24,9 @@ const VideoDetailChannel = ({
 
   return (
     <div>
-      <div className={styles.thumbnail}>
+      <Link to={'/'} className={styles.thumbnail}>
         <img src={imgURL} alt={`${channelTitle} 썸네일`} />
-      </div>
+      </Link>
       <p>{channelTitle}</p>
       <p>{formatSubscriberCount(+subscriberCount)}</p>
     </div>
