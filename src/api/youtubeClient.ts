@@ -83,22 +83,23 @@ class YoutubeClient {
     }
   }
 
-  channelImageURL = async (id: string) => {
+  channelData = async (id: string) => {
     const res = await this.httpClient.get('/channels', {
       params: {
-        part: 'snippet',
+        part: 'snippet,statistics',
         id: id,
       },
     })
 
-    return res.data.items[0].snippet.thumbnails.default.url
+    // return res.data.items[0].snippet.thumbnails.default.url
+    return res.data.items[0]
   }
 
   relatedVideos = async (id: string) => {
     const res = await this.httpClient.get('/search', {
       params: {
         part: 'snippet',
-        maxResults: 25,
+        maxResults: 10,
         type: 'video',
         relatedToVideoId: id,
       },

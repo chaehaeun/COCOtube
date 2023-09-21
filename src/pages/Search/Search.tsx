@@ -42,7 +42,7 @@ const Search = () => {
           <>
             <ul className={styles.searchUl}>
               {videos.map((video: YoutubeVideoType) => (
-                <SearchVideoCard key={uuidv4()} video={video} />
+                <SearchVideoCard type="search" key={uuidv4()} video={video} />
               ))}
             </ul>
             <div ref={ref} className={styles.spinner}>

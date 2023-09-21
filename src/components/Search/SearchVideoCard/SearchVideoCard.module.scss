@@ -1,19 +1,29 @@
 .videoCard {
   display: flex;
   gap: 20px;
-  @include respond-to(max-768) {
-    flex-direction: column;
-    gap: 10px;
+
+  &.search {
+    @include respond-to(max-768) {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  &.relative {
+    width: 450px;
   }
 }
 
 .thumbnail {
   display: block;
   flex-shrink: 0;
-  max-width: 320px;
-  width: 100%;
-  @include respond-to(max-768) {
-    max-width: 100%;
+  width: 200px;
+  &.search {
+    max-width: 320px;
+    width: 100%;
+    @include respond-to(max-768) {
+      max-width: 100%;
+    }
   }
   > div {
     aspect-ratio: 16 / 9;
@@ -34,6 +44,14 @@
     font-size: 18px;
     line-height: 1.3;
     font-weight: 600;
+
+    &.relative {
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* 두 줄로 제한 */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
   div {
     margin-top: 10px;
@@ -47,18 +65,9 @@
   align-items: center;
   margin: 20px 0;
   gap: 10px;
-  @include respond-to(max-768) {
-    margin-top: 10px;
-  }
-  .channelThumb {
-    margin: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #efefef;
+  &.search {
     @include respond-to(max-768) {
-      width: 50px;
-      height: 50px;
+      margin-top: 10px;
     }
   }
 }
@@ -68,7 +77,9 @@
 }
 
 .text {
-  @include respond-to(max-768) {
-    display: none;
+  &.search {
+    @include respond-to(max-768) {
+      display: none;
+    }
   }
 }

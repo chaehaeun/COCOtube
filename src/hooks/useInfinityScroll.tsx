@@ -17,7 +17,6 @@ const useInfiniteScroll = (
 ) => {
   const { ref, inView } = useInView({
     threshold: 1,
-    delay: 200,
   })
 
   const { isLoading, data, fetchNextPage, hasNextPage, error } =

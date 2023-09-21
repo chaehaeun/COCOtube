@@ -7,9 +7,10 @@ import { YoutubeVideoType } from '@/types'
 
 interface SearchVideoCardProps {
   video: YoutubeVideoType
+  type: 'relative' | 'search'
 }
 
-const SearchVideoCard = ({ video }: SearchVideoCardProps) => {
+const SearchVideoCard = ({ video, type }: SearchVideoCardProps) => {
   const textRef = useRef<HTMLParagraphElement>(null)
 
   const { publishedAt, thumbnails, title, channelTitle, description, id } =
@@ -27,30 +28,45 @@ const SearchVideoCard = ({ video }: SearchVideoCardProps) => {
     }
   }, [])
 
+  const stylesType =
+    type === 'relative'
+      ? styles.relative
+      : type === 'search'
+      ? styles.search
+      : ''
+
   return (
-    <li className={styles.videoCard}>
-      <Link className={styles.thumbnail} state={video} to={`/video/${id}`}>
+    <li className={`${styles.videoCard} ${stylesType}`}>
+      <Link
+        className={`${styles.thumbnail} ${stylesType}`}
+        state={video}
+        to={`/video/${id}`}
+      >
         <div>
           <img src={thumbnails.medium.url} alt={`${title} 썸네일`} />
         </div>
       </Link>
       <div className={styles.description}>
         <Link state={video} to={`/video/${id}`} className={styles.videoInfo}>
-          <p className={styles.title}>{formatEntity(title)}</p>
+          <p className={`${styles.title} ${stylesType}`}>
+            {formatEntity(title)}
+          </p>
         </Link>
 
-        <Link className={styles.channel} to="/">
+        <Link className={`${styles.channel} ${stylesType}`} to="/">
           <span className={styles.channelTitle}>
             {formatEntity(channelTitle)}
           </span>
           <span>{formatAgo(publishedAt)}</span>
         </Link>
 
-        <Link state={video} to={`/video/${id}`}>
-          <p className={styles.text} ref={textRef}>
-            {formatEntity(description)}
-          </p>
-        </Link>
+        {type === 'search' && (
+          <Link state={video} to={`/video/${id}`}>
+            <p className={`${styles.text} ${stylesType}`} ref={textRef}>
+              {formatEntity(description)}
+            </p>
+          </Link>
+        )}
       </div>
     </li>
   )
