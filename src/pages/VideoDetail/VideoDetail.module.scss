@@ -1,15 +1,26 @@
 .videoDetail {
+  display: grid;
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  gap: 20px;
-  > div {
-    flex-grow: 1;
+  justify-items: start;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'video relativeVideos'
+    'comments relativeVideos';
+
+  @include respond-to(max-1024) {
+    justify-items: stretch;
+    grid-template-areas:
+      'video '
+      'relativeVideos'
+      'comments';
   }
 }
 
+.comments {
+  grid-area: comments;
+}
+
 .relativeVideos {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  grid-area: relativeVideos;
 }

@@ -10,10 +10,9 @@ const VideoDetail = () => {
   return (
     <section className={styles.videoDetail}>
       <h2 className="sr-only_Title">{title} 비디오 상세페이지</h2>
-      <div>
-        <Video video={video} />
-      </div>
 
+      <Video video={video} />
+      <div className={styles.comments}>댓글창</div>
       <ul className={styles.relativeVideos}>
         <SearchVideoCard video={video} type="relative" />
         <SearchVideoCard video={video} type="relative" />

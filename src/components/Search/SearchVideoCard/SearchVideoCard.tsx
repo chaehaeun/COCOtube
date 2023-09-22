@@ -1,9 +1,9 @@
 import { TEXT_MAX_LENGTH } from '@/constants'
+import { YoutubeVideoType } from '@/types'
+import { formatAgo, formatEntity } from '@/util'
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './SearchVideoCard.module.scss'
-import { formatAgo, formatEntity } from '@/util'
-import { YoutubeVideoType } from '@/types'
 
 interface SearchVideoCardProps {
   video: YoutubeVideoType
