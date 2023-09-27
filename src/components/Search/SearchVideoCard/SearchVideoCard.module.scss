@@ -12,6 +12,9 @@
   &.relative {
     width: 400px;
     gap: 10px;
+    @include respond-to(max-1024) {
+      width: 100%;
+    }
   }
 }
 
@@ -24,6 +27,14 @@
     width: 100%;
     @include respond-to(max-768) {
       max-width: 100%;
+    }
+  }
+  &.relative {
+    @include respond-to(max-1024) {
+      width: 300px;
+    }
+    @include respond-to(max-768) {
+      max-width: 200px;
     }
   }
   > div {

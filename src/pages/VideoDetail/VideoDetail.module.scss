@@ -1,15 +1,18 @@
 .videoDetail {
   display: grid;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   justify-items: start;
+  gap: 10px;
   grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr 400px;
   grid-template-areas:
     'video relativeVideos'
     'comments relativeVideos';
 
   @include respond-to(max-1024) {
     justify-items: stretch;
+    grid-template-columns: 1fr;
     grid-template-areas:
       'video '
       'relativeVideos'
@@ -23,4 +26,5 @@
 
 .relativeVideos {
   grid-area: relativeVideos;
+  @include flexColumnGap(10px);
 }
