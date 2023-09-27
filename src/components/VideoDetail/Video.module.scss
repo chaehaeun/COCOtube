@@ -12,5 +12,20 @@
     font-weight: 600;
     margin: 10px 0;
     line-height: 1.2;
+    @include respond-to(max-768) {
+      font-size: $--text-base;
+    }
+  }
+
+  .description {
+    margin-top: 20px;
+    padding: 16px;
+    background-color: $--bg-color-gray;
+    border-radius: 10px;
+
+    button {
+      margin-top: 10px;
+      padding: 5px 0;
+    }
   }
 }

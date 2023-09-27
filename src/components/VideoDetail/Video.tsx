@@ -1,4 +1,5 @@
 import { YoutubeVideoType } from '@/types'
+import { useState } from 'react'
 import styles from './Video.module.scss'
 import VideoDetailChannel from './VideoDetailChannel'
 
@@ -7,7 +8,13 @@ interface VideoProps {
 }
 
 const Video = ({ video }: VideoProps) => {
-  const { title, id, channelId, channelTitle } = video
+  const [isSummary, setIsSummary] = useState<boolean>(true)
+  const { title, id, channelId, channelTitle, description } = video
+  const summaryBtnText = isSummary ? '더보기' : '간략히'
+
+  const videoDescription = isSummary
+    ? `${description.slice(0, 100)} ...`
+    : description
 
   return (
     <div className={styles.video}>
@@ -18,6 +25,12 @@ const Video = ({ video }: VideoProps) => {
       />
       <h3>{title}</h3>
       <VideoDetailChannel channelId={channelId} channelTitle={channelTitle} />
+      <div className={styles.description}>
+        <pre>{videoDescription}</pre>
+        <button type="button" onClick={() => setIsSummary(prev => !prev)}>
+          {summaryBtnText}
+        </button>
+      </div>
     </div>
   )
 }

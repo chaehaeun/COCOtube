@@ -49,9 +49,19 @@ class YoutubeClient {
     }
 
     const res = await this.httpClient.get('/search', { params })
+    const videoIds = res.data.items
+      .map((item: YoutubeVideo) => item.id.videoId)
+      .join(',')
+
+    const detailsRes = await this.httpClient.get('/videos', {
+      params: {
+        part: 'snippet',
+        id: videoIds,
+      },
+    })
 
     return {
-      video: res.data.items.map((item: YoutubeVideo) =>
+      video: detailsRes.data.items.map((item: YoutubeVideo) =>
         this.mapToVideoItem(item),
       ),
       nextPageToken: res.data.nextPageToken,
@@ -91,7 +101,6 @@ class YoutubeClient {
       },
     })
 
-    // return res.data.items[0].snippet.thumbnails.default.url
     return res.data.items[0]
   }
 

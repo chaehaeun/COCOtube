@@ -61,6 +61,7 @@
       display: -webkit-box;
       -webkit-line-clamp: 2; /* 두 줄로 제한 */
       -webkit-box-orient: vertical;
+      font-size: $--text-md;
       overflow: hidden;
       text-overflow: ellipsis;
     }
@@ -84,6 +85,7 @@
   }
 
   &.relative {
+    font-size: $--text-md;
     display: flex;
     margin: 5px 0;
     flex-direction: column;
