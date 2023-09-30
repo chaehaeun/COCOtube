@@ -16,6 +16,9 @@ const Video = ({ video }: VideoProps) => {
     ? `${description.slice(0, 100)} ...`
     : description
 
+  const channelName =
+    channelTitle.length > 20 ? `${channelTitle.slice(0, 20)}...` : channelTitle
+
   return (
     <div className={styles.video}>
       <iframe
@@ -24,7 +27,7 @@ const Video = ({ video }: VideoProps) => {
         src={`https://www.youtube.com/embed/${id}`}
       />
       <h3>{title}</h3>
-      <VideoDetailChannel channelId={channelId} channelTitle={channelTitle} />
+      <VideoDetailChannel channelId={channelId} channelTitle={channelName} />
       <div className={styles.description}>
         <pre>{videoDescription}</pre>
         <button type="button" onClick={() => setIsSummary(prev => !prev)}>
