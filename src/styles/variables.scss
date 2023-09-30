@@ -129,6 +129,10 @@ $--padding-xl: 32px;
     @media screen and (max-width: 1024px) {
       @content;
     }
+  } @else if $size == max-1280 {
+    @media screen and (max-width: 1280px) {
+      @content;
+    }
   } @else if $size == max-1400 {
     @media screen and (max-width: 1400px) {
       @content;

@@ -10,7 +10,7 @@
     'video relativeVideos'
     'comments relativeVideos';
 
-  @include respond-to(max-1024) {
+  @include respond-to(max-1280) {
     justify-items: stretch;
     grid-template-columns: 1fr;
     grid-template-areas:
