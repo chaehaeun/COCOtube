@@ -1,4 +1,5 @@
 import { dbService, storageService } from '@/firebase-config'
+import { Subscription } from '@/store'
 import { User, updateProfile } from 'firebase/auth'
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
@@ -95,10 +96,12 @@ export const updateSubscriptions = async (
 
   const channelListArray = userDocSnap.data()?.channelList || []
 
-  if (channelListArray.some(item => item.channelId === channelId)) {
+  if (
+    channelListArray.some((item: Subscription) => item.channelId === channelId)
+  ) {
     await updateDoc(userDocRef, {
       channelList: channelListArray.filter(
-        item => item.channelId !== channelId,
+        (item: Subscription) => item.channelId !== channelId,
       ),
     })
   } else {
