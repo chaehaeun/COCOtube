@@ -1,17 +1,11 @@
+import { Subscription } from '@/types'
 import { atom } from 'recoil'
-
 interface UserDataState {
   displayName: string | null
   email: string | null
   photoURL: string | null
   introduce: string | null
   bannerImg: string | null
-}
-
-export interface Subscription {
-  channelId: string
-  channelName: string
-  thumbnail: string
 }
 
 interface UserSubscriptionsState {

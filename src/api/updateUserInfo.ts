@@ -1,5 +1,5 @@
 import { dbService, storageService } from '@/firebase-config'
-import { Subscription } from '@/store'
+import { Subscription } from '@/types'
 import { User, updateProfile } from 'firebase/auth'
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'

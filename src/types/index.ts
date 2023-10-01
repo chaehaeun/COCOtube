@@ -7,3 +7,9 @@ export type SearchFilter =
   | 'title'
   | 'videoCount'
   | 'viewCount'
+
+export interface Subscription {
+  channelId: string
+  channelName: string
+  thumbnail: string
+}
