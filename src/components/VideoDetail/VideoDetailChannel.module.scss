@@ -19,3 +19,7 @@
   overflow: hidden;
   background-color: #efefef;
 }
+
+.channelCont {
+  @include alienCenter(10px);
+}

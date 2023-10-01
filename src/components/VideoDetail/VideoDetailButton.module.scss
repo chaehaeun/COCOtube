@@ -1,0 +1,25 @@
+.button {
+  padding: 10px 20px;
+  border-radius: 50px;
+
+  &.subscribe {
+    background-color: #272727;
+    color: white;
+    @include hoverColorTransition(#272727, #454545);
+  }
+
+  &.subscribe.active {
+    color: $--text-color;
+    @include hoverColorTransition($--bg-color-gray, $--bg-color-gray-hover);
+  }
+
+  &.like {
+    background-color: #272727;
+    color: white;
+    @include hoverColorTransition(#272727, #454545);
+  }
+  &.like.active {
+    color: $--text-color;
+    @include hoverColorTransition($--bg-color-gray, $--bg-color-gray-hover);
+  }
+}
