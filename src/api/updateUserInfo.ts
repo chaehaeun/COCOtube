@@ -1,7 +1,7 @@
 import { dbService, storageService } from '@/firebase-config'
 import { User, updateProfile } from 'firebase/auth'
-import { doc, updateDoc } from 'firebase/firestore'
-import { ref, uploadString, getDownloadURL } from 'firebase/storage'
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
+import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 
 export const updateDisplayName = async (
   newDisplayName: string,
@@ -65,5 +65,45 @@ export const updateProfileImage = async (
     })
   } catch (error) {
     console.error('Error updating user profile:', error)
+  }
+}
+
+export const updateSubscriptions = async (
+  userUid: string,
+  channelId: string,
+  channelName: string,
+  thumbnail: string,
+) => {
+  if (!userUid || !channelId || !thumbnail) return
+
+  const userDocRef = doc(dbService, 'channelList', userUid)
+  const userDocSnap = await getDoc(userDocRef)
+
+  const channelData = {
+    channelId: channelId,
+    channelName: channelName,
+    thumbnail: thumbnail,
+  }
+
+  if (!userDocSnap.exists()) {
+    await setDoc(userDocRef, {
+      channelList: [channelData],
+    })
+
+    return
+  }
+
+  const channelListArray = userDocSnap.data()?.channelList || []
+
+  if (channelListArray.some(item => item.channelId === channelId)) {
+    await updateDoc(userDocRef, {
+      channelList: channelListArray.filter(
+        item => item.channelId !== channelId,
+      ),
+    })
+  } else {
+    await updateDoc(userDocRef, {
+      channelList: [...channelListArray, channelData],
+    })
   }
 }

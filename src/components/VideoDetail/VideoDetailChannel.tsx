@@ -1,8 +1,10 @@
-import { youtubeClient } from '@/api'
+import { updateSubscriptions, youtubeClient } from '@/api'
+import { userUidAtom } from '@/store'
 import { formatSubscriberCount } from '@/util'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
 import { VideoDetailButton } from '..'
 import styles from './VideoDetailChannel.module.scss'
 
@@ -22,9 +24,15 @@ const VideoDetailChannel = ({
   )
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
   const [isLiked, setIsLiked] = useState<boolean>(false)
+  const [userUid] = useRecoilState(userUidAtom)
 
   const imgURL = channelData?.snippet.thumbnails.default.url
   const subscriberCount = channelData?.statistics.subscriberCount
+
+  const subscriptionHandler = async () => {
+    await updateSubscriptions(userUid, channelTitle, channelId, imgURL)
+    setIsSubscribed(prev => !prev)
+  }
 
   return (
     <div className={styles.channelCont}>
@@ -41,9 +49,7 @@ const VideoDetailChannel = ({
         <VideoDetailButton
           mode="subscribe"
           isActive={isSubscribed}
-          onClick={() => {
-            setIsSubscribed(prev => !prev)
-          }}
+          onClick={subscriptionHandler}
         >
           {isSubscribed ? '구독중' : '구독'}
         </VideoDetailButton>
