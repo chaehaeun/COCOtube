@@ -8,6 +8,17 @@ interface UserDataState {
   bannerImg: string | null
 }
 
+export interface Subscription {
+  channelId: string
+  channelName: string
+  thumbnail: string
+}
+
+interface UserSubscriptionsState {
+  subscriptions: Subscription[]
+  likedVideos: string[]
+}
+
 export const userUidAtom = atom({
   key: 'userUidState',
   default: '',
@@ -37,4 +48,12 @@ export const isAuthCheckedAtom = atom({
 export const isSocialLoginAtom = atom({
   key: 'isSocialLoginState',
   default: false,
+})
+
+export const userSubscriptionsAtom = atom<UserSubscriptionsState>({
+  key: 'userSubscriptionsState',
+  default: {
+    subscriptions: [],
+    likedVideos: [],
+  },
 })
