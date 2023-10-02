@@ -142,3 +142,10 @@ export const updateLikedVideos = async (
     })
   }
 }
+
+export const fetchVideoList = async (userUid: string) => {
+  const userDocRef = doc(dbService, 'videoList', userUid)
+  const userDocSnap = await getDoc(userDocRef)
+
+  return userDocSnap.data()?.videoList || []
+}

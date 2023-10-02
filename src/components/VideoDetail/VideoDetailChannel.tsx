@@ -1,9 +1,14 @@
-import { updateLikedVideos, updateSubscriptions, youtubeClient } from '@/api'
+import {
+  fetchVideoList,
+  updateLikedVideos,
+  updateSubscriptions,
+  youtubeClient,
+} from '@/api'
 import { userUidAtom } from '@/store'
 import { YoutubeVideoType } from '@/types'
 import { formatSubscriberCount } from '@/util'
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { VideoDetailButton } from '..'
@@ -28,6 +33,22 @@ const VideoDetailChannel = ({
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [userUid] = useRecoilState(userUidAtom)
+  const { data: videoList } = useQuery(
+    ['videoList', userUid],
+    () => fetchVideoList(userUid),
+    { enabled: !!userUid },
+  )
+
+  useEffect(() => {
+    if (!userUid || !videoList) return
+    const videoExists = videoList.some(
+      (v: YoutubeVideoType) => v.id === video.id,
+    )
+
+    if (videoExists) {
+      setIsLiked(true)
+    }
+  }, [videoList, video.id])
 
   const imgURL = channelData?.snippet.thumbnails.default.url
   const subscriberCount = channelData?.statistics.subscriberCount
