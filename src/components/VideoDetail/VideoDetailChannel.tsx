@@ -1,4 +1,4 @@
-import { updateSubscriptions, youtubeClient } from '@/api'
+import { updateLikedVideos, updateSubscriptions, youtubeClient } from '@/api'
 import { userUidAtom } from '@/store'
 import { YoutubeVideoType } from '@/types'
 import { formatSubscriberCount } from '@/util'
@@ -37,7 +37,10 @@ const VideoDetailChannel = ({
     setIsSubscribed(prev => !prev)
   }
 
-  console.log(video)
+  const likeHandler = async () => {
+    await updateLikedVideos(userUid, video)
+    setIsLiked(prev => !prev)
+  }
 
   return (
     <div className={styles.channelCont}>
@@ -62,13 +65,7 @@ const VideoDetailChannel = ({
         )}
       </div>
       {userUid && (
-        <VideoDetailButton
-          mode="like"
-          isActive={isLiked}
-          onClick={() => {
-            setIsLiked(prev => !prev)
-          }}
-        >
+        <VideoDetailButton mode="like" isActive={isLiked} onClick={likeHandler}>
           {isLiked ? '좋아요 취소' : '좋아요'}
         </VideoDetailButton>
       )}

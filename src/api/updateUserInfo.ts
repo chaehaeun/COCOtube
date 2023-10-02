@@ -1,5 +1,5 @@
 import { dbService, storageService } from '@/firebase-config'
-import { Subscription } from '@/types'
+import { Subscription, YoutubeVideoType } from '@/types'
 import { User, updateProfile } from 'firebase/auth'
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
@@ -107,6 +107,38 @@ export const updateSubscriptions = async (
   } else {
     await updateDoc(userDocRef, {
       channelList: [...channelListArray, channelData],
+    })
+  }
+}
+
+export const updateLikedVideos = async (
+  userUid: string,
+  video: YoutubeVideoType,
+) => {
+  if (!userUid) return
+
+  const userDocRef = doc(dbService, 'videoList', userUid)
+  const userDocSnap = await getDoc(userDocRef)
+
+  if (!userDocSnap.exists()) {
+    await setDoc(userDocRef, {
+      videoList: [video],
+    })
+
+    return
+  }
+
+  const videoListArray = userDocSnap.data()?.videoList || []
+
+  if (videoListArray.some((item: YoutubeVideoType) => item.id === video.id)) {
+    await updateDoc(userDocRef, {
+      videoList: videoListArray.filter(
+        (item: YoutubeVideoType) => item.id !== video.id,
+      ),
+    })
+  } else {
+    await updateDoc(userDocRef, {
+      videoList: [...videoListArray, video],
     })
   }
 }
