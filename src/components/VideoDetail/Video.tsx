@@ -27,7 +27,11 @@ const Video = ({ video }: VideoProps) => {
         src={`https://www.youtube.com/embed/${id}`}
       />
       <h3>{title}</h3>
-      <VideoDetailChannel channelId={channelId} channelTitle={channelName} />
+      <VideoDetailChannel
+        video={video}
+        channelId={channelId}
+        channelTitle={channelName}
+      />
       <div className={styles.description}>
         <pre>{videoDescription}</pre>
         <button type="button" onClick={() => setIsSummary(prev => !prev)}>
