@@ -1,7 +1,9 @@
+import { fetchSubscriptionList } from '@/api'
 import { Modal } from '@/components'
 import { authService } from '@/firebase-config'
 import { useModal, useWindowResize } from '@/hooks'
-import { darkmodeAtom } from '@/store'
+import { darkmodeAtom, userSubscriptionsAtom, userUidAtom } from '@/store'
+import { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import styles from './SideNav.module.scss'
@@ -12,11 +14,26 @@ interface SideNavProps {
   setIsSideNav: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-// todo : 코드 리팩토링
-
 const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
+  const [subscriptions, setSubscriptions] = useRecoilState(
+    userSubscriptionsAtom,
+  )
+  const [userUid] = useRecoilState(userUidAtom)
   const [darkmode, setDarkmode] = useRecoilState(darkmodeAtom)
   const { showModal, content, closeModal, openModal } = useModal()
+
+  useEffect(() => {
+    if (!userUid) return
+
+    const fetchSubscriptions = async () => {
+      const subscriptions = await fetchSubscriptionList(userUid)
+      setSubscriptions(subscriptions)
+    }
+
+    fetchSubscriptions()
+  }, [userUid])
+
+  console.log(subscriptions)
 
   const toggleDarkmode = () => {
     setDarkmode(!darkmode)
@@ -112,12 +129,21 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
           <div>
             <span className={styles.subscribeList}>구독</span>
             <ul>
-              <li>
-                <NavLink to="/">
-                  <div className={styles.channelProfile} />
-                  <span className={styles.span}>채널명</span>
-                </NavLink>
-              </li>
+              {subscriptions.map((subscription, index) => (
+                <li key={index}>
+                  <NavLink to="/">
+                    <div className={styles.channelProfile}>
+                      <img
+                        src={subscription.thumbnail}
+                        alt={subscription.channelName}
+                      />
+                    </div>
+                    <span className={styles.span}>
+                      {subscription.channelName}
+                    </span>
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </div>
         </nav>

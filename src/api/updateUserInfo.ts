@@ -149,3 +149,10 @@ export const fetchVideoList = async (userUid: string) => {
 
   return userDocSnap.data()?.videoList || []
 }
+
+export const fetchSubscriptionList = async (userUid: string) => {
+  const userDocRef = doc(dbService, 'channelList', userUid)
+  const userDocSnap = await getDoc(userDocRef)
+
+  return userDocSnap.data()?.channelList || []
+}

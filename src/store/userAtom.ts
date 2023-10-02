@@ -8,11 +8,6 @@ interface UserDataState {
   bannerImg: string | null
 }
 
-interface UserSubscriptionsState {
-  subscriptions: Subscription[]
-  likedVideos: string[]
-}
-
 export const userUidAtom = atom({
   key: 'userUidState',
   default: '',
@@ -44,10 +39,7 @@ export const isSocialLoginAtom = atom({
   default: false,
 })
 
-export const userSubscriptionsAtom = atom<UserSubscriptionsState>({
+export const userSubscriptionsAtom = atom<Subscription[]>({
   key: 'userSubscriptionsState',
-  default: {
-    subscriptions: [],
-    likedVideos: [],
-  },
+  default: [],
 })

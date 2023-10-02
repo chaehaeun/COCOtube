@@ -54,7 +54,7 @@ const VideoDetailChannel = ({
   const subscriberCount = channelData?.statistics.subscriberCount
 
   const subscriptionHandler = async () => {
-    await updateSubscriptions(userUid, channelTitle, channelId, imgURL)
+    await updateSubscriptions(userUid, channelId, channelTitle, imgURL)
     setIsSubscribed(prev => !prev)
   }
 
