@@ -1,5 +1,6 @@
 import { updateSubscriptions, youtubeClient } from '@/api'
 import { userUidAtom } from '@/store'
+import { YoutubeVideoType } from '@/types'
 import { formatSubscriberCount } from '@/util'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
@@ -11,11 +12,13 @@ import styles from './VideoDetailChannel.module.scss'
 interface VideoDetailChannelProps {
   channelId: string
   channelTitle: string
+  video: YoutubeVideoType
 }
 
 const VideoDetailChannel = ({
   channelId,
   channelTitle,
+  video,
 }: VideoDetailChannelProps) => {
   const { data: channelData } = useQuery(
     ['channel', channelId],
@@ -34,6 +37,8 @@ const VideoDetailChannel = ({
     setIsSubscribed(prev => !prev)
   }
 
+  console.log(video)
+
   return (
     <div className={styles.channelCont}>
       <div className={styles.channelInfo}>
@@ -46,23 +51,27 @@ const VideoDetailChannel = ({
             구독자 {formatSubscriberCount(+subscriberCount)}
           </p>
         </div>
-        <VideoDetailButton
-          mode="subscribe"
-          isActive={isSubscribed}
-          onClick={subscriptionHandler}
-        >
-          {isSubscribed ? '구독중' : '구독'}
-        </VideoDetailButton>
+        {userUid && (
+          <VideoDetailButton
+            mode="subscribe"
+            isActive={isSubscribed}
+            onClick={subscriptionHandler}
+          >
+            {isSubscribed ? '구독중' : '구독'}
+          </VideoDetailButton>
+        )}
       </div>
-      <VideoDetailButton
-        mode="like"
-        isActive={isLiked}
-        onClick={() => {
-          setIsLiked(prev => !prev)
-        }}
-      >
-        {isLiked ? '좋아요 취소' : '좋아요'}
-      </VideoDetailButton>
+      {userUid && (
+        <VideoDetailButton
+          mode="like"
+          isActive={isLiked}
+          onClick={() => {
+            setIsLiked(prev => !prev)
+          }}
+        >
+          {isLiked ? '좋아요 취소' : '좋아요'}
+        </VideoDetailButton>
+      )}
     </div>
   )
 }
