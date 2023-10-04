@@ -43,7 +43,7 @@ const VideoDetailChannel = ({
     { enabled: !!userUid },
   )
 
-  const { data: subscriptions } = useQuery(
+  const { data: subscriptions, refetch: refetchSubscriptions } = useQuery(
     ['subscriptions', userUid],
     () => fetchSubscriptionList(userUid),
     { enabled: !!userUid },
@@ -76,6 +76,7 @@ const VideoDetailChannel = ({
     await updateSubscriptions(userUid, channelId, channelTitle, imgURL)
     setIsSubscribed(prev => !prev)
     queryClient.invalidateQueries(['subscriptions', userUid])
+    refetchSubscriptions()
   }
 
   const likeHandler = async () => {
