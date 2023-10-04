@@ -1,13 +1,27 @@
+import { fetchSubscriptionList, fetchVideoList } from '@/api'
 import { useAuth } from '@/hooks'
-import styles from './MyPageInfo.module.scss'
-import { userDataAtom, userLoadingAtom } from '@/store'
-import { useRecoilState } from 'recoil'
+import { userDataAtom, userLoadingAtom, userUidAtom } from '@/store'
 import { formatDateFromTimestamp } from '@/util'
+import { useQuery } from '@tanstack/react-query'
+import { useRecoilState } from 'recoil'
+import styles from './MyPageInfo.module.scss'
 
 const MyPageInfo = () => {
   const { user } = useAuth()
   const [userDataState] = useRecoilState(userDataAtom)
   const [userLoadingState] = useRecoilState(userLoadingAtom)
+  const [userUid] = useRecoilState(userUidAtom)
+
+  const { data: subscriptions } = useQuery(
+    ['subscriptions', userUid],
+    () => fetchSubscriptionList(userUid),
+    { enabled: false },
+  )
+  const { data: videoList } = useQuery(
+    ['videoList', userUid],
+    () => fetchVideoList(userUid),
+    { enabled: !!userUid },
+  )
 
   const renderIntroContent = () => {
     if (userLoadingState) {
@@ -32,29 +46,25 @@ const MyPageInfo = () => {
           </li>
           <li>
             <span>좋아요 영상 개수</span>
-            <p>10개</p>
+            <p>{videoList?.length || 0}개</p>
           </li>
           <li>
             <span>구독 채널 개수</span>
-            <p>10개</p>
-          </li>
-          <li>
-            <span>작성한 댓글 수</span>
-            <p>10개</p>
+            <p>{subscriptions?.length || 0}개</p>
           </li>
         </ul>
         <div>
           <span>통계</span>
           <ul>
             <li>
-              가입일
+              가입일{' '}
               <span>
                 {user?.metadata.creationTime &&
                   formatDateFromTimestamp(user.metadata.creationTime)}
               </span>
             </li>
             <li>
-              마지막 로그인
+              마지막 로그인{' '}
               <span>
                 {user?.metadata.lastSignInTime &&
                   formatDateFromTimestamp(user.metadata.lastSignInTime)}
