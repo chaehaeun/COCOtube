@@ -1,4 +1,3 @@
-import { Subscription } from '@/types'
 import { atom } from 'recoil'
 interface UserDataState {
   displayName: string | null
@@ -37,9 +36,4 @@ export const isAuthCheckedAtom = atom({
 export const isSocialLoginAtom = atom({
   key: 'isSocialLoginState',
   default: false,
-})
-
-export const userSubscriptionsAtom = atom<Subscription[]>({
-  key: 'userSubscriptionsState',
-  default: [],
 })

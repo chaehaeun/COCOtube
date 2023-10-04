@@ -2,7 +2,9 @@ import { fetchSubscriptionList } from '@/api'
 import { Modal } from '@/components'
 import { authService } from '@/firebase-config'
 import { useModal, useWindowResize } from '@/hooks'
-import { darkmodeAtom, userSubscriptionsAtom, userUidAtom } from '@/store'
+import { darkmodeAtom, userUidAtom } from '@/store'
+import { Subscription } from '@/types'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
@@ -15,25 +17,25 @@ interface SideNavProps {
 }
 
 const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
-  const [subscriptions, setSubscriptions] = useRecoilState(
-    userSubscriptionsAtom,
-  )
   const [userUid] = useRecoilState(userUidAtom)
   const [darkmode, setDarkmode] = useRecoilState(darkmodeAtom)
   const { showModal, content, closeModal, openModal } = useModal()
 
+  const {
+    data: subscriptions,
+    refetch,
+    isStale,
+  } = useQuery(
+    ['subscriptions', userUid],
+    () => fetchSubscriptionList(userUid),
+    { enabled: !!userUid },
+  )
+
   useEffect(() => {
-    if (!userUid) return
-
-    const fetchSubscriptions = async () => {
-      const subscriptions = await fetchSubscriptionList(userUid)
-      setSubscriptions(subscriptions)
+    if (isStale && userUid) {
+      refetch()
     }
-
-    fetchSubscriptions()
-  }, [userUid])
-
-  console.log(subscriptions)
+  }, [isStale, userUid, refetch])
 
   const toggleDarkmode = () => {
     setDarkmode(!darkmode)
@@ -129,21 +131,23 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
           <div>
             <span className={styles.subscribeList}>구독</span>
             <ul>
-              {subscriptions.map((subscription, index) => (
-                <li key={index}>
-                  <NavLink to="/">
-                    <div className={styles.channelProfile}>
-                      <img
-                        src={subscription.thumbnail}
-                        alt={subscription.channelName}
-                      />
-                    </div>
-                    <span className={styles.span}>
-                      {subscription.channelName}
-                    </span>
-                  </NavLink>
-                </li>
-              ))}
+              {subscriptions?.map(
+                (subscription: Subscription, index: number) => (
+                  <li key={index}>
+                    <NavLink to="/">
+                      <div className={styles.channelProfile}>
+                        <img
+                          src={subscription.thumbnail}
+                          alt={subscription.channelName}
+                        />
+                      </div>
+                      <span className={styles.span}>
+                        {subscription.channelName}
+                      </span>
+                    </NavLink>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
         </nav>

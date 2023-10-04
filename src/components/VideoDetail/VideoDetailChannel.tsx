@@ -7,7 +7,7 @@ import {
 import { userUidAtom } from '@/store'
 import { YoutubeVideoType } from '@/types'
 import { formatSubscriberCount } from '@/util'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
@@ -25,6 +25,8 @@ const VideoDetailChannel = ({
   channelTitle,
   video,
 }: VideoDetailChannelProps) => {
+  const queryClient = useQueryClient()
+
   const { data: channelData } = useQuery(
     ['channel', channelId],
     () => youtubeClient.channelData(channelId),
@@ -56,6 +58,7 @@ const VideoDetailChannel = ({
   const subscriptionHandler = async () => {
     await updateSubscriptions(userUid, channelId, channelTitle, imgURL)
     setIsSubscribed(prev => !prev)
+    queryClient.invalidateQueries(['subscriptions', userUid])
   }
 
   const likeHandler = async () => {
