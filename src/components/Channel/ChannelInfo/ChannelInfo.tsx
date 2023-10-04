@@ -2,16 +2,10 @@ import { ChannelBtn } from '@/components'
 import styles from './ChannelInfo.module.scss'
 import { Link } from 'react-router-dom'
 
-interface ChannelInfoProps {
-  type: 'myPage' | 'channel'
-}
-
-const ChannelInfo = ({ type }: ChannelInfoProps) => {
+const ChannelInfo = () => {
   return (
     <section className={styles.infoWrap}>
-      <h3 className="sr-only_Title">
-        {type === 'channel' ? '채널 정보' : '사용자 정보'}
-      </h3>
+      <h3 className="sr-only_Title">채널 정보</h3>
       <div className={styles.info}>
         <div className={styles.thumb}>
           <img
@@ -32,7 +26,7 @@ const ChannelInfo = ({ type }: ChannelInfoProps) => {
                 정훈남 스튜디오(정스)는 주로 K-POP을 8비트로 편곡하여 귀여운
                 픽셀비디오를 만드는 채널입니다.
               </span>
-              <div className={styles.next} />
+              <span className={styles.next} />
             </Link>
           </p>
         </div>

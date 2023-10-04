@@ -2,16 +2,12 @@ import { ChannelHeader, ChannelInfo, ChannelNav } from '@/components'
 import styles from './Channel.module.scss'
 import { Outlet } from 'react-router-dom'
 
-interface ChannelProps {
-  type: 'myPage' | 'channel'
-}
-
-const Channel = ({ type }: ChannelProps) => {
+const Channel = () => {
   return (
     <div className={styles.channelWrap}>
-      <ChannelHeader type={type} />
-      <ChannelInfo type={type} />
-      <ChannelNav type={type} />
+      <ChannelHeader />
+      <ChannelInfo />
+      <ChannelNav type="channel" />
       <div className={styles.outletWrap}>
         <Outlet />
       </div>

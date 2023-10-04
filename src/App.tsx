@@ -20,6 +20,7 @@ const Search = lazy(() => import('@/pages/Search/Search'))
 const SignIn = lazy(() => import('@/pages/AuthPages/SignIn'))
 const SignUp = lazy(() => import('@/pages/AuthPages/SignUp'))
 const MyPageInfo = lazy(() => import('@/pages/MyPage/MyPageInfo'))
+const Channel = lazy(() => import('@/components/Channel/Channel'))
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: '/video/:videoId',
         element: <VideoDetail />,
+      },
+      {
+        path: '/channel/:channelId',
+        element: <Channel />,
       },
     ],
   },

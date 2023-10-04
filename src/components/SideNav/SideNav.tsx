@@ -134,7 +134,7 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
               {subscriptions?.map(
                 (subscription: Subscription, index: number) => (
                   <li key={index}>
-                    <NavLink to="/">
+                    <NavLink to={`/channel/${subscription.channelId}`}>
                       <div className={styles.channelProfile}>
                         <img
                           src={subscription.thumbnail}
