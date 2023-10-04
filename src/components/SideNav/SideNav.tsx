@@ -2,7 +2,7 @@ import { fetchSubscriptionList } from '@/api'
 import { Modal } from '@/components'
 import { authService } from '@/firebase-config'
 import { useModal, useWindowResize } from '@/hooks'
-import { darkmodeAtom, userUidAtom } from '@/store'
+import { userUidAtom } from '@/store'
 import { Subscription } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
@@ -18,7 +18,7 @@ interface SideNavProps {
 
 const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
   const [userUid] = useRecoilState(userUidAtom)
-  const [darkmode, setDarkmode] = useRecoilState(darkmodeAtom)
+  // const [darkmode, setDarkmode] = useRecoilState(darkmodeAtom)
   const { showModal, content, closeModal, openModal } = useModal()
 
   const {
@@ -36,10 +36,6 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
       refetch()
     }
   }, [isStale, userUid, refetch])
-
-  const toggleDarkmode = () => {
-    setDarkmode(!darkmode)
-  }
 
   useWindowResize(() => {
     if (window.innerWidth > 1024) {
@@ -152,7 +148,7 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
           </div>
         </nav>
         <ul>
-          <li>
+          {/* <li>
             <button type="button" onClick={toggleDarkmode}>
               {darkmode ? (
                 <>
@@ -166,7 +162,7 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
                 </>
               )}
             </button>
-          </li>
+          </li> */}
           <li>
             <button type="button" onClick={handleLogout}>
               <div className={styles.logout} />
