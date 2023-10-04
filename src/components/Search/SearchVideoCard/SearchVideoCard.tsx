@@ -13,8 +13,17 @@ interface SearchVideoCardProps {
 const SearchVideoCard = ({ video, type }: SearchVideoCardProps) => {
   const textRef = useRef<HTMLParagraphElement>(null)
 
-  const { publishedAt, thumbnails, title, channelTitle, description, id } =
-    video
+  console.log(video)
+
+  const {
+    publishedAt,
+    thumbnails,
+    title,
+    channelTitle,
+    description,
+    id,
+    channelId,
+  } = video
 
   useEffect(() => {
     const textElement = textRef.current
@@ -35,6 +44,11 @@ const SearchVideoCard = ({ video, type }: SearchVideoCardProps) => {
       ? styles.search
       : ''
 
+  const channelState = {
+    channelId,
+    channelTitle,
+  }
+
   return (
     <li className={`${styles.videoCard} ${stylesType}`}>
       <Link
@@ -53,7 +67,11 @@ const SearchVideoCard = ({ video, type }: SearchVideoCardProps) => {
           </p>
         </Link>
 
-        <Link className={`${styles.channel} ${stylesType}`} to="/">
+        <Link
+          className={`${styles.channel} ${stylesType}`}
+          to={`/channel/${channelId}`}
+          state={channelState}
+        >
           <span className={styles.channelTitle}>
             {formatEntity(channelTitle)}
           </span>

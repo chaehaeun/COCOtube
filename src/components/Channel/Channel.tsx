@@ -1,8 +1,12 @@
 import { ChannelHeader, ChannelInfo, ChannelNav } from '@/components'
 import styles from './Channel.module.scss'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
 const Channel = () => {
+  const { state: channelData } = useLocation()
+
+  const { channelTitle, channelId } = channelData
+
   return (
     <div className={styles.channelWrap}>
       <ChannelHeader />

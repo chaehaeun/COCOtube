@@ -84,10 +84,19 @@ const VideoDetailChannel = ({
     setIsLiked(prev => !prev)
   }
 
+  const channelState = {
+    channelId,
+    channelTitle,
+  }
+
   return (
     <div className={styles.channelCont}>
       <div className={styles.channelInfo}>
-        <Link to={`/channel/${channelId}`} className={styles.thumbnail}>
+        <Link
+          to={`/channel/${channelId}`}
+          state={channelState}
+          className={styles.thumbnail}
+        >
           {channelImgLoading ? null : (
             <img src={imgURL} alt={`${channelTitle} 썸네일`} />
           )}
