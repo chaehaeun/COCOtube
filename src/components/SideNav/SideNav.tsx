@@ -103,26 +103,6 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
                 }}
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="playlists"
-                className={({ isActive }) => (isActive ? styles.active : '')}
-              >
-                {({ isActive }) => {
-                  return isActive ? (
-                    <>
-                      <div className={styles.solidLike} />
-                      <span className={styles.span}>좋아요 표시한 동영상</span>
-                    </>
-                  ) : (
-                    <>
-                      <div className={styles.like} />
-                      <span className={styles.span}>좋아요 표시한 동영상</span>
-                    </>
-                  )
-                }}
-              </NavLink>
-            </li>
           </ul>
           <div>
             <span className={styles.subscribeList}>구독</span>
