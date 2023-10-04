@@ -1,11 +1,12 @@
 import {
+  fetchSubscriptionList,
   fetchVideoList,
   updateLikedVideos,
   updateSubscriptions,
   youtubeClient,
 } from '@/api'
 import { userUidAtom } from '@/store'
-import { YoutubeVideoType } from '@/types'
+import { Subscription, YoutubeVideoType } from '@/types'
 import { formatSubscriberCount } from '@/util'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
@@ -35,11 +36,27 @@ const VideoDetailChannel = ({
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [userUid] = useRecoilState(userUidAtom)
+
   const { data: videoList } = useQuery(
     ['videoList', userUid],
     () => fetchVideoList(userUid),
     { enabled: !!userUid },
   )
+
+  const { data: subscriptions } = useQuery(
+    ['subscriptions', userUid],
+    () => fetchSubscriptionList(userUid),
+    { enabled: !!userUid },
+  )
+
+  useEffect(() => {
+    if (!subscriptions || !userUid) return
+    const isChannelSubscribed = subscriptions.some(
+      (sub: Subscription) => sub.channelId === channelId,
+    )
+
+    setIsSubscribed(isChannelSubscribed)
+  }, [subscriptions, userUid, channelId])
 
   useEffect(() => {
     if (!userUid || !videoList) return
