@@ -28,7 +28,7 @@ const VideoDetailChannel = ({
 }: VideoDetailChannelProps) => {
   const queryClient = useQueryClient()
 
-  const { data: channelData } = useQuery(
+  const { data: channelData, isLoading: channelImgLoading } = useQuery(
     ['channel', channelId],
     () => youtubeClient.channelData(channelId),
     { staleTime: 1000 * 60 * 10 },
@@ -87,8 +87,10 @@ const VideoDetailChannel = ({
   return (
     <div className={styles.channelCont}>
       <div className={styles.channelInfo}>
-        <Link to={'/'} className={styles.thumbnail}>
-          <img src={imgURL} alt={`${channelTitle} 썸네일`} />
+        <Link to={`/channel/${channelId}`} className={styles.thumbnail}>
+          {channelImgLoading ? null : (
+            <img src={imgURL} alt={`${channelTitle} 썸네일`} />
+          )}
         </Link>
         <div>
           <p className={styles.title}>{channelTitle}</p>
