@@ -49,24 +49,7 @@ const ChannelNav = ({ type }: ChannelNavProps) => {
           좋아요
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/"
-          end
-          className={({ isActive }) => (isActive ? styles.active : '')}
-        >
-          구독
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/"
-          end
-          className={({ isActive }) => (isActive ? styles.active : '')}
-        >
-          내 댓글
-        </NavLink>
-      </li>
+
       <li>
         <NavLink
           to="/mypage/info"
