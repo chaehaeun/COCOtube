@@ -8,7 +8,12 @@ interface VideoCardProps {
 }
 
 const VideoCard = ({ video }: VideoCardProps) => {
-  const { publishedAt, thumbnails, title, channelTitle, id } = video
+  const { publishedAt, thumbnails, title, channelTitle, id, channelId } = video
+
+  const channelState = {
+    channelId,
+    channelTitle,
+  }
 
   return (
     <li className={styles.videoCard}>
@@ -25,7 +30,11 @@ const VideoCard = ({ video }: VideoCardProps) => {
             </Link>
           </p>
           <span className={styles.channelName}>
-            <Link to="/" aria-label="채널이름으로 바로가기">
+            <Link
+              to={`/channel/${channelId}`}
+              aria-label="채널이름으로 바로가기"
+              state={channelState}
+            >
               {formatEntity(channelTitle)}
             </Link>
           </span>
