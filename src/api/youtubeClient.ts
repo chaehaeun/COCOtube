@@ -96,7 +96,7 @@ class YoutubeClient {
   channelData = async (id: string) => {
     const res = await this.httpClient.get('/channels', {
       params: {
-        part: 'snippet,statistics',
+        part: 'snippet,statistics,brandingSettings',
         id: id,
       },
     })
