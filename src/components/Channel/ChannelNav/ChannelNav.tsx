@@ -3,15 +3,15 @@ import styles from './ChannelNav.module.scss'
 
 interface ChannelNavProps {
   type: 'myPage' | 'channel'
+  channelId?: string
 }
 
-const ChannelNav = ({ type }: ChannelNavProps) => {
+const ChannelNav = ({ type, channelId }: ChannelNavProps) => {
   const ChannelNavList = (
     <ul>
       <li>
         <NavLink
-          to="/mypage"
-          end
+          to={`/channel/${channelId}`}
           className={({ isActive }) => (isActive ? styles.active : '')}
         >
           동영상
@@ -19,16 +19,7 @@ const ChannelNav = ({ type }: ChannelNavProps) => {
       </li>
       <li>
         <NavLink
-          to="/mypage"
-          end
-          className={({ isActive }) => (isActive ? styles.active : '')}
-        >
-          재생목록
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/mypage"
+          to={`/channel/${channelId}/info`}
           end
           className={({ isActive }) => (isActive ? styles.active : '')}
         >
