@@ -13,8 +13,6 @@ interface SearchVideoCardProps {
 const SearchVideoCard = ({ video, type }: SearchVideoCardProps) => {
   const textRef = useRef<HTMLParagraphElement>(null)
 
-  console.log(video)
-
   const {
     publishedAt,
     thumbnails,
