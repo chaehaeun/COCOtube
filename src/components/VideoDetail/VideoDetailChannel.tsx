@@ -27,7 +27,8 @@ const VideoDetailChannel = ({
   video,
 }: VideoDetailChannelProps) => {
   const queryClient = useQueryClient()
-
+  const channelName =
+    channelTitle.length > 20 ? `${channelTitle.slice(0, 20)}...` : channelTitle
   const { data: channelData, isLoading: channelImgLoading } = useQuery(
     ['channel', channelId],
     () => youtubeClient.channelData(channelId),
@@ -36,13 +37,11 @@ const VideoDetailChannel = ({
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const [userUid] = useRecoilState(userUidAtom)
-
   const { data: videoList } = useQuery(
     ['videoList', userUid],
     () => fetchVideoList(userUid),
     { enabled: !!userUid },
   )
-
   const { data: subscriptions, refetch: refetchSubscriptions } = useQuery(
     ['subscriptions', userUid],
     () => fetchSubscriptionList(userUid),
@@ -102,7 +101,7 @@ const VideoDetailChannel = ({
           )}
         </Link>
         <div>
-          <p className={styles.title}>{channelTitle}</p>
+          <p className={styles.title}>{channelName}</p>
           <p className={styles.subscriber}>
             구독자 {formatSubscriberCount(+subscriberCount)}
           </p>

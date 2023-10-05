@@ -16,9 +16,6 @@ const Video = ({ video }: VideoProps) => {
     ? `${description.slice(0, 100)} ...`
     : description
 
-  const channelName =
-    channelTitle.length > 20 ? `${channelTitle.slice(0, 20)}...` : channelTitle
-
   return (
     <div className={styles.video}>
       <iframe
@@ -30,7 +27,7 @@ const Video = ({ video }: VideoProps) => {
       <VideoDetailChannel
         video={video}
         channelId={channelId}
-        channelTitle={channelName}
+        channelTitle={channelTitle}
       />
       <div className={styles.description}>
         <pre>{videoDescription}</pre>
