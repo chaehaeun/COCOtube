@@ -10,11 +10,9 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRecoilState } from 'recoil'
 
 interface ChannelInfoProps {
-  channelData: {
+  channelInfoData: {
     channelTitle: string
     channelId: string
-  }
-  channelInfoData: {
     thumbnail: string
     customUrl: string
     description: string
@@ -24,17 +22,19 @@ interface ChannelInfoProps {
   isLoading: boolean
 }
 
-const ChannelInfo = ({
-  channelData,
-  channelInfoData,
-  isLoading,
-}: ChannelInfoProps) => {
+const ChannelInfo = ({ channelInfoData, isLoading }: ChannelInfoProps) => {
   const queryClient = useQueryClient()
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
   const [userUid] = useRecoilState(userUidAtom)
-  const { channelTitle, channelId } = channelData
-  const { thumbnail, customUrl, description, subscriberCount, videoCount } =
-    channelInfoData
+  const {
+    thumbnail,
+    customUrl,
+    description,
+    subscriberCount,
+    videoCount,
+    channelTitle,
+    channelId,
+  } = channelInfoData
 
   const { data: subscriptions, refetch: refetchSubscriptions } = useQuery(
     ['subscriptions', userUid],

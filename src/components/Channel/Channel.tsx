@@ -1,11 +1,14 @@
 import { ChannelHeader, ChannelInfo, ChannelNav } from '@/components'
 import styles from './Channel.module.scss'
-import { Outlet, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { youtubeClient } from '@/api'
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
+import { ChannelVideos } from '@/pages'
 
 const Channel = () => {
   const { state: channelData } = useLocation()
+  const [activeMenu, setActiveMenu] = useState<'videos' | 'info'>('videos')
   const channelId = channelData?.channelId
 
   const { data: channelDetailData, isLoading } = useQuery(
@@ -14,7 +17,11 @@ const Channel = () => {
     { staleTime: 1000 * 60 * 10 },
   )
 
+  console.log(channelDetailData)
+
   const channelInfoData = {
+    channelTitle: channelDetailData?.snippet.title,
+    channelId: channelDetailData?.id,
     thumbnail: channelDetailData?.snippet.thumbnails.medium.url,
     customUrl: channelDetailData?.snippet.customUrl,
     description: channelDetailData?.snippet.description,
@@ -28,14 +35,15 @@ const Channel = () => {
   return (
     <div className={styles.channelWrap}>
       <ChannelHeader isLoading={isLoading} url={bannerImgURL} />
-      <ChannelInfo
-        isLoading={isLoading}
-        channelData={channelData}
-        channelInfoData={channelInfoData}
+      <ChannelInfo isLoading={isLoading} channelInfoData={channelInfoData} />
+      <ChannelNav
+        type="channel"
+        activeMenu={activeMenu}
+        setActiveMenu={setActiveMenu}
       />
-      <ChannelNav channelId={channelId} type="channel" />
+
       <div className={styles.outletWrap}>
-        <Outlet />
+        {activeMenu === 'videos' ? <ChannelVideos /> : null}
       </div>
     </div>
   )

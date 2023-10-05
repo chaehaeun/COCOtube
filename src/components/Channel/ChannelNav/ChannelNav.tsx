@@ -1,31 +1,33 @@
 import { NavLink } from 'react-router-dom'
 import styles from './ChannelNav.module.scss'
+import { Dispatch, SetStateAction } from 'react'
 
 interface ChannelNavProps {
   type: 'myPage' | 'channel'
-  channelId?: string
+  activeMenu?: string
+  setActiveMenu: Dispatch<SetStateAction<'videos' | 'info'>>
 }
 
-const ChannelNav = ({ type, channelId }: ChannelNavProps) => {
+const ChannelNav = ({ type, activeMenu, setActiveMenu }: ChannelNavProps) => {
   const ChannelNavList = (
     <ul>
       <li>
-        <NavLink
-          to={`/channel/${channelId}`}
-          state={channelId}
-          className={({ isActive }) => (isActive ? styles.active : '')}
+        <button
+          className={`${activeMenu === 'videos' && styles.active}`}
+          type="button"
+          onClick={() => setActiveMenu('videos')}
         >
           동영상
-        </NavLink>
+        </button>
       </li>
       <li>
-        <NavLink
-          to={`/channel/${channelId}`}
-          end
-          className={({ isActive }) => (isActive ? styles.active : '')}
+        <button
+          className={`${activeMenu === 'info' && styles.active}`}
+          type="button"
+          onClick={() => setActiveMenu('info')}
         >
           정보
-        </NavLink>
+        </button>
       </li>
     </ul>
   )

@@ -15,7 +15,8 @@
     }
   }
 
-  li > a {
+  li > a,
+  li > button {
     display: block;
     position: relative;
     font-size: $--text-md;
@@ -25,7 +26,8 @@
       padding: 15px 20px;
     }
   }
-  li > a.active {
+  li > a.active,
+  li > button.active {
     &::after {
       content: '';
       display: block;

@@ -120,28 +120,29 @@ class YoutubeClient {
   listChannelVideos = async (
     channelId: string,
     pageToken?: string,
+    order:
+      | 'date'
+      | 'rating'
+      | 'relevance'
+      | 'title'
+      | 'videoCount'
+      | 'viewCount' = 'relevance',
   ): Promise<{
-    videos: YoutubeVideoType[]
-    nextPageToken?: string
+    video: YoutubeVideoType
+    nextPageToken: boolean
   }> => {
     const params = {
       part: 'snippet',
       maxResults: PER_PAGE,
       channelId,
       pageToken,
+      order,
     }
 
     const res = await this.httpClient.get('/search', { params })
 
-    if (!res.data.items || res.data.items.length === 0) {
-      return {
-        videos: [],
-        nextPageToken: undefined,
-      }
-    }
-
     return {
-      videos: res.data.items.map((item: YoutubeVideo) =>
+      video: res.data.items.map((item: YoutubeVideo) =>
         this.mapToVideoItem(item),
       ),
       nextPageToken: res.data.nextPageToken,
