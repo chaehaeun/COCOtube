@@ -14,7 +14,13 @@ const Channel = () => {
     { staleTime: 1000 * 60 * 10 },
   )
 
-  console.log(channelDetailData)
+  const channelInfoData = {
+    thumbnail: channelDetailData?.snippet.thumbnails.medium.url,
+    customUrl: channelDetailData?.snippet.customUrl,
+    description: channelDetailData?.snippet.description,
+    subscriberCount: channelDetailData?.statistics.subscriberCount,
+    videoCount: channelDetailData?.statistics.videoCount,
+  }
 
   const bannerImgURL =
     channelDetailData?.brandingSettings.image.bannerExternalUrl
@@ -22,8 +28,12 @@ const Channel = () => {
   return (
     <div className={styles.channelWrap}>
       <ChannelHeader isLoading={isLoading} url={bannerImgURL} />
-      <ChannelInfo channelData={channelData} />
-      <ChannelNav type="channel" />
+      <ChannelInfo
+        isLoading={isLoading}
+        channelData={channelData}
+        channelInfoData={channelInfoData}
+      />
+      <ChannelNav channelId={channelId} type="channel" />
       <div className={styles.outletWrap}>
         <Outlet />
       </div>
