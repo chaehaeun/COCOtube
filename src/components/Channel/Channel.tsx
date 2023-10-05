@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 
 const Channel = () => {
   const { state: channelData } = useLocation()
-  const channelId = channelData.channelId
+  const channelId = channelData?.channelId
 
   const { data: channelDetailData, isLoading } = useQuery(
     ['channel', channelId],

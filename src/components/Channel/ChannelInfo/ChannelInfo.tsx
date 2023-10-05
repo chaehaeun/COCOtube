@@ -2,6 +2,12 @@ import { ChannelBtn } from '@/components'
 import styles from './ChannelInfo.module.scss'
 import { Link } from 'react-router-dom'
 import { formatSubscriberCount } from '@/util'
+import { useEffect, useState } from 'react'
+import { fetchSubscriptionList, updateSubscriptions } from '@/api'
+import { userUidAtom } from '@/store'
+import { Subscription } from '@/types'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useRecoilState } from 'recoil'
 
 interface ChannelInfoProps {
   channelData: {
@@ -23,9 +29,34 @@ const ChannelInfo = ({
   channelInfoData,
   isLoading,
 }: ChannelInfoProps) => {
+  const queryClient = useQueryClient()
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
+  const [userUid] = useRecoilState(userUidAtom)
   const { channelTitle, channelId } = channelData
   const { thumbnail, customUrl, description, subscriberCount, videoCount } =
     channelInfoData
+
+  const { data: subscriptions, refetch: refetchSubscriptions } = useQuery(
+    ['subscriptions', userUid],
+    () => fetchSubscriptionList(userUid),
+    { enabled: !!userUid },
+  )
+
+  useEffect(() => {
+    if (!subscriptions || !userUid) return
+    const isChannelSubscribed = subscriptions.some(
+      (sub: Subscription) => sub.channelId === channelId,
+    )
+
+    setIsSubscribed(isChannelSubscribed)
+  }, [subscriptions, userUid, channelId])
+
+  const subscriptionHandler = async () => {
+    await updateSubscriptions(userUid, channelId, channelTitle, thumbnail)
+    setIsSubscribed(prev => !prev)
+    queryClient.invalidateQueries(['subscriptions', userUid])
+    refetchSubscriptions()
+  }
 
   return (
     <section className={styles.infoWrap}>
@@ -51,8 +82,8 @@ const ChannelInfo = ({
           </p>
         </div>
         <div className={styles.btnCont}>
-          <ChannelBtn mode="subscribe" onClick={() => {}}>
-            구독
+          <ChannelBtn mode="subscribe" onClick={subscriptionHandler}>
+            {isSubscribed ? '구독중' : '구독'}
           </ChannelBtn>
         </div>
       </div>
