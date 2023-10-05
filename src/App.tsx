@@ -1,5 +1,5 @@
 import { authService, dbService } from '@/firebase-config'
-import { AuthRoot, NotFound, Root, VideoDetail } from '@/pages'
+import { AuthRoot, ChannelVideos, NotFound, Root, VideoDetail } from '@/pages'
 import {
   isAuthCheckedAtom,
   userDataAtom,
@@ -47,10 +47,6 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: 'playlists',
-        element: <PlayList />,
-      },
-      {
         path: '/:searchKeyword',
         element: <Search />,
       },
@@ -61,6 +57,12 @@ const router = createBrowserRouter([
       {
         path: '/channel/:channelId',
         element: <Channel />,
+        children: [
+          {
+            index: true,
+            element: <ChannelVideos />,
+          },
+        ],
       },
     ],
   },

@@ -12,6 +12,7 @@ const ChannelNav = ({ type, channelId }: ChannelNavProps) => {
       <li>
         <NavLink
           to={`/channel/${channelId}`}
+          state={channelId}
           className={({ isActive }) => (isActive ? styles.active : '')}
         >
           동영상
@@ -19,7 +20,7 @@ const ChannelNav = ({ type, channelId }: ChannelNavProps) => {
       </li>
       <li>
         <NavLink
-          to={`/channel/${channelId}/info`}
+          to={`/channel/${channelId}`}
           end
           className={({ isActive }) => (isActive ? styles.active : '')}
         >
