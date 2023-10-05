@@ -116,6 +116,37 @@ class YoutubeClient {
 
     return res.data.items.map((item: YoutubeVideo) => this.mapToVideoItem(item))
   }
+
+  listChannelVideos = async (
+    channelId: string,
+    pageToken?: string,
+  ): Promise<{
+    videos: YoutubeVideoType[]
+    nextPageToken?: string
+  }> => {
+    const params = {
+      part: 'snippet',
+      maxResults: PER_PAGE,
+      channelId,
+      pageToken,
+    }
+
+    const res = await this.httpClient.get('/search', { params })
+
+    if (!res.data.items || res.data.items.length === 0) {
+      return {
+        videos: [],
+        nextPageToken: undefined,
+      }
+    }
+
+    return {
+      videos: res.data.items.map((item: YoutubeVideo) =>
+        this.mapToVideoItem(item),
+      ),
+      nextPageToken: res.data.nextPageToken,
+    }
+  }
 }
 
 const youtubeClient = new YoutubeClient()
