@@ -13,3 +13,13 @@ export interface Subscription {
   channelName: string
   thumbnail: string
 }
+
+export interface ChannelInfoType {
+  channelTitle: string
+  channelId: string
+  thumbnail: string
+  customUrl: string
+  description: string
+  subscriberCount: string
+  videoCount: string
+}

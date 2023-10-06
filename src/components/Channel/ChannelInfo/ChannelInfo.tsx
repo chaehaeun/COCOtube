@@ -5,20 +5,12 @@ import { formatSubscriberCount } from '@/util'
 import { useEffect, useState } from 'react'
 import { fetchSubscriptionList, updateSubscriptions } from '@/api'
 import { userUidAtom } from '@/store'
-import { Subscription } from '@/types'
+import { ChannelInfoType, Subscription } from '@/types'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRecoilState } from 'recoil'
 
 interface ChannelInfoProps {
-  channelInfoData: {
-    channelTitle: string
-    channelId: string
-    thumbnail: string
-    customUrl: string
-    description: string
-    subscriberCount: string
-    videoCount: string
-  }
+  channelInfoData: ChannelInfoType
   isLoading: boolean
 }
 
