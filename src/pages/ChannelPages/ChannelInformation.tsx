@@ -1,13 +1,12 @@
 import { channelInformationPageDataType } from '@/types'
 import styles from './ChannelInformation.module.scss'
+import { formatChannelDate, formatVideoCount } from '@/util'
 
 interface ChannelInformationProps {
   channelInfoData: channelInformationPageDataType
 }
 
 const ChannelInformation = ({ channelInfoData }: ChannelInformationProps) => {
-  console.log(channelInfoData)
-
   const { description, publishedAt, viewCount } = channelInfoData
 
   return (
@@ -24,20 +23,10 @@ const ChannelInformation = ({ channelInfoData }: ChannelInformationProps) => {
           <span>통계</span>
           <ul>
             <li>
-              가입일{' '}
-              <span>
-                {publishedAt}
-                {/* {user?.metadata.creationTime &&
-                  formatDateFromTimestamp(user.metadata.creationTime)} */}
-              </span>
+              가입일 <span>{formatChannelDate(publishedAt)}</span>
             </li>
             <li>
-              조회수{' '}
-              <span>
-                {viewCount}
-                {/* {user?.metadata.lastSignInTime &&
-                  formatDateFromTimestamp(user.metadata.lastSignInTime)} */}
-              </span>
+              조회수 <span>{formatVideoCount(viewCount)}회</span>
             </li>
           </ul>
         </div>
