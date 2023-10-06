@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { VideoDetailButton } from '..'
 import styles from './VideoDetailChannel.module.scss'
+import { STALE_TIME } from '@/constants'
 
 interface VideoDetailChannelProps {
   channelId: string
@@ -32,7 +33,7 @@ const VideoDetailChannel = ({
   const { data: channelData, isLoading: channelImgLoading } = useQuery(
     ['channel', channelId],
     () => youtubeClient.channelData(channelId),
-    { staleTime: 1000 * 60 * 10 },
+    { staleTime: STALE_TIME },
   )
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
   const [isLiked, setIsLiked] = useState<boolean>(false)
