@@ -23,3 +23,9 @@ export interface ChannelInfoType {
   subscriberCount: string
   videoCount: string
 }
+
+export interface channelInformationPageDataType {
+  description: string
+  publishedAt: string
+  viewCount: string
+}

@@ -4,7 +4,8 @@ import { useLocation } from 'react-router-dom'
 import { youtubeClient } from '@/api'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { ChannelVideos } from '@/pages'
+import { ChannelInformation, ChannelVideos } from '@/pages'
+import { STALE_TIME } from '@/constants'
 
 const Channel = () => {
   const { state: channelData } = useLocation()
@@ -14,10 +15,8 @@ const Channel = () => {
   const { data: channelDetailData, isLoading } = useQuery(
     ['channel', channelId],
     () => youtubeClient.channelData(channelId),
-    { staleTime: 1000 * 60 * 10 },
+    { staleTime: STALE_TIME },
   )
-
-  console.log(channelDetailData)
 
   const channelInfoData = {
     channelTitle: channelDetailData?.snippet.title,
@@ -27,6 +26,12 @@ const Channel = () => {
     description: channelDetailData?.snippet.description,
     subscriberCount: channelDetailData?.statistics.subscriberCount,
     videoCount: channelDetailData?.statistics.videoCount,
+  }
+
+  const channelInformationPageData = {
+    description: channelDetailData?.snippet.description,
+    publishedAt: channelDetailData?.snippet.publishedAt,
+    viewCount: channelDetailData?.statistics.viewCount,
   }
 
   const bannerImgURL =
@@ -43,7 +48,11 @@ const Channel = () => {
       />
 
       <div className={styles.outletWrap}>
-        {activeMenu === 'videos' ? <ChannelVideos /> : null}
+        {activeMenu === 'videos' ? (
+          <ChannelVideos />
+        ) : (
+          <ChannelInformation channelInfoData={channelInformationPageData} />
+        )}
       </div>
     </div>
   )
