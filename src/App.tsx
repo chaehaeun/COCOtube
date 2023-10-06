@@ -75,7 +75,13 @@ function App() {
   const setUserInfo = useSetRecoilState(userDataAtom)
   const setUserLoading = useSetRecoilState(userLoadingAtom)
   const setIsAuthChecked = useSetRecoilState(isAuthCheckedAtom)
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  })
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(authService, async authUser => {
