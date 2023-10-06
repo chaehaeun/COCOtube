@@ -68,15 +68,36 @@ const ChannelInfo = ({ channelInfoData, isLoading }: ChannelInfoProps) => {
           )}
         </div>
         <div className={styles.textInfo}>
-          <p className={styles.name}>{channelTitle}</p>
+          <p className={styles.name}>
+            {isLoading ? (
+              <span className={styles.nameSkeleton} />
+            ) : (
+              channelTitle
+            )}
+          </p>
           <div className={styles.subInfo}>
-            <span>{customUrl}</span>
-            <span>구독자 {formatSubscriberCount(+subscriberCount)}명</span>
-            <span>동영상 {formatSubscriberCount(+videoCount)}개</span>
+            {isLoading ? (
+              <>
+                <span className={styles.subInfoSkeleton} />
+                <span className={styles.subInfoSkeleton} />
+                <span className={styles.subInfoSkeleton} />
+              </>
+            ) : (
+              <>
+                <span>{customUrl}</span>
+                <span>구독자 {formatSubscriberCount(+subscriberCount)}명</span>
+                <span>동영상 {formatSubscriberCount(+videoCount)}개</span>
+              </>
+            )}
           </div>
           <p className={styles.intro}>
             <Link to={`/channel/${channelId}/info`}>
-              <span>{description}</span>
+              {isLoading ? (
+                <span className={styles.introSkeleton} />
+              ) : (
+                <span>{description}</span>
+              )}
+
               <span className={styles.next} />
             </Link>
           </p>

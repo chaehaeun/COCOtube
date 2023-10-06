@@ -66,3 +66,27 @@
   height: 14px;
   background: url('./../../../assets/icons/css_sprites.png') no-repeat -185px -126px;
 }
+
+.nameSkeleton {
+  display: block;
+  border-radius: 50px;
+  width: 200px;
+  height: 24px;
+  @include pulse-animation();
+}
+
+.subInfoSkeleton {
+  display: block;
+  border-radius: 50px;
+  width: 100px;
+  height: 16px;
+  @include pulse-animation();
+}
+
+.introSkeleton {
+  display: block;
+  border-radius: 50px;
+  width: 300px;
+  height: 16px;
+  @include pulse-animation();
+}
