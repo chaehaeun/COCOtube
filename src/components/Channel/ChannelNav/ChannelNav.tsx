@@ -5,17 +5,22 @@ import { Dispatch, SetStateAction } from 'react'
 interface ChannelNavProps {
   type: 'myPage' | 'channel'
   activeMenu?: string
-  setActiveMenu: Dispatch<SetStateAction<'videos' | 'info'>>
+  setActiveMenu?: Dispatch<SetStateAction<'videos' | 'info'>>
 }
 
 const ChannelNav = ({ type, activeMenu, setActiveMenu }: ChannelNavProps) => {
+  const setActiveMenuHandler = (menu: 'videos' | 'info') => {
+    if (!setActiveMenu) return
+    setActiveMenu(menu)
+  }
+
   const ChannelNavList = (
     <ul>
       <li>
         <button
           className={`${activeMenu === 'videos' && styles.active}`}
           type="button"
-          onClick={() => setActiveMenu('videos')}
+          onClick={() => setActiveMenuHandler('videos')}
         >
           동영상
         </button>
@@ -24,7 +29,7 @@ const ChannelNav = ({ type, activeMenu, setActiveMenu }: ChannelNavProps) => {
         <button
           className={`${activeMenu === 'info' && styles.active}`}
           type="button"
-          onClick={() => setActiveMenu('info')}
+          onClick={() => setActiveMenuHandler('info')}
         >
           정보
         </button>
