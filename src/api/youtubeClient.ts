@@ -148,6 +148,31 @@ class YoutubeClient {
       nextPageToken: res.data.nextPageToken,
     }
   }
+
+  getVideoComments = async (videoId: string) => {
+    const params = {
+      part: 'snippet',
+      maxResults: PER_PAGE,
+      videoId,
+      // pageToken,
+    }
+
+    const res = await this.httpClient.get('/commentThreads', { params })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const comments = res.data.items.map((item: any) => {
+      const data = item.snippet.topLevelComment.snippet
+
+      return {
+        authorDisplayName: data.authorDisplayName,
+        authorProfileImageUrl: data.authorProfileImageUrl,
+        textDisplay: data.textDisplay,
+        likeCount: data.likeCount,
+        publishedAt: data.publishedAt,
+      }
+    })
+
+    return comments
+  }
 }
 
 const youtubeClient = new YoutubeClient()
