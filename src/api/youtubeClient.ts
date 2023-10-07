@@ -165,7 +165,7 @@ class YoutubeClient {
       return {
         authorDisplayName: data.authorDisplayName,
         authorProfileImageUrl: data.authorProfileImageUrl,
-        textDisplay: data.textDisplay,
+        textDisplay: data.textOriginal,
         likeCount: data.likeCount,
         publishedAt: data.publishedAt,
       }
