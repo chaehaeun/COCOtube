@@ -5,22 +5,29 @@ import {
 } from '@/components'
 import { useLocation } from 'react-router-dom'
 import styles from './VideoDetail.module.scss'
+import { CommentsType } from '@/types'
+import { useQuery } from '@tanstack/react-query'
+import { youtubeClient } from '@/api'
+import { STALE_TIME } from '@/constants'
 // import { useQuery } from '@tanstack/react-query'
 // import { youtubeClient } from '@/api'
 // import { STALE_TIME } from '@/constants'
 
 const VideoDetail = () => {
   const { state: video } = useLocation()
-
-  const { title } = video
+  const { title, id } = video
 
   // const { data: relatedVideos } = useQuery(['related', '06IJM0r4IQc'], () =>
   //   youtubeClient.relatedVideos('06IJM0r4IQc'),
   // )
 
-  // console.log(id)
+  const { data: commentData } = useQuery(
+    ['comments', id],
+    () => youtubeClient.getVideoComments(id),
+    { staleTime: STALE_TIME },
+  )
 
-  // console.log(relatedVideos)
+  console.log(commentData)
 
   return (
     <section className={styles.videoDetail}>
@@ -28,10 +35,9 @@ const VideoDetail = () => {
 
       <Video video={video} />
       <ul className={styles.comments}>
-        <VideoComments />
-        <VideoComments />
-        <VideoComments />
-        <VideoComments />
+        {commentData?.map((comment: CommentsType, idx: number) => (
+          <VideoComments key={idx} comment={comment} />
+        ))}
       </ul>
       {/* <ul className={styles.relativeVideos}>
         <SearchVideoCard video={video} type="relative" />

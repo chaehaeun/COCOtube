@@ -1,22 +1,32 @@
+import { CommentsType } from '@/types'
 import styles from './VideoComments.module.scss'
 
-const VideoComments = () => {
+interface VideoCommentsProps {
+  comment: CommentsType
+}
+
+const VideoComments = ({ comment }: VideoCommentsProps) => {
+  const {
+    authorDisplayName,
+    authorProfileImageUrl,
+    textDisplay,
+    likeCount,
+    publishedAt,
+  } = comment
+
   return (
     <li className={styles.commentsWrap}>
       <div className={styles.thumbsnail}>
-        <img src="" alt="" />
+        <img src={authorProfileImageUrl} alt="" />
       </div>
       <div className={styles.commentContainer}>
         <div>
-          <span className={styles.name}>아이디</span>
-          <span className={styles.date}>1일 전</span>
+          <span className={styles.name}>{authorDisplayName}</span>
+          <span className={styles.date}>{publishedAt}</span>
         </div>
-        <pre className={styles.comment}>
-          보안관도 트롤인데 우원박도 너무 복잡하게 만듬
-          ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-        </pre>
+        <pre className={styles.comment}>{textDisplay}</pre>
         <span className={styles.like}>
-          <span /> 150
+          <span /> {likeCount}
         </span>
       </div>
     </li>

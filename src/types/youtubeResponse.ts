@@ -42,3 +42,11 @@ export interface YoutubeVideoType {
   description: string
   id: string
 }
+
+export interface CommentsType {
+  authorDisplayName: string
+  authorProfileImageUrl: string
+  textDisplay: string
+  likeCount: number
+  publishedAt: string
+}
