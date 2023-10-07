@@ -6,16 +6,17 @@ const VideoComments = () => {
       <div className={styles.thumbsnail}>
         <img src="" alt="" />
       </div>
-      <div>
+      <div className={styles.commentContainer}>
         <div>
-          <span>아이디</span>
-          <span>날짜</span>
+          <span className={styles.name}>아이디</span>
+          <span className={styles.date}>1일 전</span>
         </div>
-        <p>
-          냠 당할때마다 절규가 진짜 깨물리는 사람같아서 개웃김 ㅋㅋㅋㅋㅋㅋㅋㅋ
-        </p>
-        <span>
-          <span></span> 150
+        <pre className={styles.comment}>
+          보안관도 트롤인데 우원박도 너무 복잡하게 만듬
+          ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+        </pre>
+        <span className={styles.like}>
+          <span /> 150
         </span>
       </div>
     </li>

@@ -23,6 +23,12 @@
 // .comments {
 //   grid-area: comments;
 // }
+.comments {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
 
 // .relativeVideos {
 //   grid-area: relativeVideos;

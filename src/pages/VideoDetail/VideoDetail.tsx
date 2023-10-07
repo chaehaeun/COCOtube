@@ -29,6 +29,9 @@ const VideoDetail = () => {
       <Video video={video} />
       <ul className={styles.comments}>
         <VideoComments />
+        <VideoComments />
+        <VideoComments />
+        <VideoComments />
       </ul>
       {/* <ul className={styles.relativeVideos}>
         <SearchVideoCard video={video} type="relative" />

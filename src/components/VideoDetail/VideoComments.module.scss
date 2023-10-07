@@ -14,3 +14,26 @@
     }
   }
 }
+
+.commentContainer {
+  @include flexColumnGap(4px);
+  > div {
+    @include alienCenter(10px);
+  }
+  .date {
+    font-size: $--text-md;
+    color: $--text-color-gray;
+  }
+}
+
+.like {
+  @include alienCenter(5px);
+  font-size: $--text-md;
+  color: $--text-color-gray;
+  span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: url('./../../assets/icons/css_sprites.png') no-repeat -144px -91px;
+  }
+}
