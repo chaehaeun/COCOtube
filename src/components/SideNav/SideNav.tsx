@@ -107,6 +107,10 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
           <div>
             <span className={styles.subscribeList}>구독</span>
             <ul>
+              {!userUid && <li>로그인이 필요한 서비스입니다.</li>}
+              {userUid && subscriptions?.length === 0 && (
+                <li>구독한 채널이 없습니다.</li>
+              )}
               {subscriptions?.map(
                 (subscription: Subscription, index: number) => (
                   <li key={index}>
@@ -150,10 +154,12 @@ const SideNav = ({ children, isSideNav, setIsSideNav }: SideNavProps) => {
             </button>
           </li> */}
           <li>
-            <button type="button" onClick={handleLogout}>
-              <div className={styles.logout} />
-              <span className={styles.span}>로그아웃</span>
-            </button>
+            {userUid && (
+              <button type="button" onClick={handleLogout}>
+                <div className={styles.logout} />
+                <span className={styles.span}>로그아웃</span>
+              </button>
+            )}
           </li>
         </ul>
       </div>
