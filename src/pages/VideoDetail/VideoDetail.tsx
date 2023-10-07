@@ -18,11 +18,15 @@ const VideoDetail = () => {
   //   youtubeClient.relatedVideos('06IJM0r4IQc'),
   // )
 
-  const { data: commentData } = useQuery(
+  const { data: commentData, error } = useQuery(
     ['comments', id],
     () => youtubeClient.getVideoComments(id),
     { staleTime: STALE_TIME },
   )
+
+  const isCommentDisabled =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    error && (error as any).response && (error as any).response.status === 403
 
   return (
     <section className={styles.videoDetail}>
@@ -30,6 +34,7 @@ const VideoDetail = () => {
 
       <Video video={video} />
       <ul className={styles.comments}>
+        {isCommentDisabled && <li>댓글 사용이 중지 되었습니다.</li>}
         {commentData?.map((comment: CommentsType, idx: number) => (
           <VideoComments key={idx} comment={comment} />
         ))}
