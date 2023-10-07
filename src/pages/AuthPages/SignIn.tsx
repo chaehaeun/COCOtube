@@ -119,9 +119,9 @@ const SignIn = () => {
           <li>
             <SocialButton method="github" />
           </li>
-          <li>
+          {/* <li>
             <SocialButton method="twitter" />
-          </li>
+          </li> */}
         </ul>
       </div>
 
