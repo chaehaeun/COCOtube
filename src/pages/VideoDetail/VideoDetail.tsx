@@ -9,9 +9,6 @@ import { CommentsType } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 import { youtubeClient } from '@/api'
 import { STALE_TIME } from '@/constants'
-// import { useQuery } from '@tanstack/react-query'
-// import { youtubeClient } from '@/api'
-// import { STALE_TIME } from '@/constants'
 
 const VideoDetail = () => {
   const { state: video } = useLocation()
@@ -26,8 +23,6 @@ const VideoDetail = () => {
     () => youtubeClient.getVideoComments(id),
     { staleTime: STALE_TIME },
   )
-
-  console.log(commentData)
 
   return (
     <section className={styles.videoDetail}>
