@@ -1,30 +1,30 @@
 .videoDetail {
-  display: grid;
-  max-width: 1400px;
+  // display: grid;
+  max-width: 1200px;
   margin: 0 auto;
-  justify-items: start;
-  gap: 10px;
-  grid-template-rows: auto 1fr;
-  grid-template-columns: 1fr 400px;
-  grid-template-areas:
-    'video relativeVideos'
-    'comments relativeVideos';
+  // justify-items: start;
+  // gap: 10px;
+  // grid-template-rows: auto 1fr;
+  // grid-template-columns: 1fr 400px;
+  // grid-template-areas:
+  //   'video relativeVideos'
+  //   'comments relativeVideos';
 
-  @include respond-to(max-1280) {
-    justify-items: stretch;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'video '
-      'relativeVideos'
-      'comments';
-  }
+  // @include respond-to(max-1280) {
+  //   justify-items: stretch;
+  //   grid-template-columns: 1fr;
+  //   grid-template-areas:
+  //     'video '
+  //     'relativeVideos'
+  //     'comments';
+  // }
 }
 
-.comments {
-  grid-area: comments;
-}
+// .comments {
+//   grid-area: comments;
+// }
 
-.relativeVideos {
-  grid-area: relativeVideos;
-  @include flexColumnGap(10px);
-}
+// .relativeVideos {
+//   grid-area: relativeVideos;
+//   @include flexColumnGap(10px);
+// }

@@ -1,4 +1,8 @@
-import { SearchVideoCard, Video } from '@/components'
+import {
+  // SearchVideoCard,
+  Video,
+  VideoComments,
+} from '@/components'
 import { useLocation } from 'react-router-dom'
 import styles from './VideoDetail.module.scss'
 // import { useQuery } from '@tanstack/react-query'
@@ -23,17 +27,12 @@ const VideoDetail = () => {
       <h2 className="sr-only_Title">{title} 비디오 상세페이지</h2>
 
       <Video video={video} />
-      {/* <div className={styles.comments}>댓글창</div> */}
-      <ul className={styles.relativeVideos}>
-        <SearchVideoCard video={video} type="relative" />
-        <SearchVideoCard video={video} type="relative" />
-        <SearchVideoCard video={video} type="relative" />
-        <SearchVideoCard video={video} type="relative" />
-        <SearchVideoCard video={video} type="relative" />
-        <SearchVideoCard video={video} type="relative" />
-        <SearchVideoCard video={video} type="relative" />
-        <SearchVideoCard video={video} type="relative" />
+      <ul className={styles.comments}>
+        <VideoComments />
       </ul>
+      {/* <ul className={styles.relativeVideos}>
+        <SearchVideoCard video={video} type="relative" />
+      </ul> */}
     </section>
   )
 }
