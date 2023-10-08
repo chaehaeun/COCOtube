@@ -87,8 +87,9 @@ function App() {
     const unsubscribe = onAuthStateChanged(authService, async authUser => {
       if (authUser) {
         setUserUid(authUser.uid)
-        setIsAuthChecked(true)
+
         try {
+          setIsAuthChecked(true)
           setUserLoading(true)
           const userInfoRef = doc(dbService, 'userInfo', authUser.uid)
           const userInfoSnap = await getDoc(userInfoRef)
@@ -101,8 +102,6 @@ function App() {
               introduce: userInfoData.introduce,
               bannerImg: userInfoData.banner,
             })
-          } else {
-            console.error('No such document!')
           }
         } catch (error) {
           console.error('Error fetching user info:', error)

@@ -8,16 +8,18 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
 import ClipLoader from 'react-spinners/ClipLoader'
-import { useEffect } from 'react'
-import { isAuthCheckedAtom, userUidAtom } from '@/store'
-import { useRecoilState } from 'recoil'
+import { useEffect, useState } from 'react'
+import { isAuthCheckedAtom, userDataAtom, userUidAtom } from '@/store'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 
 const SignUp = () => {
   const navigate = useNavigate()
   const { showModal, content, closeModal, openModal } = useModal()
   const { isLoading, startLoading, stopLoading } = useLoading()
+  const setUserInfo = useSetRecoilState(userDataAtom)
   const [userUid] = useRecoilState(userUidAtom)
   const [isAuthChecked] = useRecoilState(isAuthCheckedAtom)
+  const [isSignUp, setIsSignUp] = useState(false)
   const {
     register,
     handleSubmit,
@@ -28,10 +30,10 @@ const SignUp = () => {
   })
 
   useEffect(() => {
-    if (isAuthChecked && userUid) {
+    if (isAuthChecked && userUid && !isLoading && !isSignUp) {
       openModal('이미 로그인 된 상태입니다.', () => navigate('/'))
     }
-  }, [userUid, isAuthChecked])
+  }, [userUid, isAuthChecked, isSignUp, isLoading])
 
   const emailRegister = register('email', {
     required: true,
@@ -100,7 +102,17 @@ const SignUp = () => {
         banner: '',
       })
 
-      navigate('/signin')
+      setUserInfo({
+        displayName: userCredential.user.displayName,
+        photoURL: userCredential.user.photoURL,
+        email: userCredential.user.email,
+        introduce: '',
+        bannerImg: '',
+      })
+
+      setIsSignUp(true)
+
+      navigate('/')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.code === 'auth/email-already-in-use') {
