@@ -21,7 +21,6 @@ const ChannelInfo = ({
 }: ChannelInfoProps) => {
   const queryClient = useQueryClient()
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
-
   const [userUid] = useRecoilState(userUidAtom)
   const {
     thumbnail,
@@ -103,11 +102,13 @@ const ChannelInfo = ({
             </button>
           </p>
         </div>
-        <div className={styles.btnCont}>
-          <ChannelBtn mode="subscribe" onClick={subscriptionHandler}>
-            {isSubscribed ? '구독중' : '구독'}
-          </ChannelBtn>
-        </div>
+        {userUid && (
+          <div className={styles.btnCont}>
+            <ChannelBtn mode="subscribe" onClick={subscriptionHandler}>
+              {isSubscribed ? '구독중' : '구독'}
+            </ChannelBtn>
+          </div>
+        )}
       </div>
     </section>
   )
