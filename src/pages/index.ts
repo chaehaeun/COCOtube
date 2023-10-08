@@ -1,5 +1,5 @@
 export { default as Root } from './Root.tsx'
-export { default as NotFound } from './NotFound'
+export { default as NotFound } from './NotFound/NotFound.tsx'
 export { default as Home } from './Home/Home.tsx'
 export { default as VideoDetail } from './VideoDetail/VideoDetail.tsx'
 export { default as SignIn } from './AuthPages/SignIn.tsx'
