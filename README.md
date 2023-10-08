@@ -26,17 +26,21 @@
 - 무한 스크롤
 - 반응형웹
 
+<br/>
+
 ## 🚀 배포 링크
 
-🚨 **프로젝트에 사용된 Youtube Data Api v3 의 경우 하루 무료 사용량이 제한되어 있어 다양한 검색 요청이 들어가게 되면 사용량 초과로 인해 검색이 되지 않을 수 있습니다. 사용량 초과로 인해 배포 페이지 서비스가 제한적인 경우 불편하시더라도 데모 영상을 확인해주시면 감사하겠습니다.**
+🚨 **프로젝트에 사용된 Youtube Data Api v3 의 경우 하루 무료 사용량이 제한되어 있어 다양한 검색 요청이 들어가게 되면 사용량 초과로 인해 검색이 되지 않을 수 있습니다.**
+
+사용량 초과로 인해 배포 페이지 서비스가 제한적인 경우 불편하시더라도 데모 영상을 확인해주시면 감사하겠습니다.
 
 **[COCOTUBE 배포 주소로 이동](https://cocotube3210.web.app/)**
+
+<br/>
 
 ## 🛠 사용 기술 및 도구
 
 ### Develop
-
-[![Video Label](http://img.youtube.com/vi/'유튜브주소의id'/0.jpg)](https://youtu.be/'유튜브주소의id')
 
 <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/> <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white"/> <img src="https://img.shields.io/badge/ReactRouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white"/> <img src="https://img.shields.io/badge/react hook form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white"/> <img src="https://img.shields.io/badge/React Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white"/> <img src="https://img.shields.io/badge/Recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white"/> <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white"/>
 
@@ -44,9 +48,13 @@
 
 <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white"/>
 
+<br/>
+
 ## 🎥 데모 영상
 
 [![Video](http://img.youtube.com/vi/BYc_DP6nX8I/0.jpg)](https://youtu.be/BYc_DP6nX8I)
+
+<br/>
 
 ## ✏️ 구현 내용
 
