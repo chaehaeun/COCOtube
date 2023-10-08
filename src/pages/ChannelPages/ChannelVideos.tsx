@@ -27,7 +27,7 @@ const ChannelVideos = () => {
 
   return (
     <>
-      <div>
+      <div className={styles.videoWrap}>
         {!isLoading && videos.length > 0 && (
           <>
             <ul className="videoList">
