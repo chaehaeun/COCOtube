@@ -12,6 +12,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { Suspense, lazy, useEffect } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { useRecoilState, useSetRecoilState } from 'recoil'
+import { Fallback } from '@/components'
 
 const Home = lazy(() => import('@/pages/Home/Home'))
 const MyPage = lazy(() => import('@/pages/MyPage/MyPage'))
@@ -117,7 +118,7 @@ function App() {
   }, [userUid])
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Fallback />}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>
