@@ -20,6 +20,11 @@ const PlayList = () => {
       <h3 className="sr-only_Title">PlayList</h3>
       {/* <FilterBtnList /> */}
       <ul className="videoList">
+        {videoList?.length === 0 && (
+          <li>
+            <p>동영상이 없습니다.</p>
+          </li>
+        )}
         {videoList?.map((video: YoutubeVideoType, index: number) => (
           <VideoCard key={index} video={video} />
         ))}
