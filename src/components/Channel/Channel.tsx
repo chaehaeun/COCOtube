@@ -40,7 +40,11 @@ const Channel = () => {
   return (
     <div className={styles.channelWrap}>
       <ChannelHeader isLoading={isLoading} url={bannerImgURL} />
-      <ChannelInfo isLoading={isLoading} channelInfoData={channelInfoData} />
+      <ChannelInfo
+        isLoading={isLoading}
+        channelInfoData={channelInfoData}
+        setActiveMenu={setActiveMenu}
+      />
       <ChannelNav
         type="channel"
         activeMenu={activeMenu}

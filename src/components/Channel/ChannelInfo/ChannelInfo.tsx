@@ -1,6 +1,5 @@
 import { ChannelBtn } from '@/components'
 import styles from './ChannelInfo.module.scss'
-import { Link } from 'react-router-dom'
 import { formatSubscriberCount } from '@/util'
 import { useEffect, useState } from 'react'
 import { fetchSubscriptionList, updateSubscriptions } from '@/api'
@@ -12,11 +11,17 @@ import { useRecoilState } from 'recoil'
 interface ChannelInfoProps {
   channelInfoData: ChannelInfoType
   isLoading: boolean
+  setActiveMenu: React.Dispatch<React.SetStateAction<'videos' | 'info'>>
 }
 
-const ChannelInfo = ({ channelInfoData, isLoading }: ChannelInfoProps) => {
+const ChannelInfo = ({
+  channelInfoData,
+  isLoading,
+  setActiveMenu,
+}: ChannelInfoProps) => {
   const queryClient = useQueryClient()
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
+
   const [userUid] = useRecoilState(userUidAtom)
   const {
     thumbnail,
@@ -48,6 +53,10 @@ const ChannelInfo = ({ channelInfoData, isLoading }: ChannelInfoProps) => {
     setIsSubscribed(prev => !prev)
     queryClient.invalidateQueries(['subscriptions', userUid])
     refetchSubscriptions()
+  }
+
+  const handleActiveMenu = () => {
+    setActiveMenu('info')
   }
 
   return (
@@ -83,7 +92,7 @@ const ChannelInfo = ({ channelInfoData, isLoading }: ChannelInfoProps) => {
             )}
           </div>
           <p className={styles.intro}>
-            <Link to={`/channel/${channelId}/info`}>
+            <button type="button" onClick={handleActiveMenu}>
               {isLoading ? (
                 <span className={styles.introSkeleton} />
               ) : (
@@ -91,7 +100,7 @@ const ChannelInfo = ({ channelInfoData, isLoading }: ChannelInfoProps) => {
               )}
 
               <span className={styles.next} />
-            </Link>
+            </button>
           </p>
         </div>
         <div className={styles.btnCont}>
